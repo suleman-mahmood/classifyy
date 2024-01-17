@@ -9,6 +9,29 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget buildBottomSheet() {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const TitleLarge(title: 'Select class', shouldAnimate: false),
+                const RadioExample(),
+                ButtonPrimary(
+                  buttonText: 'Choose class',
+                  onPressed: () {},
+                  shouldAnimate: false,
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -31,53 +54,7 @@ class LoginScreen extends StatelessWidget {
                     buttonText: 'Login',
                     onPressed: () => showModalBottomSheet(
                       context: context,
-                      builder: (context) => SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const TitleLarge(
-                                  title: 'Select class',
-                                  shouldAnimate: false,
-                                ),
-                                const RadioExample(),
-                                ButtonPrimary(
-                                  buttonText: 'Choose class',
-                                  onPressed: () {},
-                                  shouldAnimate: false,
-                                ),
-                                const SizedBox(height: 24),
-                                // MenuAnchor(
-                                //   menuChildren: [
-                                //     SizedBox(
-                                //       width:
-                                //           MediaQuery.of(context).size.width / 4,
-                                //     ),
-                                //     MenuItemButton(child: Text('I-A')),
-                                //     MenuItemButton(child: Text('II-B')),
-                                //     MenuItemButton(child: Text('II-C')),
-                                //     MenuItemButton(child: Text('II-D')),
-                                //   ],
-                                //   builder: (_, controller, __) {
-                                //     return TextButton(
-                                //       onPressed: () {
-                                //         if (controller.isOpen) {
-                                //           controller.close();
-                                //         } else {
-                                //           controller.open();
-                                //         }
-                                //       },
-                                //       child: const Text('OPEN MENU'),
-                                //     );
-                                //   },
-                                // ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      builder: (_) => buildBottomSheet(),
                     ),
                   ),
                 ],
@@ -90,7 +67,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-enum SingingCharacter { first, second, third }
+enum ClassCharacter { first, second, third }
 
 class RadioExample extends StatefulWidget {
   const RadioExample({super.key});
@@ -100,7 +77,7 @@ class RadioExample extends StatefulWidget {
 }
 
 class _RadioExampleState extends State<RadioExample> {
-  SingingCharacter? _character = SingingCharacter.first;
+  ClassCharacter? _character = ClassCharacter.first;
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +85,10 @@ class _RadioExampleState extends State<RadioExample> {
       children: <Widget>[
         ListTile(
           title: const Text('I-A'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.first,
+          leading: Radio<ClassCharacter>(
+            value: ClassCharacter.first,
             groupValue: _character,
-            onChanged: (SingingCharacter? value) {
+            onChanged: (ClassCharacter? value) {
               setState(() {
                 _character = value;
               });
@@ -120,10 +97,10 @@ class _RadioExampleState extends State<RadioExample> {
         ),
         ListTile(
           title: const Text('I-B'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.second,
+          leading: Radio<ClassCharacter>(
+            value: ClassCharacter.second,
             groupValue: _character,
-            onChanged: (SingingCharacter? value) {
+            onChanged: (ClassCharacter? value) {
               setState(() {
                 _character = value;
               });
@@ -132,10 +109,10 @@ class _RadioExampleState extends State<RadioExample> {
         ),
         ListTile(
           title: const Text('II-D'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.third,
+          leading: Radio<ClassCharacter>(
+            value: ClassCharacter.third,
             groupValue: _character,
-            onChanged: (SingingCharacter? value) {
+            onChanged: (ClassCharacter? value) {
               setState(() {
                 _character = value;
               });
