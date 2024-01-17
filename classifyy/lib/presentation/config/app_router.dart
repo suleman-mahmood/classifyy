@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:classifyy/presentation/screens/teacher/announcement_screen.dart';
-import 'package:classifyy/presentation/screens/teacher/login_screen.dart';
+import 'package:classifyy/presentation/screens/auth/login_screen.dart';
 
 part 'app_router.gr.dart';
 
