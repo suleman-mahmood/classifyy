@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ButtonPrimary extends StatefulWidget {
   final String buttonText;
   final VoidCallback onPressed;
+  final bool shouldAnimate;
 
   const ButtonPrimary({
     Key? key,
     required this.buttonText,
     required this.onPressed,
+    this.shouldAnimate = true,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class _ButtonPrimaryState extends State<ButtonPrimary> {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: _shouldDisplay ? 1 : 0,
+      opacity: widget.shouldAnimate ? (_shouldDisplay ? 1 : 0) : 1,
       duration: const Duration(milliseconds: 500),
       child: FilledButton(
           onPressed: widget.onPressed, child: Text(widget.buttonText)),

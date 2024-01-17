@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class TitleLarge extends StatefulWidget {
   final String title;
+  final bool shouldAnimate;
 
-  const TitleLarge({Key? key, required this.title}) : super(key: key);
+  const TitleLarge({
+    Key? key,
+    required this.title,
+    this.shouldAnimate = true,
+  }) : super(key: key);
 
   @override
   State<TitleLarge> createState() => _TitleLargeState();
@@ -26,7 +31,7 @@ class _TitleLargeState extends State<TitleLarge> {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: _shouldDisplay ? 1 : 0,
+      opacity: widget.shouldAnimate ? (_shouldDisplay ? 1 : 0) : 1,
       duration: const Duration(milliseconds: 500),
       child: Text(widget.title, style: const TextStyle(fontSize: 24)),
     );

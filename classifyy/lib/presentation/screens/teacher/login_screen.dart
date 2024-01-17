@@ -31,14 +31,50 @@ class LoginScreen extends StatelessWidget {
                     buttonText: 'Login',
                     onPressed: () => showModalBottomSheet(
                       context: context,
-                      builder: (_) => SizedBox(
+                      builder: (context) => SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              TitleLarge(title: 'Select class'),
-                            ],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const TitleLarge(
+                                  title: 'Select class',
+                                  shouldAnimate: false,
+                                ),
+                                const RadioExample(),
+                                ButtonPrimary(
+                                  buttonText: 'Choose class',
+                                  onPressed: () {},
+                                  shouldAnimate: false,
+                                ),
+                                const SizedBox(height: 24),
+                                // MenuAnchor(
+                                //   menuChildren: [
+                                //     SizedBox(
+                                //       width:
+                                //           MediaQuery.of(context).size.width / 4,
+                                //     ),
+                                //     MenuItemButton(child: Text('I-A')),
+                                //     MenuItemButton(child: Text('II-B')),
+                                //     MenuItemButton(child: Text('II-C')),
+                                //     MenuItemButton(child: Text('II-D')),
+                                //   ],
+                                //   builder: (_, controller, __) {
+                                //     return TextButton(
+                                //       onPressed: () {
+                                //         if (controller.isOpen) {
+                                //           controller.close();
+                                //         } else {
+                                //           controller.open();
+                                //         }
+                                //       },
+                                //       child: const Text('OPEN MENU'),
+                                //     );
+                                //   },
+                                // ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -50,6 +86,63 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+enum SingingCharacter { first, second, third }
+
+class RadioExample extends StatefulWidget {
+  const RadioExample({super.key});
+
+  @override
+  State<RadioExample> createState() => _RadioExampleState();
+}
+
+class _RadioExampleState extends State<RadioExample> {
+  SingingCharacter? _character = SingingCharacter.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: const Text('I-A'),
+          leading: Radio<SingingCharacter>(
+            value: SingingCharacter.first,
+            groupValue: _character,
+            onChanged: (SingingCharacter? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('I-B'),
+          leading: Radio<SingingCharacter>(
+            value: SingingCharacter.second,
+            groupValue: _character,
+            onChanged: (SingingCharacter? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('II-D'),
+          leading: Radio<SingingCharacter>(
+            value: SingingCharacter.third,
+            groupValue: _character,
+            onChanged: (SingingCharacter? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 }
