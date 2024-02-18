@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/presentation/config/utils.dart';
-import 'package:classifyy/presentation/widgets/button_primary.dart';
-import 'package:classifyy/presentation/widgets/text_area.dart';
-import 'package:classifyy/presentation/widgets/text_field_primary.dart';
+import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
+import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
+import 'package:classifyy/presentation/widgets/inputs/text_area.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 
@@ -42,29 +42,17 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Announcement'),
-      ),
-      body: SafeArea(
-        child: SizedBox(
-          width: ScreenSizes.widthSlabFourRel(context),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const TitleLarge(
-                  title: 'Send an announcement to an entire class',
-                ),
-                const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
-                const TextArea(labelText: "Write something here..."),
-                const SizedBox(height: ScreenSizes.heightSlabOneAbs),
-                ButtonPrimary(buttonText: 'Send', onPressed: () {}),
-              ],
-            ),
-          ),
+    return PrimaryLayout(
+      appBarTitle: 'New Announcement',
+      children: [
+        const TitleLarge(
+          title: 'Send an announcement to an entire class',
         ),
-      ),
+        const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
+        const TextArea(labelText: "Write something here..."),
+        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        ButtonPrimary(buttonText: 'Send', onPressed: () {}),
+      ],
     );
   }
 }
