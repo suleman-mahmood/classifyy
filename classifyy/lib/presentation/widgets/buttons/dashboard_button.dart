@@ -1,6 +1,7 @@
+import 'package:classifyy/presentation/widgets/animations/fade_animation.dart';
 import 'package:flutter/material.dart';
 
-class DashboardButton extends StatefulWidget {
+class DashboardButton extends StatelessWidget {
   final String buttonText;
   final IconData iconData;
   final VoidCallback onPressed;
@@ -15,30 +16,11 @@ class DashboardButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DashboardButton> createState() => _DashboardButtonState();
-}
-
-class _DashboardButtonState extends State<DashboardButton> {
-  bool _shouldDisplay = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() {
-        _shouldDisplay = true;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      opacity: widget.shouldAnimate ? (_shouldDisplay ? 1 : 0) : 1,
-      duration: const Duration(milliseconds: 500),
+    return FadeAnimation(
+      shouldAnimate: shouldAnimate,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
+        onPressed: onPressed,
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
             const EdgeInsets.all(24),
@@ -51,8 +33,8 @@ class _DashboardButtonState extends State<DashboardButton> {
         ),
         child: Column(
           children: [
-            Icon(widget.iconData),
-            Text(widget.buttonText),
+            Icon(iconData),
+            Text(buttonText),
           ],
         ),
       ),

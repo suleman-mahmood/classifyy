@@ -1,6 +1,7 @@
+import 'package:classifyy/presentation/widgets/animations/fade_animation.dart';
 import 'package:flutter/material.dart';
 
-class TitleLarge extends StatefulWidget {
+class TitleLarge extends StatelessWidget {
   final String title;
   final bool shouldAnimate;
 
@@ -11,29 +12,13 @@ class TitleLarge extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<TitleLarge> createState() => _TitleLargeState();
-}
-
-class _TitleLargeState extends State<TitleLarge> {
-  bool _shouldDisplay = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() {
-        _shouldDisplay = true;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      opacity: widget.shouldAnimate ? (_shouldDisplay ? 1 : 0) : 1,
-      duration: const Duration(milliseconds: 500),
-      child: Text(widget.title, style: const TextStyle(fontSize: 24)),
+    return FadeAnimation(
+      shouldAnimate: shouldAnimate,
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 24),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
+import 'package:classifyy/presentation/widgets/animations/fade_animation.dart';
 import 'package:flutter/material.dart';
 
-class ButtonPrimary extends StatefulWidget {
+class ButtonPrimary extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
   final bool shouldAnimate;
@@ -13,30 +14,13 @@ class ButtonPrimary extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ButtonPrimary> createState() => _ButtonPrimaryState();
-}
-
-class _ButtonPrimaryState extends State<ButtonPrimary> {
-  bool _shouldDisplay = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() {
-        _shouldDisplay = true;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      opacity: widget.shouldAnimate ? (_shouldDisplay ? 1 : 0) : 1,
-      duration: const Duration(milliseconds: 500),
+    return FadeAnimation(
+      shouldAnimate: shouldAnimate,
       child: FilledButton(
-          onPressed: widget.onPressed, child: Text(widget.buttonText)),
+        onPressed: onPressed,
+        child: Text(buttonText),
+      ),
     );
   }
 }
