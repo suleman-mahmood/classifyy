@@ -13,6 +13,9 @@ class ScreenSizes {
   static double widthSlabFourRel(BuildContext context) =>
       MediaQuery.of(context).size.width;
 
+  static double heightFullRel(BuildContext context) =>
+      MediaQuery.of(context).size.height;
+
   static const double heightSlabOneAbs = 8;
   static const double heightSlabTwoAbs = 16;
   static const double heightSlabThreeAbs = 24;

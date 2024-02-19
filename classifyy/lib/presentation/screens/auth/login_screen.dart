@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
@@ -6,6 +7,7 @@ import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -13,6 +15,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
+
     Widget buildBottomSheet() {
       return SizedBox(
         width: ScreenSizes.widthSlabFourRel(context),
@@ -36,6 +40,10 @@ class LoginScreen extends StatelessWidget {
       );
     }
 
+    Future<void> handleLogin() async {
+      await userCubit.loginUser('email', 'password');
+    }
+
     return RootLayout(
       child: Scaffold(
         body: Center(
@@ -55,10 +63,19 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
                     ButtonPrimary(
                       buttonText: 'Proceed',
-                      onPressed: () => showModalBottomSheet(
-                        context: context,
-                        builder: (_) => buildBottomSheet(),
-                      ),
+                      onPressed: handleLogin,
+                    ),
+                    BlocListener<UserCubit, UserState>(
+                      listener: (context, state) {
+                        switch (state.runtimeType) {
+                          case UserSuccess:
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (_) => buildBottomSheet(),
+                            );
+                        }
+                      },
+                      child: const SizedBox.shrink(),
                     ),
                   ],
                 ),
