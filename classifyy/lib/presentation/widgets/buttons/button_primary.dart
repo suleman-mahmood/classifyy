@@ -5,12 +5,14 @@ class ButtonPrimary extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
   final bool shouldAnimate;
+  final bool disabled;
 
   const ButtonPrimary({
     Key? key,
     required this.buttonText,
     required this.onPressed,
     this.shouldAnimate = true,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,10 @@ class ButtonPrimary extends StatelessWidget {
     return FadeAnimation(
       shouldAnimate: shouldAnimate,
       child: FilledButton(
+        style: ButtonStyle(
+          backgroundColor:
+              disabled ? const MaterialStatePropertyAll(Colors.grey) : null,
+        ),
         onPressed: onPressed,
         child: Text(buttonText),
       ),

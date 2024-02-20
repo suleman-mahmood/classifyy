@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
@@ -6,7 +7,6 @@ part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   final Repository repository;
-
   UserCubit(this.repository) : super(const UserInitial());
 
   Future<void> loginUser(String email, String password) async {
@@ -14,6 +14,8 @@ class UserCubit extends Cubit<UserState> {
 
     await repository.loginUser(email, password);
 
-    emit(const UserSuccess());
+    final user = await repository.getUser();
+
+    emit(UserSuccess(user: user));
   }
 }

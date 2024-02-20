@@ -1,5 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:classifyy/cubits/children_cubit.dart';
+import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
+import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
@@ -16,8 +21,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    final classCubit = BlocProvider.of<ClassCubit>(context);
+    final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
-    Widget buildBottomSheet() {
+    Widget buildBottomSheet(BuildContext context) {
       return SizedBox(
         width: ScreenSizes.widthSlabFourRel(context),
         child: Padding(
@@ -25,13 +32,13 @@ class LoginScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const TitleLarge(title: 'Select class', shouldAnimate: false),
+                TitleLarge(
+                    title:
+                        'Select ${userCubit.state.user?.userTypeToSelectTitle()}',
+                    shouldAnimate: false),
                 const ClassOptions(),
-                ButtonPrimary(
-                  buttonText: 'Choose class',
-                  onPressed: () => context.router.push(const DashboardRoute()),
-                  shouldAnimate: false,
-                ),
+                const ChildrenOptions(),
+                const ActionButton(),
                 const SizedBox(height: ScreenSizes.heightSlabThreeAbs),
               ],
             ),
@@ -69,9 +76,15 @@ class LoginScreen extends StatelessWidget {
                       listener: (context, state) {
                         switch (state.runtimeType) {
                           case UserSuccess:
+                            if (state.user!.userType == UserType.Teacher) {
+                              classCubit.fetchClasses();
+                            } else if (state.user!.userType ==
+                                UserType.Parent) {
+                              childrenCubit.fetchChildren();
+                            }
                             showModalBottomSheet(
                               context: context,
-                              builder: (_) => buildBottomSheet(),
+                              builder: buildBottomSheet,
                             );
                         }
                       },
@@ -88,7 +101,36 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-enum ClassCharacter { first, second, third }
+class ActionButton extends StatelessWidget {
+  const ActionButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
+
+    return BlocBuilder<ClassCubit, ClassState>(
+      builder: (context, classState) {
+        return BlocBuilder<ChildrenCubit, ChildrenState>(
+          builder: (context, childrenState) {
+            final enabled =
+                classState is ClassSuccess || childrenState is ChildrenSuccess;
+
+            return ButtonPrimary(
+              disabled: !enabled,
+              buttonText: 'Choose ${userCubit.state.user?.userTypeToSelectTitle()}',
+              onPressed: () => enabled
+                  ? context.router.push(
+                      const DashboardRoute(),
+                    )
+                  : () {},
+              shouldAnimate: false,
+            );
+          },
+        );
+      },
+    );
+  }
+}
 
 class ClassOptions extends StatefulWidget {
   const ClassOptions({super.key});
@@ -98,49 +140,118 @@ class ClassOptions extends StatefulWidget {
 }
 
 class _ClassOptionsState extends State<ClassOptions> {
-  ClassCharacter? _character = ClassCharacter.first;
+  Class? _selectedClass;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: const Text('I-A'),
-          leading: Radio<ClassCharacter>(
-            value: ClassCharacter.first,
-            groupValue: _character,
-            onChanged: (value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: const Text('I-B'),
-          leading: Radio<ClassCharacter>(
-            value: ClassCharacter.second,
-            groupValue: _character,
-            onChanged: (value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: const Text('II-D'),
-          leading: Radio<ClassCharacter>(
-            value: ClassCharacter.third,
-            groupValue: _character,
-            onChanged: (value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-      ],
+    return BlocBuilder<ClassCubit, ClassState>(
+      builder: (context, state) {
+        switch (state.runtimeType) {
+          case ClassSuccess:
+            if (state.classes.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    Icon(Icons.question_mark_outlined),
+                    Text("Sorry couldn't find any classes for you"),
+                  ],
+                ),
+              );
+            }
+
+            final children = state.classes
+                .map(
+                  (cl) => ListTile(
+                    title: Text(cl.className),
+                    leading: Radio<Class>(
+                      value: cl,
+                      groupValue: _selectedClass,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedClass = value;
+                        });
+                      },
+                    ),
+                  ),
+                )
+                .toList();
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: ScreenSizes.heightQuarterRel(context),
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(0),
+                shrinkWrap: true,
+                children: children,
+              ),
+            );
+          default:
+            return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}
+
+class ChildrenOptions extends StatefulWidget {
+  const ChildrenOptions({super.key});
+
+  @override
+  State<ChildrenOptions> createState() => _ChildrenOptionsState();
+}
+
+class _ChildrenOptionsState extends State<ChildrenOptions> {
+  Student? _selectedChild;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ChildrenCubit, ChildrenState>(
+      builder: (context, state) {
+        switch (state.runtimeType) {
+          case ChildrenSuccess:
+            if (state.children.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    Icon(Icons.question_mark_outlined),
+                    Text("Sorry couldn't fetch your children"),
+                  ],
+                ),
+              );
+            }
+
+            final children = state.children
+                .map(
+                  (st) => ListTile(
+                    title: Text(st.studentName),
+                    leading: Radio<Student>(
+                      value: st,
+                      groupValue: _selectedChild,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedChild = value;
+                        });
+                      },
+                    ),
+                  ),
+                )
+                .toList();
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: ScreenSizes.heightQuarterRel(context),
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(0),
+                shrinkWrap: true,
+                children: children,
+              ),
+            );
+          default:
+            return const SizedBox.shrink();
+        }
+      },
     );
   }
 }

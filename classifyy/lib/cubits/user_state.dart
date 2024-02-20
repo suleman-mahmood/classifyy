@@ -3,9 +3,11 @@ part of 'user_cubit.dart';
 @immutable
 sealed class UserState {
   final String errorMessage;
+  final User? user;
 
   const UserState({
     this.errorMessage = '',
+    this.user,
   });
 }
 
@@ -18,7 +20,7 @@ final class UserLoading extends UserState {
 }
 
 final class UserSuccess extends UserState {
-  const UserSuccess();
+  const UserSuccess({super.user});
 }
 
 final class UserFailure extends UserState {

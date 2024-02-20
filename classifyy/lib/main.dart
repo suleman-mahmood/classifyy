@@ -1,3 +1,5 @@
+import 'package:classifyy/cubits/children_cubit.dart';
+import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/locator.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
@@ -22,6 +24,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<UserCubit>(
           create: (_) => UserCubit(locator<Repository>()),
+        ),
+        BlocProvider<ClassCubit>(
+          create: (_) => ClassCubit(locator<Repository>()),
+        ),
+        BlocProvider<ChildrenCubit>(
+          create: (_) => ChildrenCubit(locator<Repository>()),
         ),
       ],
       child: MaterialApp.router(
