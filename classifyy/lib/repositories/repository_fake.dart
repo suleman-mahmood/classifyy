@@ -1,3 +1,4 @@
+import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/user/class.dart';
 import 'package:classifyy/models/user/student.dart';
 import 'package:classifyy/models/user/user.dart';
@@ -39,7 +40,7 @@ class FakeRepository implements Repository {
   Future<User> getUser() {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => User(userType: UserType.Teacher),
+      () => User(id: 'user_1', userType: UserType.teacher),
     );
   }
 
@@ -51,6 +52,41 @@ class FakeRepository implements Repository {
         Student(studentName: 'Faraz'),
         Student(studentName: 'Fawaz'),
         Student(studentName: 'Abdullah'),
+      ],
+    );
+  }
+
+  @override
+  Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex) {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () => [
+        Announcement(
+          id: '1',
+          text: 'Important message',
+          createdAt: DateTime.now().subtract(const Duration(days: 1)),
+          announcerId: 'user_1',
+          announcerDisplayName: 'Momin Ahmed',
+          announcerRole: UserRole.teacher,
+        ),
+        Announcement(
+          id: '2',
+          text: 'Another important message',
+          createdAt: DateTime.now().subtract(const Duration(hours: 5)),
+          announcerId: 'user_2',
+          announcerDisplayName: 'Imtiaz Bahadur',
+          announcerRole: UserRole.teacher,
+        ),
+        Announcement(
+          id: '3',
+          text: 'Super important message',
+          createdAt: DateTime.now().subtract(const Duration(
+            days: 3,
+            hours: 10,
+          )),
+          announcerId: 'user_3',
+          announcerRole: UserRole.schoolAdmin,
+        ),
       ],
     );
   }

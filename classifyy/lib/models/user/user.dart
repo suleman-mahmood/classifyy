@@ -1,18 +1,16 @@
-enum UserType {
-  Student,
-  Parent,
-  Teacher,
-  SchoolAdmin,
-}
+enum UserRole { student, parent, teacher, schoolAdmin }
+
+enum UserType { student, parent, teacher, schoolAdmin }
 
 class User {
+  final String id;
   final UserType userType;
 
-  User({required this.userType});
+  User({required this.id, required this.userType});
 
   String userTypeToSelectTitle() {
-    if (userType == UserType.Parent) return "child";
-    if (userType == UserType.Teacher) return "class";
+    if (userType == UserType.parent) return "child";
+    if (userType == UserType.teacher) return "class";
 
     return "";
   }

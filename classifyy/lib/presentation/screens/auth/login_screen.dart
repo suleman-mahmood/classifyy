@@ -79,10 +79,10 @@ class LoginScreen extends StatelessWidget {
                       listener: (context, state) {
                         switch (state.runtimeType) {
                           case UserSuccess:
-                            if (state.user!.userType == UserType.Teacher) {
+                            if (state.user!.userType == UserType.teacher) {
                               classCubit.fetchClasses();
                             } else if (state.user!.userType ==
-                                UserType.Parent) {
+                                UserType.parent) {
                               childrenCubit.fetchChildren();
                             }
                             showModalBottomSheet(
@@ -112,9 +112,9 @@ class ActionButton extends StatelessWidget {
     final userCubit = BlocProvider.of<UserCubit>(context);
 
     void handleProceed() {
-      if (userCubit.state.user?.userType == UserType.Teacher) {
+      if (userCubit.state.user?.userType == UserType.teacher) {
         context.router.push(const TeacherDashboardRoute());
-      } else if (userCubit.state.user?.userType == UserType.Parent) {
+      } else if (userCubit.state.user?.userType == UserType.parent) {
         context.router.push(const ParentDashboardRoute());
       }
     }

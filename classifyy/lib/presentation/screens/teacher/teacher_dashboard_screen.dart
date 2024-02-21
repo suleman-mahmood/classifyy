@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:classifyy/cubits/announcement_cubit.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/dashboard_button.dart';
 import 'package:classifyy/presentation/widgets/layouts/dashboard_layout.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class TeacherDashboardScreen extends StatefulWidget {
@@ -42,6 +44,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
 
   @override
   Widget build(BuildContext context) {
+    final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
+
     return DashboardLayout(
       children: [
         const SizedBox(height: ScreenSizes.heightSlabOneAbs),
@@ -49,6 +53,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
           buttonText: 'Announcements',
           iconData: Icons.chat_outlined,
           onPressed: () {
+            announcementCubit.fetchAnnouncements(0, 100);
             context.router.push(const AnnouncementRoute());
           },
         ),

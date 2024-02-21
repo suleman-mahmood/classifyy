@@ -1,8 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:classifyy/cubits/announcement_cubit.dart';
+import 'package:classifyy/cubits/user_cubit.dart';
+import 'package:classifyy/models/announcement/announcement.dart';
+import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_time_ago/get_time_ago.dart';
 
 enum AnnouncementType {
   myAnnouncement,
@@ -24,8 +30,6 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
   late final Animation<double> _fadeAnimation;
 
   AnnouncementType selectedannouncementType = AnnouncementType.myAnnouncement;
-
-  bool showAdditionalClasses = false;
 
   @override
   void initState() {
@@ -50,6 +54,36 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
+
+    List<Announcement> filterAnnouncements(List<Announcement> announcements) {
+      if (selectedannouncementType == AnnouncementType.myAnnouncement) {
+        return announcements
+            .where((ann) => ann.announcerId == userCubit.state.user!.id)
+            .toList();
+      } else if (selectedannouncementType ==
+          AnnouncementType.classAnnouncement) {
+        return announcements
+            .where(
+              (ann) =>
+                  ann.announcerId != userCubit.state.user!.id &&
+                  ann.announcerRole == UserRole.teacher,
+            )
+            .toList();
+      } else if (selectedannouncementType ==
+          AnnouncementType.schoolAdminAnnouncement) {
+        return announcements
+            .where(
+              (ann) =>
+                  ann.announcerId != userCubit.state.user!.id &&
+                  ann.announcerRole == UserRole.schoolAdmin,
+            )
+            .toList();
+      } else {
+        return [];
+      }
+    }
+
     return PrimaryLayout(
       appBarTitle: 'Announcements',
       floatingActionButton: FloatingActionButton(
@@ -83,53 +117,51 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
           },
         ),
         const SizedBox(height: ScreenSizes.heightSlabOneAbs),
-        SizedBox(
-          height: ScreenSizes.widthSlabOneRel(context),
-          child: const Card(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 16,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('A very important announcement'),
-                  Expanded(child: SizedBox.shrink()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Text('11:00 am Monday')],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: ScreenSizes.widthSlabOneRel(context),
-          child: const Card(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 16,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('A very important announcement'),
-                  Expanded(child: SizedBox.shrink()),
-                  Row(
-                    children: [
-                      Text('From: Muhammad Amir'),
-                      Expanded(child: SizedBox.shrink()),
-                      Text('11:00 am Monday'),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+        BlocBuilder<AnnouncementCubit, AnnouncementState>(
+          builder: (context, state) {
+            if (state is AnnouncementSuccess) {
+              final ann = filterAnnouncements(state.announcements);
+
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: ann.length,
+                itemBuilder: (context, index) {
+                  final item = ann[index];
+
+                  return SizedBox(
+                    height: ScreenSizes.widthSlabOneRel(context),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 16,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(item.text),
+                            const Expanded(child: SizedBox.shrink()),
+                            Row(
+                              children: [
+                                if (item.announcerDisplayName != null &&
+                                    selectedannouncementType !=
+                                        AnnouncementType.myAnnouncement)
+                                  Text('From: ${item.announcerDisplayName!}'),
+                                const Expanded(child: SizedBox.shrink()),
+                                Text(GetTimeAgo.parse(item.createdAt))
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        )
       ],
     );
   }

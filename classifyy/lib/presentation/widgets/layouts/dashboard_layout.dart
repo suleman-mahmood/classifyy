@@ -56,7 +56,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
     final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
     Widget buildOptions() {
-      if (userCubit.state.user?.userType == UserType.Parent) {
+      if (userCubit.state.user?.userType == UserType.parent) {
         final children = childrenCubit.state.children
             .where((st) =>
                 st.studentName != userCubit.state.selectedChild!.studentName)
@@ -111,7 +111,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
               'Current ${userCubit.state.user?.userTypeToSelectTitle()}',
             ),
             subtitle: Text(
-              userCubit.state.user?.userType == UserType.Parent
+              userCubit.state.user?.userType == UserType.parent
                   ? userCubit.state.selectedChild!.studentName
                   : userCubit.state.selectedClass!.className,
             ),
