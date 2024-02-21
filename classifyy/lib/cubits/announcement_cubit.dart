@@ -19,4 +19,12 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
 
     emit(AnnouncementSuccess(announcements: announcements));
   }
+
+  Future<void> createAnnouncement(String text) async {
+    emit(const AnnouncementLoading());
+
+    await repository.createAnnouncement(text);
+
+    emit(AnnouncementSuccess(announcements: state.announcements));
+  }
 }

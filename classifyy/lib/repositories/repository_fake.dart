@@ -90,4 +90,12 @@ class FakeRepository implements Repository {
       ],
     );
   }
+
+  @override
+  Future<void> createAnnouncement(String text) async {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () {},
+    );
+  }
 }

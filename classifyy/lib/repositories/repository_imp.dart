@@ -45,4 +45,10 @@ class ImpRepository implements Repository {
     // TODO: implement fetchAnnouncements
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> createAnnouncement(String text) {
+    // TODO: implement createAnnouncement
+    throw UnimplementedError();
+  }
 }

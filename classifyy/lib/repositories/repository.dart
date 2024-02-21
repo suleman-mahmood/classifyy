@@ -19,4 +19,6 @@ abstract class Repository {
   Future<User> getUser();
 
   Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
+
+  Future<void> createAnnouncement(String text);
 }
