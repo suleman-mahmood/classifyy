@@ -27,12 +27,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AnnouncementScreen(),
       );
     },
-    DashboardRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const DashboardScreen(),
-      );
-    },
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -45,10 +39,22 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const NewAnnouncementScreen(),
       );
     },
+    ParentDashboardRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ParentDashboardScreen(),
+      );
+    },
     StudentChatRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const StudentChatScreen(),
+      );
+    },
+    TeacherDashboardRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TeacherDashboardScreen(),
       );
     },
   };
@@ -83,20 +89,6 @@ class AnnouncementRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [DashboardScreen]
-class DashboardRoute extends PageRouteInfo<void> {
-  const DashboardRoute({List<PageRouteInfo>? children})
-      : super(
-          DashboardRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DashboardRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [LoginScreen]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
@@ -125,6 +117,20 @@ class NewAnnouncementRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ParentDashboardScreen]
+class ParentDashboardRoute extends PageRouteInfo<void> {
+  const ParentDashboardRoute({List<PageRouteInfo>? children})
+      : super(
+          ParentDashboardRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ParentDashboardRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [StudentChatScreen]
 class StudentChatRoute extends PageRouteInfo<void> {
   const StudentChatRoute({List<PageRouteInfo>? children})
@@ -134,6 +140,20 @@ class StudentChatRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'StudentChatRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TeacherDashboardScreen]
+class TeacherDashboardRoute extends PageRouteInfo<void> {
+  const TeacherDashboardRoute({List<PageRouteInfo>? children})
+      : super(
+          TeacherDashboardRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TeacherDashboardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

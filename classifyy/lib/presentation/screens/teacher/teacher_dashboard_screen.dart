@@ -7,14 +7,14 @@ import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class TeacherDashboardScreen extends StatefulWidget {
+  const TeacherDashboardScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<TeacherDashboardScreen> createState() => _TeacherDashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen>
+class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
     with TickerProviderStateMixin {
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;

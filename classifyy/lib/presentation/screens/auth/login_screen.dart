@@ -73,6 +73,9 @@ class LoginScreen extends StatelessWidget {
                       onPressed: handleLogin,
                     ),
                     BlocListener<UserCubit, UserState>(
+                      listenWhen: (previous, current) {
+                        return previous.user != current.user;
+                      },
                       listener: (context, state) {
                         switch (state.runtimeType) {
                           case UserSuccess:
@@ -108,22 +111,31 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
 
+    void handleProceed() {
+      if (userCubit.state.user?.userType == UserType.Teacher) {
+        context.router.push(const TeacherDashboardRoute());
+      } else if (userCubit.state.user?.userType == UserType.Parent) {
+        context.router.push(const ParentDashboardRoute());
+      }
+    }
+
     return BlocBuilder<ClassCubit, ClassState>(
       builder: (context, classState) {
         return BlocBuilder<ChildrenCubit, ChildrenState>(
           builder: (context, childrenState) {
-            final enabled =
-                classState is ClassSuccess || childrenState is ChildrenSuccess;
+            return BlocBuilder<UserCubit, UserState>(
+              builder: (context, userState) {
+                final enabled = userState.selectedClass != null ||
+                    userState.selectedChild != null;
 
-            return ButtonPrimary(
-              disabled: !enabled,
-              buttonText: 'Choose ${userCubit.state.user?.userTypeToSelectTitle()}',
-              onPressed: () => enabled
-                  ? context.router.push(
-                      const DashboardRoute(),
-                    )
-                  : () {},
-              shouldAnimate: false,
+                return ButtonPrimary(
+                  disabled: !enabled,
+                  buttonText:
+                      'Choose ${userState.user?.userTypeToSelectTitle()}',
+                  onPressed: enabled ? handleProceed : () {},
+                  shouldAnimate: false,
+                );
+              },
             );
           },
         );
@@ -144,6 +156,8 @@ class _ClassOptionsState extends State<ClassOptions> {
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
+
     return BlocBuilder<ClassCubit, ClassState>(
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -168,7 +182,10 @@ class _ClassOptionsState extends State<ClassOptions> {
                       value: cl,
                       groupValue: _selectedClass,
                       onChanged: (value) {
+                        if (value == null) return;
+
                         setState(() {
+                          userCubit.selectClass(value);
                           _selectedClass = value;
                         });
                       },
@@ -206,6 +223,8 @@ class _ChildrenOptionsState extends State<ChildrenOptions> {
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
+
     return BlocBuilder<ChildrenCubit, ChildrenState>(
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -230,7 +249,10 @@ class _ChildrenOptionsState extends State<ChildrenOptions> {
                       value: st,
                       groupValue: _selectedChild,
                       onChanged: (value) {
+                        if (value == null) return;
+
                         setState(() {
+                          userCubit.selectChild(value);
                           _selectedChild = value;
                         });
                       },

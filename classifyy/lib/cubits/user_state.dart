@@ -2,12 +2,17 @@ part of 'user_cubit.dart';
 
 @immutable
 sealed class UserState {
-  final String errorMessage;
   final User? user;
+  final Student? selectedChild;
+  final Class? selectedClass;
+
+  final String errorMessage;
 
   const UserState({
     this.errorMessage = '',
     this.user,
+    this.selectedChild,
+    this.selectedClass,
   });
 }
 
@@ -20,7 +25,7 @@ final class UserLoading extends UserState {
 }
 
 final class UserSuccess extends UserState {
-  const UserSuccess({super.user});
+  const UserSuccess({super.user, super.selectedChild, super.selectedClass});
 }
 
 final class UserFailure extends UserState {
