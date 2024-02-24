@@ -116,7 +116,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
             });
           },
         ),
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        const SizedBox(height: ScreenSizes.slabOne),
         BlocBuilder<AnnouncementCubit, AnnouncementState>(
           builder: (context, state) {
             if (state is AnnouncementSuccess) {

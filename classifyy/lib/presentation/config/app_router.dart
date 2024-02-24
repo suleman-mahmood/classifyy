@@ -6,6 +6,7 @@ import 'package:classifyy/presentation/screens/teacher/announcement_screen.dart'
 import 'package:classifyy/presentation/screens/teacher/teacher_dashboard_screen.dart';
 import 'package:classifyy/presentation/screens/teacher/new_announcement_screen.dart';
 import 'package:classifyy/presentation/screens/teacher/student_chat_screen.dart';
+import 'package:flutter/material.dart';
 
 part 'app_router.gr.dart';
 

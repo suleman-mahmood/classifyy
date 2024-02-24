@@ -59,12 +59,12 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
         const TitleLarge(
           title: 'Send an announcement to an entire class',
         ),
-        const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
+        const SizedBox(height: ScreenSizes.slabTwo),
         TextArea(
           controller: _textController,
           labelText: "Write something here...",
         ),
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        const SizedBox(height: ScreenSizes.slabOne),
         ButtonPrimary(buttonText: 'Send', onPressed: handleProceed),
         BlocListener<AnnouncementCubit, AnnouncementState>(
           listener: (context, state) {

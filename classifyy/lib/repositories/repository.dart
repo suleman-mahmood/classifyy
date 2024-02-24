@@ -1,5 +1,7 @@
 import 'package:classifyy/models/announcement/announcement.dart';
+import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/student.dart';
 import 'package:classifyy/models/user/user.dart';
 
@@ -21,4 +23,8 @@ abstract class Repository {
   Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
 
   Future<void> createAnnouncement(String text);
+
+  Future<List<ClassStudent>> fetchClassStudents();
+
+  Future<List<ChatMessage>> fetchChatMessages();
 }

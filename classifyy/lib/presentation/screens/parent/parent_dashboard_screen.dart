@@ -44,7 +44,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen>
   Widget build(BuildContext context) {
     return DashboardLayout(
       children: [
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        const SizedBox(height: ScreenSizes.slabOne),
         DashboardButton(
           buttonText: 'Announcements',
           iconData: Icons.chat_outlined,
@@ -52,7 +52,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen>
             context.router.push(const AnnouncementRoute());
           },
         ),
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        const SizedBox(height: ScreenSizes.slabOne),
       ],
     );
   }

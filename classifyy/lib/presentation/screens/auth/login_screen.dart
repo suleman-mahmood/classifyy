@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                 const ClassOptions(),
                 const ChildrenOptions(),
                 const ActionButton(),
-                const SizedBox(height: ScreenSizes.heightSlabThreeAbs),
+                const SizedBox(height: ScreenSizes.slabThree),
               ],
             ),
           ),
@@ -63,11 +63,11 @@ class LoginScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const TitleLarge(title: 'Login'),
-                    const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
+                    const SizedBox(height: ScreenSizes.slabTwo),
                     const TextFieldPrimary(labelText: "Email"),
-                    const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
+                    const SizedBox(height: ScreenSizes.slabTwo),
                     const TextFieldPrimary(labelText: "Password"),
-                    const SizedBox(height: ScreenSizes.heightSlabTwoAbs),
+                    const SizedBox(height: ScreenSizes.slabTwo),
                     ButtonPrimary(
                       buttonText: 'Proceed',
                       onPressed: handleLogin,

@@ -46,9 +46,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     StudentChatRoute.name: (routeData) {
+      final args = routeData.argsAs<StudentChatRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const StudentChatScreen(),
+        child: StudentChatScreen(
+          key: args.key,
+          studentName: args.studentName,
+        ),
       );
     },
     TeacherDashboardRoute.name: (routeData) {
@@ -132,16 +136,40 @@ class ParentDashboardRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [StudentChatScreen]
-class StudentChatRoute extends PageRouteInfo<void> {
-  const StudentChatRoute({List<PageRouteInfo>? children})
-      : super(
+class StudentChatRoute extends PageRouteInfo<StudentChatRouteArgs> {
+  StudentChatRoute({
+    Key? key,
+    required String studentName,
+    List<PageRouteInfo>? children,
+  }) : super(
           StudentChatRoute.name,
+          args: StudentChatRouteArgs(
+            key: key,
+            studentName: studentName,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'StudentChatRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<StudentChatRouteArgs> page =
+      PageInfo<StudentChatRouteArgs>(name);
+}
+
+class StudentChatRouteArgs {
+  const StudentChatRouteArgs({
+    this.key,
+    required this.studentName,
+  });
+
+  final Key? key;
+
+  final String studentName;
+
+  @override
+  String toString() {
+    return 'StudentChatRouteArgs{key: $key, studentName: $studentName}';
+  }
 }
 
 /// generated route for

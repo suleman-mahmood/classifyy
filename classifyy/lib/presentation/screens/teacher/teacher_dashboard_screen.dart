@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/announcement_cubit.dart';
+import 'package:classifyy/cubits/class_student_cubit.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/dashboard_button.dart';
@@ -45,70 +46,46 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
   @override
   Widget build(BuildContext context) {
     final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
+    final classStudentCubit = BlocProvider.of<ClassStudentCubit>(context);
 
     return DashboardLayout(
       children: [
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
-        DashboardButton(
-          buttonText: 'Announcements',
-          iconData: Icons.chat_outlined,
-          onPressed: () {
-            announcementCubit.fetchAnnouncements(0, 100);
-            context.router.push(const AnnouncementRoute());
-          },
-        ),
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        const SizedBox(height: ScreenSizes.slabOne),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TitleLarge(title: 'Students'),
-            const Expanded(child: SizedBox.shrink()),
-            IconButton(
+            DashboardButton(
+              buttonText: 'Announcements',
+              iconData: Icons.chat_outlined,
               onPressed: () {
+                announcementCubit.fetchAnnouncements(0, 100);
+                context.router.push(const AnnouncementRoute());
+              },
+            ),
+            const SizedBox(width: ScreenSizes.slabTwo),
+            DashboardButton(
+              buttonText: 'Students',
+              iconData: Icons.person_2_outlined,
+              onPressed: () {
+                classStudentCubit.fetchClassStudents();
                 context.router.push(const AllStudentsRoute());
               },
-              icon: const Icon(Icons.search_outlined),
             ),
           ],
         ),
-        const SizedBox(height: ScreenSizes.heightSlabOneAbs),
-        Card(
-          color: const Color(0xFFFEF7FF),
-          child: ListTile(
-            title: const Text('Suleman Mahmood'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              context.router.push(const StudentChatRoute());
-            },
-          ),
-        ),
-        const Card(
-          color: Color(0xFFFEF7FF),
-          child: ListTile(
-            title: Text('Fawaz Ahmad'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        const Card(
-          color: Color(0xFFFEF7FF),
-          child: ListTile(
-            title: Text('Shah Faraz'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        const Card(
-          color: Color(0xFFFEF7FF),
-          child: ListTile(
-            title: Text('Abdullah Khan'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        const Card(
-          color: Color(0xFFFEF7FF),
-          child: ListTile(
-            title: Text('Ahmed Karawita'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
+        // const SizedBox(height: ScreenSizes.heightSlabOneAbs),
+        // Row(
+        //   children: [
+        //     const TitleLarge(title: 'Students'),
+        //     const Expanded(child: SizedBox.shrink()),
+        //     IconButton(
+        //       onPressed: () {
+        //         context.router.push(const AllStudentsRoute());
+        //       },
+        //       icon: const Icon(Icons.search_outlined),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }

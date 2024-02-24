@@ -1,5 +1,7 @@
 import 'package:classifyy/models/announcement/announcement.dart';
+import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/student.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
@@ -49,6 +51,18 @@ class ImpRepository implements Repository {
   @override
   Future<void> createAnnouncement(String text) {
     // TODO: implement createAnnouncement
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ClassStudent>> fetchClassStudents() {
+    // TODO: implement fetchClassStudents
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ChatMessage>> fetchChatMessages() {
+    // TODO: implement fetchChatMessages
     throw UnimplementedError();
   }
 }

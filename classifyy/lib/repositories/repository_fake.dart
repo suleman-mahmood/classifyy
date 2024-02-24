@@ -1,5 +1,7 @@
 import 'package:classifyy/models/announcement/announcement.dart';
+import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/student.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
@@ -96,6 +98,71 @@ class FakeRepository implements Repository {
     return Future.delayed(
       const Duration(seconds: 1),
       () {},
+    );
+  }
+
+  @override
+  Future<List<ClassStudent>> fetchClassStudents() {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () => [
+        const ClassStudent(id: '1', studentName: 'Abdullah Khan'),
+        const ClassStudent(id: '2', studentName: 'Fawaz Ahmad'),
+        const ClassStudent(id: '3', studentName: 'Shah Faraz ul Haq'),
+        const ClassStudent(id: '4', studentName: 'Ahmed Sheikhani'),
+        const ClassStudent(id: '5', studentName: 'Mahnoor Malik'),
+      ],
+    );
+  }
+
+  @override
+  Future<List<ChatMessage>> fetchChatMessages() {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () => [
+        ChatMessage(
+          id: '1',
+          message: 'Aoa',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.otherUser,
+        ),
+        ChatMessage(
+          id: '1',
+          message: 'Woa',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.currentUser,
+        ),
+        ChatMessage(
+          id: '1',
+          message: 'Apka bacha time pe nahi aya',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.otherUser,
+        ),
+        ChatMessage(
+          id: '1',
+          message: 'Wops',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.currentUser,
+        ),
+        ChatMessage(
+          id: '1',
+          message: 'Tang kheechta hun main uski',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.currentUser,
+        ),
+        ChatMessage(
+          id: '1',
+          message: 'Theek hai',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.otherUser,
+        ),
+        ChatMessage(
+          id: '1',
+          message: 'Thank you miss!',
+          sentAt: DateTime.now(),
+          chatMessageType: ChatMessageType.currentUser,
+        ),
+      ],
     );
   }
 }
