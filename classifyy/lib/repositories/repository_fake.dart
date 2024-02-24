@@ -42,7 +42,7 @@ class FakeRepository implements Repository {
   Future<User> getUser() {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => User(id: 'user_1', userType: UserType.teacher),
+      () => User(id: 'user_1', userType: UserRole.parent),
     );
   }
 

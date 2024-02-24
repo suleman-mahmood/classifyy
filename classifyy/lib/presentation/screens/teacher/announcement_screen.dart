@@ -18,7 +18,9 @@ enum AnnouncementType {
 
 @RoutePage()
 class AnnouncementScreen extends StatefulWidget {
-  const AnnouncementScreen({super.key});
+  final UserRole userRole;
+
+  const AnnouncementScreen({super.key, required this.userRole});
 
   @override
   State<AnnouncementScreen> createState() => _AnnouncementScreenState();
@@ -29,7 +31,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;
 
-  AnnouncementType selectedannouncementType = AnnouncementType.myAnnouncement;
+  late AnnouncementType selectedannouncementType;
 
   @override
   void initState() {
@@ -44,6 +46,10 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
       parent: _fadeController,
       curve: Curves.easeInOut,
     );
+
+    selectedannouncementType = widget.userRole == UserRole.teacher
+        ? AnnouncementType.myAnnouncement
+        : AnnouncementType.classAnnouncement;
   }
 
   @override
@@ -66,7 +72,9 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
         return announcements
             .where(
               (ann) =>
-                  ann.announcerId != userCubit.state.user!.id &&
+                  (widget.userRole == UserRole.teacher
+                      ? ann.announcerId != userCubit.state.user!.id
+                      : true) &&
                   ann.announcerRole == UserRole.teacher,
             )
             .toList();
@@ -75,7 +83,9 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
         return announcements
             .where(
               (ann) =>
-                  ann.announcerId != userCubit.state.user!.id &&
+                  (widget.userRole == UserRole.teacher
+                      ? ann.announcerId != userCubit.state.user!.id
+                      : true) &&
                   ann.announcerRole == UserRole.schoolAdmin,
             )
             .toList();
@@ -86,24 +96,27 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
 
     return PrimaryLayout(
       appBarTitle: 'Announcements',
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.router.push(const NewAnnouncementRoute());
-        },
-        child: const Icon(Icons.add_outlined),
-      ),
+      floatingActionButton: widget.userRole == UserRole.teacher
+          ? FloatingActionButton(
+              onPressed: () {
+                context.router.push(const NewAnnouncementRoute());
+              },
+              child: const Icon(Icons.add_outlined),
+            )
+          : null,
       children: [
         SegmentedButton<AnnouncementType>(
-          segments: const [
-            ButtonSegment(
-              value: AnnouncementType.myAnnouncement,
-              label: Text('My'),
-            ),
-            ButtonSegment(
+          segments: [
+            if (widget.userRole == UserRole.teacher)
+              const ButtonSegment(
+                value: AnnouncementType.myAnnouncement,
+                label: Text('My'),
+              ),
+            const ButtonSegment(
               value: AnnouncementType.classAnnouncement,
               label: Text('Class'),
             ),
-            ButtonSegment(
+            const ButtonSegment(
               value: AnnouncementType.schoolAdminAnnouncement,
               label: Text('School admin'),
             ),

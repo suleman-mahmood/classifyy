@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/announcement_cubit.dart';
 import 'package:classifyy/cubits/class_student_cubit.dart';
+import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/dashboard_button.dart';
@@ -45,6 +46,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
     final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
     final classStudentCubit = BlocProvider.of<ClassStudentCubit>(context);
 
@@ -59,7 +61,9 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
               iconData: Icons.chat_outlined,
               onPressed: () {
                 announcementCubit.fetchAnnouncements(0, 100);
-                context.router.push(const AnnouncementRoute());
+                context.router.push(
+                  AnnouncementRoute(userRole: userCubit.state.user!.userType),
+                );
               },
             ),
             const SizedBox(width: ScreenSizes.slabTwo),

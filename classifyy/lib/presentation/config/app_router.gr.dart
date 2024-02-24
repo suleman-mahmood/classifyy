@@ -22,9 +22,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     AnnouncementRoute.name: (routeData) {
+      final args = routeData.argsAs<AnnouncementRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const AnnouncementScreen(),
+        child: AnnouncementScreen(
+          key: args.key,
+          userRole: args.userRole,
+        ),
       );
     },
     LoginRoute.name: (routeData) {
@@ -80,16 +84,40 @@ class AllStudentsRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AnnouncementScreen]
-class AnnouncementRoute extends PageRouteInfo<void> {
-  const AnnouncementRoute({List<PageRouteInfo>? children})
-      : super(
+class AnnouncementRoute extends PageRouteInfo<AnnouncementRouteArgs> {
+  AnnouncementRoute({
+    Key? key,
+    required UserRole userRole,
+    List<PageRouteInfo>? children,
+  }) : super(
           AnnouncementRoute.name,
+          args: AnnouncementRouteArgs(
+            key: key,
+            userRole: userRole,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AnnouncementRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<AnnouncementRouteArgs> page =
+      PageInfo<AnnouncementRouteArgs>(name);
+}
+
+class AnnouncementRouteArgs {
+  const AnnouncementRouteArgs({
+    this.key,
+    required this.userRole,
+  });
+
+  final Key? key;
+
+  final UserRole userRole;
+
+  @override
+  String toString() {
+    return 'AnnouncementRouteArgs{key: $key, userRole: $userRole}';
+  }
 }
 
 /// generated route for

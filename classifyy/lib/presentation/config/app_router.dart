@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/screens/auth/login_screen.dart';
 import 'package:classifyy/presentation/screens/parent/parent_dashboard_screen.dart';
 import 'package:classifyy/presentation/screens/teacher/all_students_screen.dart';
