@@ -3,6 +3,7 @@ import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/class.dart';
 import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 
 abstract class Repository {
@@ -25,6 +26,8 @@ abstract class Repository {
   Future<void> createAnnouncement(String text);
 
   Future<List<ClassStudent>> fetchClassStudents();
+
+  Future<List<StudentTeacher>> fetchStudentTeachers();
 
   Future<List<ChatMessage>> fetchChatMessages();
 }

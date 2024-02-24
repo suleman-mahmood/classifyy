@@ -3,6 +3,7 @@ import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/class.dart';
 import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 
@@ -162,6 +163,20 @@ class FakeRepository implements Repository {
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.currentUser,
         ),
+      ],
+    );
+  }
+
+  @override
+  Future<List<StudentTeacher>> fetchStudentTeachers() {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () => [
+        const StudentTeacher(id: '1', teacherName: 'Zafar Ali Khan'),
+        const StudentTeacher(id: '2', teacherName: 'Raja Shafqat'),
+        const StudentTeacher(id: '3', teacherName: 'Nausheen Iqbal'),
+        const StudentTeacher(id: '4', teacherName: 'Sana Khan'),
+        const StudentTeacher(id: '5', teacherName: 'Kashif Ali'),
       ],
     );
   }

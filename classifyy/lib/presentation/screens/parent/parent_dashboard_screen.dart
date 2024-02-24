@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/announcement_cubit.dart';
+import 'package:classifyy/cubits/student_teacher_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
@@ -46,6 +47,7 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen>
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
     final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
+    final studentTeacherCubit = BlocProvider.of<StudentTeacherCubit>(context);
 
     return DashboardLayout(
       children: [
@@ -68,8 +70,8 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen>
               buttonText: 'Teachers',
               iconData: Icons.person_2_outlined,
               onPressed: () {
-                // classStudentCubit.fetchClassStudents();
-                context.router.push(const AllStudentsRoute());
+                studentTeacherCubit.fetchStudentTeachers();
+                context.router.push(const AllTeachersRoute());
               },
             ),
           ],

@@ -3,6 +3,7 @@ import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/class.dart';
 import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 
@@ -63,6 +64,12 @@ class ImpRepository implements Repository {
   @override
   Future<List<ChatMessage>> fetchChatMessages() {
     // TODO: implement fetchChatMessages
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<StudentTeacher>> fetchStudentTeachers() {
+    // TODO: implement fetchStudentTeachers
     throw UnimplementedError();
   }
 }

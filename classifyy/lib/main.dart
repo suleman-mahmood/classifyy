@@ -3,6 +3,7 @@ import 'package:classifyy/cubits/chat_cubit.dart';
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/class_student_cubit.dart';
+import 'package:classifyy/cubits/student_teacher_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/locator.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ChatCubit>(
           create: (_) => ChatCubit(locator<Repository>()),
+        ),
+        BlocProvider<StudentTeacherCubit>(
+          create: (_) => StudentTeacherCubit(locator<Repository>()),
         ),
       ],
       child: MaterialApp.router(
