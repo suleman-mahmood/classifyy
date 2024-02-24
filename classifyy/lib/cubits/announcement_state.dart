@@ -16,7 +16,7 @@ final class AnnouncementInitial extends AnnouncementState {
 }
 
 final class AnnouncementLoading extends AnnouncementState {
-  const AnnouncementLoading();
+  const AnnouncementLoading({super.announcements});
 }
 
 final class AnnouncementSuccess extends AnnouncementState {

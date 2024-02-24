@@ -69,9 +69,7 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
         BlocListener<AnnouncementCubit, AnnouncementState>(
           listener: (context, state) {
             if (state is AnnouncementSuccess) {
-              context.router.popUntil(
-                (route) => route.data!.name.contains('Dashboard'),
-              );
+              context.router.pop();
             }
           },
           child: const SizedBox.shrink(),

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:classifyy/models/announcement/announcement.dart';
+import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 
 part 'announcement_state.dart';
@@ -21,10 +22,20 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
   }
 
   Future<void> createAnnouncement(String text) async {
-    emit(const AnnouncementLoading());
+    emit(AnnouncementLoading(announcements: state.announcements));
 
     await repository.createAnnouncement(text);
 
-    emit(AnnouncementSuccess(announcements: state.announcements));
+    final announcement = Announcement(
+      id: '4',
+      text: text,
+      createdAt: DateTime.now(),
+      announcerId: 'user_1',
+      announcerRole: UserRole.teacher,
+    );
+
+    emit(AnnouncementSuccess(
+      announcements: state.announcements + [announcement],
+    ));
   }
 }
