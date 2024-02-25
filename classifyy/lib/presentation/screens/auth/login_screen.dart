@@ -16,7 +16,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class LoginScreen extends StatelessWidget {
     }
 
     Future<void> handleLogin() async {
-      await userCubit.loginUser('email', 'password');
+      await userCubit.loginUser(emailController.text, passwordController.text);
     }
 
     return RootLayout(
@@ -64,9 +67,15 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const TitleLarge(title: 'Login'),
                     const SizedBox(height: ScreenSizes.slabTwo),
-                    const TextFieldPrimary(labelText: "Email"),
+                    TextFieldPrimary(
+                      controller: emailController,
+                      labelText: "Email",
+                    ),
                     const SizedBox(height: ScreenSizes.slabTwo),
-                    const TextFieldPrimary(labelText: "Password"),
+                    TextFieldPrimary(
+                      controller: passwordController,
+                      labelText: "Password",
+                    ),
                     const SizedBox(height: ScreenSizes.slabTwo),
                     ButtonPrimary(
                       buttonText: 'Proceed',
@@ -84,6 +93,11 @@ class LoginScreen extends StatelessWidget {
                             } else if (state.user!.userRole ==
                                 UserRole.parent) {
                               childrenCubit.fetchChildren();
+                            } else if (state.user!.userRole ==
+                                UserRole.student) {
+                              context.router.push(
+                                const StudentDashboardRoute(),
+                              );
                             }
                             showModalBottomSheet(
                               context: context,

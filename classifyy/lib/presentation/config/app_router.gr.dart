@@ -40,7 +40,7 @@ abstract class _$AppRouter extends RootStackRouter {
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LoginScreen(),
+        child: LoginScreen(),
       );
     },
     NewAnnouncementRoute.name: (routeData) {
@@ -63,6 +63,12 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           studentName: args.studentName,
         ),
+      );
+    },
+    StudentDashboardRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const StudentDashboardScreen(),
       );
     },
     TeacherDashboardRoute.name: (routeData) {
@@ -218,6 +224,20 @@ class StudentChatRouteArgs {
   String toString() {
     return 'StudentChatRouteArgs{key: $key, studentName: $studentName}';
   }
+}
+
+/// generated route for
+/// [StudentDashboardScreen]
+class StudentDashboardRoute extends PageRouteInfo<void> {
+  const StudentDashboardRoute({List<PageRouteInfo>? children})
+      : super(
+          StudentDashboardRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StudentDashboardRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

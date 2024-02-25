@@ -16,6 +16,8 @@ class DashboardLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
+
     return RootLayout(
       child: Scaffold(
         body: SafeArea(
@@ -25,7 +27,9 @@ class DashboardLayout extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  const DropdownAppBar(),
+                  if (userCubit.state.user?.userRole == UserRole.parent ||
+                      userCubit.state.user?.userRole == UserRole.teacher)
+                    const DropdownAppBar(),
                   ...children,
                 ],
               ),
@@ -79,8 +83,8 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
       }
 
       final classes = classCubit.state.classes
-          .where(
-              (cl) => cl.displayName != userCubit.state.selectedClass!.displayName)
+          .where((cl) =>
+              cl.displayName != userCubit.state.selectedClass!.displayName)
           .map(
             (cl) => ListTile(
               title: Text(cl.displayName),

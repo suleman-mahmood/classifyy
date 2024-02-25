@@ -3,6 +3,7 @@ import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/screens/auth/login_screen.dart';
 import 'package:classifyy/presentation/screens/parent/all_teachers_screen.dart';
 import 'package:classifyy/presentation/screens/parent/parent_dashboard_screen.dart';
+import 'package:classifyy/presentation/screens/student/student_dashboard_screen.dart';
 import 'package:classifyy/presentation/screens/teacher/all_students_screen.dart';
 import 'package:classifyy/presentation/screens/common/announcement_screen.dart';
 import 'package:classifyy/presentation/screens/teacher/teacher_dashboard_screen.dart';
@@ -20,6 +21,7 @@ class AppRouter extends _$AppRouter {
         
         AutoRoute(page: TeacherDashboardRoute.page),
         AutoRoute(page: ParentDashboardRoute.page),
+        AutoRoute(page: StudentDashboardRoute.page),
 
         AutoRoute(page: AnnouncementRoute.page),
         AutoRoute(page: NewAnnouncementRoute.page),

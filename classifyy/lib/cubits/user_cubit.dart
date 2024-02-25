@@ -15,9 +15,9 @@ class UserCubit extends Cubit<UserState> {
   Future<void> loginUser(String email, String password) async {
     emit(const UserLoading());
 
-    await repository.loginUser(email, password);
+    final id = await repository.loginUser(email, password);
 
-    final user = await repository.getUser();
+    final user = await repository.getUser(id);
 
     emit(UserSuccess(user: user));
   }

@@ -14,7 +14,7 @@ class ImpRepository implements Repository {
   ImpRepository({this.authToken});
 
   @override
-  Future<void> loginUser(String email, String password) {
+  Future<String> loginUser(String email, String password) {
     // TODO: implement loginUser
     throw UnimplementedError();
   }
@@ -32,7 +32,7 @@ class ImpRepository implements Repository {
   }
 
   @override
-  Future<User> getUser() {
+  Future<User> getUser(String id) {
     // TODO: implement getUser
     throw UnimplementedError();
   }

@@ -14,10 +14,10 @@ class FakeRepository implements Repository {
   FakeRepository({this.authToken});
 
   @override
-  Future<void> loginUser(String email, String password) {
+  Future<String> loginUser(String email, String password) {
     return Future.delayed(
       const Duration(seconds: 1),
-      () {},
+      () => email,
     );
   }
 
@@ -55,7 +55,7 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<User> getUser() {
+  Future<User> getUser(String id) {
     return Future.delayed(
       const Duration(seconds: 1),
       () => User(
@@ -66,7 +66,9 @@ class FakeRepository implements Repository {
         loginQr: '',
         email: '',
         phoneNumber: '',
-        userRole: UserRole.parent,
+        userRole: id == 'te'
+            ? UserRole.teacher
+            : (id == 'pa' ? UserRole.parent : UserRole.student),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       ),

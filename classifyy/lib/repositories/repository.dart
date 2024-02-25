@@ -11,7 +11,7 @@ abstract class Repository {
 
   Repository({this.authToken});
 
-  Future<void> loginUser(String email, String password);
+  Future<String> loginUser(String email, String password);
 
   Future<List<TeacherClass>> fetchClasses();
 
@@ -19,7 +19,7 @@ abstract class Repository {
 
   Future<String> getAuthToken();
 
-  Future<User> getUser();
+  Future<User> getUser(String id);
 
   Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
 
