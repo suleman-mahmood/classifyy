@@ -20,16 +20,16 @@ class ChatCubit extends Cubit<ChatState> {
     emit(ChatSuccess(chatMessages: chatMessages));
   }
 
-  Future<void> sendMessage(String message) async {
+  Future<void> sendMessage(String text) async {
+    repository.sendMessage(text);
+    
     final chatMessages = state.chatMessages;
-
     final newMessage = ChatMessage(
       id: '1',
-      text: message,
+      text: text,
       sentAt: DateTime.now(),
       chatMessageType: ChatMessageType.currentUser,
     );
-
     chatMessages.add(newMessage);
 
     emit(ChatSuccess(chatMessages: chatMessages));

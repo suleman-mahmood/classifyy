@@ -24,13 +24,7 @@ class ImpRepository implements Repository {
     // TODO: implement fetchClasses
     throw UnimplementedError();
   }
-
-  @override
-  Future<String> getAuthToken() {
-    // TODO: implement getAuthToken
-    throw UnimplementedError();
-  }
-
+  
   @override
   Future<User> getUser(String id) {
     // TODO: implement getUser
@@ -70,6 +64,12 @@ class ImpRepository implements Repository {
   @override
   Future<List<StudentTeacher>> fetchStudentTeachers() {
     // TODO: implement fetchStudentTeachers
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> sendMessage(String message) {
+    // TODO: implement sendMessage
     throw UnimplementedError();
   }
 }

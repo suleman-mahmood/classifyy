@@ -49,12 +49,6 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<String> getAuthToken() {
-    // TODO: implement getAuthToken
-    throw UnimplementedError();
-  }
-
-  @override
   Future<User> getUser(String id) {
     return Future.delayed(
       const Duration(seconds: 1),
@@ -206,6 +200,14 @@ class FakeRepository implements Repository {
         const StudentTeacher(id: '4', teacherName: 'Sana Khan'),
         const StudentTeacher(id: '5', teacherName: 'Kashif Ali'),
       ],
+    );
+  }
+
+  @override
+  Future<void> sendMessage(String message) {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () {},
     );
   }
 }

@@ -13,13 +13,11 @@ abstract class Repository {
 
   Future<String> loginUser(String email, String password);
 
+  Future<User> getUser(String id);
+
   Future<List<TeacherClass>> fetchClasses();
 
   Future<List<ParentChild>> fetchChildren();
-
-  Future<String> getAuthToken();
-
-  Future<User> getUser(String id);
 
   Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
 
@@ -30,4 +28,6 @@ abstract class Repository {
   Future<List<StudentTeacher>> fetchStudentTeachers();
 
   Future<List<ChatMessage>> fetchChatMessages();
+
+  Future<void> sendMessage(String message);
 }
