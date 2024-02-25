@@ -2,7 +2,7 @@ part of 'children_cubit.dart';
 
 sealed class ChildrenState {
   final String errorMessage;
-  final List<Student> children;
+  final List<ParentChild> children;
 
   const ChildrenState({
     this.errorMessage = '',

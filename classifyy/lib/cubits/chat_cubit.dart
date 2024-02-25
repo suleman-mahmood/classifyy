@@ -25,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
 
     final newMessage = ChatMessage(
       id: '1',
-      message: message,
+      text: message,
       sentAt: DateTime.now(),
       chatMessageType: ChatMessageType.currentUser,
     );

@@ -1,8 +1,8 @@
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
-import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/models/user/class_student.dart';
-import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 
@@ -13,9 +13,9 @@ abstract class Repository {
 
   Future<void> loginUser(String email, String password);
 
-  Future<List<Class>> fetchClasses();
+  Future<List<TeacherClass>> fetchClasses();
 
-  Future<List<Student>> fetchChildren();
+  Future<List<ParentChild>> fetchChildren();
 
   Future<String> getAuthToken();
 

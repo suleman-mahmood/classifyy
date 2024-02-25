@@ -2,7 +2,7 @@ enum ChatMessageType { currentUser, otherUser }
 
 class ChatMessage {
   final String id;
-  final String message;
+  final String text;
   final DateTime sentAt;
   final ChatMessageType chatMessageType;
   // final DateTime deliveredAt;
@@ -10,7 +10,7 @@ class ChatMessage {
 
   const ChatMessage({
     required this.id,
-    required this.message,
+    required this.text,
     required this.sentAt,
     required this.chatMessageType
   });

@@ -1,8 +1,8 @@
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
-import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/models/user/class_student.dart';
-import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
@@ -22,13 +22,28 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<List<Class>> fetchClasses() {
+  Future<List<TeacherClass>> fetchClasses() {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [
-        Class(className: 'I-A'),
-        Class(className: 'II-B'),
-        Class(className: 'II-C'),
+        TeacherClass(
+          id: '1',
+          displayName: 'I-A',
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+        TeacherClass(
+          id: '2',
+          displayName: 'II-B',
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+        TeacherClass(
+          id: '3',
+          displayName: 'II-C',
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
       ],
     );
   }
@@ -43,18 +58,29 @@ class FakeRepository implements Repository {
   Future<User> getUser() {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => User(id: 'user_1', userType: UserRole.parent),
+      () => User(
+        id: 'user_1',
+        displayName: '',
+        firstName: '',
+        lastName: '',
+        loginQr: '',
+        email: '',
+        phoneNumber: '',
+        userRole: UserRole.parent,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ),
     );
   }
 
   @override
-  Future<List<Student>> fetchChildren() {
+  Future<List<ParentChild>> fetchChildren() {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [
-        Student(studentName: 'Faraz'),
-        Student(studentName: 'Fawaz'),
-        Student(studentName: 'Abdullah'),
+        ParentChild(id: '1', displayName: 'Faraz'),
+        ParentChild(id: '2', displayName: 'Fawaz'),
+        ParentChild(id: '3', displayName: 'Abdullah'),
       ],
     );
   }
@@ -123,43 +149,43 @@ class FakeRepository implements Repository {
       () => [
         ChatMessage(
           id: '1',
-          message: 'Aoa',
+          text: 'Aoa',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.otherUser,
         ),
         ChatMessage(
           id: '1',
-          message: 'Woa',
+          text: 'Woa',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.currentUser,
         ),
         ChatMessage(
           id: '1',
-          message: 'Apka bacha time pe nahi aya',
+          text: 'Apka bacha time pe nahi aya',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.otherUser,
         ),
         ChatMessage(
           id: '1',
-          message: 'Wops',
+          text: 'Wops',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.currentUser,
         ),
         ChatMessage(
           id: '1',
-          message: 'Tang kheechta hun main uski',
+          text: 'Tang kheechta hun main uski',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.currentUser,
         ),
         ChatMessage(
           id: '1',
-          message: 'Theek hai',
+          text: 'Theek hai',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.otherUser,
         ),
         ChatMessage(
           id: '1',
-          message: 'Thank you miss!',
+          text: 'Thank you miss!',
           sentAt: DateTime.now(),
           chatMessageType: ChatMessageType.currentUser,
         ),

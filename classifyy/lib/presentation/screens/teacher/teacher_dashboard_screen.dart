@@ -62,7 +62,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
               onPressed: () {
                 announcementCubit.fetchAnnouncements(0, 100);
                 context.router.push(
-                  AnnouncementRoute(userRole: userCubit.state.user!.userType),
+                  AnnouncementRoute(userRole: userCubit.state.user!.userRole),
                 );
               },
             ),

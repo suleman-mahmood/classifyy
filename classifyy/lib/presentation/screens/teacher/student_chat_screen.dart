@@ -28,7 +28,7 @@ class _StudentChatScreenState extends State<StudentChatScreen> {
       return SizedBox(
         width: ScreenSizes.widthSlabFourRel(context),
         child: Text(
-          chatMessage.message,
+          chatMessage.text,
           textAlign: chatMessage.chatMessageType == ChatMessageType.currentUser
               ? TextAlign.right
               : TextAlign.left,

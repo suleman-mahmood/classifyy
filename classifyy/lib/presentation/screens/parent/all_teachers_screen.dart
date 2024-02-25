@@ -39,7 +39,7 @@ class _AllTeachersScreenState extends State<AllTeachersScreen> {
     }
 
     return PrimaryLayout(
-      appBarTitle: "${userCubit.state.selectedChild?.studentName}'s teachers",
+      appBarTitle: "${userCubit.state.selectedChild?.displayName}'s teachers",
       children: [
         BlocBuilder<StudentTeacherCubit, StudentTeacherState>(
           builder: (context, state) {

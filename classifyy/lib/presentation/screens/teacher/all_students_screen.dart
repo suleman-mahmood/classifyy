@@ -42,7 +42,7 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
     }
 
     return PrimaryLayout(
-      appBarTitle: 'Class ${userCubit.state.selectedClass?.className} students',
+      appBarTitle: 'Class ${userCubit.state.selectedClass?.displayName} students',
       children: [
         SearchAnchor(
           builder: (

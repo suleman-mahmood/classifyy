@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
-import 'package:classifyy/models/user/class.dart';
-import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/teacher_class.dart';
+import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 TitleLarge(
                     title:
-                        'Select ${userCubit.state.user?.userTypeToSelectTitle()}',
+                        'Select ${userCubit.state.user?.userRoleToSelectTitle()}',
                     shouldAnimate: false),
                 const ClassOptions(),
                 const ChildrenOptions(),
@@ -79,9 +79,9 @@ class LoginScreen extends StatelessWidget {
                       listener: (context, state) {
                         switch (state.runtimeType) {
                           case UserSuccess:
-                            if (state.user!.userType == UserRole.teacher) {
+                            if (state.user!.userRole == UserRole.teacher) {
                               classCubit.fetchClasses();
-                            } else if (state.user!.userType ==
+                            } else if (state.user!.userRole ==
                                 UserRole.parent) {
                               childrenCubit.fetchChildren();
                             }
@@ -112,9 +112,9 @@ class ActionButton extends StatelessWidget {
     final userCubit = BlocProvider.of<UserCubit>(context);
 
     void handleProceed() {
-      if (userCubit.state.user?.userType == UserRole.teacher) {
+      if (userCubit.state.user?.userRole == UserRole.teacher) {
         context.router.push(const TeacherDashboardRoute());
-      } else if (userCubit.state.user?.userType == UserRole.parent) {
+      } else if (userCubit.state.user?.userRole == UserRole.parent) {
         context.router.push(const ParentDashboardRoute());
       }
     }
@@ -131,7 +131,7 @@ class ActionButton extends StatelessWidget {
                 return ButtonPrimary(
                   disabled: !enabled,
                   buttonText:
-                      'Choose ${userState.user?.userTypeToSelectTitle()}',
+                      'Choose ${userState.user?.userRoleToSelectTitle()}',
                   onPressed: enabled ? handleProceed : () {},
                   shouldAnimate: false,
                 );
@@ -152,7 +152,7 @@ class ClassOptions extends StatefulWidget {
 }
 
 class _ClassOptionsState extends State<ClassOptions> {
-  Class? _selectedClass;
+  TeacherClass? _selectedClass;
 
   @override
   Widget build(BuildContext context) {
@@ -177,8 +177,8 @@ class _ClassOptionsState extends State<ClassOptions> {
             final children = state.classes
                 .map(
                   (cl) => ListTile(
-                    title: Text(cl.className),
-                    leading: Radio<Class>(
+                    title: Text(cl.displayName),
+                    leading: Radio<TeacherClass>(
                       value: cl,
                       groupValue: _selectedClass,
                       onChanged: (value) {
@@ -219,7 +219,7 @@ class ChildrenOptions extends StatefulWidget {
 }
 
 class _ChildrenOptionsState extends State<ChildrenOptions> {
-  Student? _selectedChild;
+  ParentChild? _selectedChild;
 
   @override
   Widget build(BuildContext context) {
@@ -244,8 +244,8 @@ class _ChildrenOptionsState extends State<ChildrenOptions> {
             final children = state.children
                 .map(
                   (st) => ListTile(
-                    title: Text(st.studentName),
-                    leading: Radio<Student>(
+                    title: Text(st.displayName),
+                    leading: Radio<ParentChild>(
                       value: st,
                       groupValue: _selectedChild,
                       onChanged: (value) {

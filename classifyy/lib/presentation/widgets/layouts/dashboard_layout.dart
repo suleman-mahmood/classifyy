@@ -1,8 +1,8 @@
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
-import 'package:classifyy/models/user/class.dart';
-import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/teacher_class.dart';
+import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
@@ -46,8 +46,8 @@ class DropdownAppBar extends StatefulWidget {
 
 class _DropdownAppBarState extends State<DropdownAppBar> {
   bool showAdditionalClasses = false;
-  Student? _selectedChild;
-  Class? _selectedClass;
+  ParentChild? _selectedChild;
+  TeacherClass? _selectedClass;
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +56,12 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
     final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
     Widget buildOptions() {
-      if (userCubit.state.user?.userType == UserRole.parent) {
+      if (userCubit.state.user?.userRole == UserRole.parent) {
         final children = childrenCubit.state.children
             .where((st) =>
-                st.studentName != userCubit.state.selectedChild!.studentName)
+                st.displayName != userCubit.state.selectedChild!.displayName)
             .map((st) => ListTile(
-                  title: Text(st.studentName),
+                  title: Text(st.displayName),
                   onTap: () {
                     setState(() {
                       userCubit.selectChild(st);
@@ -80,10 +80,10 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
 
       final classes = classCubit.state.classes
           .where(
-              (cl) => cl.className != userCubit.state.selectedClass!.className)
+              (cl) => cl.displayName != userCubit.state.selectedClass!.displayName)
           .map(
             (cl) => ListTile(
-              title: Text(cl.className),
+              title: Text(cl.displayName),
               onTap: () {
                 setState(() {
                   userCubit.selectClass(cl);
@@ -108,12 +108,12 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
           ListTile(
             leading: const Icon(Icons.person_2_outlined),
             title: Text(
-              'Current ${userCubit.state.user?.userTypeToSelectTitle()}',
+              'Current ${userCubit.state.user?.userRoleToSelectTitle()}',
             ),
             subtitle: Text(
-              userCubit.state.user?.userType == UserRole.parent
-                  ? userCubit.state.selectedChild!.studentName
-                  : userCubit.state.selectedClass!.className,
+              userCubit.state.user?.userRole == UserRole.parent
+                  ? userCubit.state.selectedChild!.displayName
+                  : userCubit.state.selectedClass!.displayName,
             ),
             trailing: showAdditionalClasses
                 ? const Icon(Icons.arrow_upward_outlined)

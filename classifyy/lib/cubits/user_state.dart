@@ -3,8 +3,8 @@ part of 'user_cubit.dart';
 @immutable
 sealed class UserState {
   final User? user;
-  final Student? selectedChild;
-  final Class? selectedClass;
+  final ParentChild? selectedChild;
+  final TeacherClass? selectedClass;
 
   final String errorMessage;
 

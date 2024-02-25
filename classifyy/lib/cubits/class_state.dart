@@ -3,7 +3,7 @@ part of 'class_cubit.dart';
 @immutable
 sealed class ClassState {
   final String errorMessage;
-  final List<Class> classes;
+  final List<TeacherClass> classes;
 
   const ClassState({
     this.errorMessage = '',

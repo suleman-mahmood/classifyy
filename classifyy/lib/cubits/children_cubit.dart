@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/repositories/repository.dart';
 
 part 'children_state.dart';

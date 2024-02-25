@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:classifyy/models/user/class.dart';
-import 'package:classifyy/models/user/student.dart';
+import 'package:classifyy/models/user/teacher_class.dart';
+import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:meta/meta.dart';
@@ -22,7 +22,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserSuccess(user: user));
   }
 
-  Future<void> selectChild(Student student) async {
+  Future<void> selectChild(ParentChild student) async {
     emit(UserSuccess(
       user: state.user,
       selectedChild: student,
@@ -30,7 +30,7 @@ class UserCubit extends Cubit<UserState> {
     ));
   }
 
-  Future<void> selectClass(Class selectedClass) async {
+  Future<void> selectClass(TeacherClass selectedClass) async {
     emit(UserSuccess(
       user: state.user,
       selectedChild: state.selectedChild,

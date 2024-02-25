@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:classifyy/models/user/class.dart';
+import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
