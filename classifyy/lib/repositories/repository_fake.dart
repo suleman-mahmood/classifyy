@@ -210,4 +210,23 @@ class FakeRepository implements Repository {
       () {},
     );
   }
+
+  @override
+  Future<List<ClassStudent>> fetchUnreadChats() {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () => [
+        const ClassStudent(id: '2', studentName: 'Fawaz Ahmad'),
+        const ClassStudent(id: '3', studentName: 'Shah Faraz ul Haq'),
+      ],
+    );
+  }
+
+  @override
+  Future<void> markChatRead(String chatId) {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () {},
+    );
+  }
 }

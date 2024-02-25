@@ -19,15 +19,23 @@ abstract class Repository {
 
   Future<List<ParentChild>> fetchChildren();
 
-  Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
-
-  Future<void> createAnnouncement(String text);
-
   Future<List<ClassStudent>> fetchClassStudents();
 
   Future<List<StudentTeacher>> fetchStudentTeachers();
 
+  // Announcements
+
+  Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
+
+  Future<void> createAnnouncement(String text);
+
+  // Chat
+
   Future<List<ChatMessage>> fetchChatMessages();
 
+  Future<List<ClassStudent>> fetchUnreadChats();
+
   Future<void> sendMessage(String message);
+
+  Future<void> markChatRead(String chatId);
 }

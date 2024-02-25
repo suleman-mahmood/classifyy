@@ -72,4 +72,16 @@ class ImpRepository implements Repository {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }
+  
+  @override
+  Future<List<ClassStudent>> fetchUnreadChats() {
+    // TODO: implement fetchUnreadChats
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> markChatRead(String chatId) {
+    // TODO: implement markChatRead
+    throw UnimplementedError();
+  }
 }
