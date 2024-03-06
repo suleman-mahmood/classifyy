@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class TitleLarge extends StatelessWidget {
   final String title;
   final bool shouldAnimate;
+  final TextAlign textAlign;
 
   const TitleLarge({
     Key? key,
     required this.title,
     this.shouldAnimate = true,
+    this.textAlign = TextAlign.left,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,7 @@ class TitleLarge extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(fontSize: 24),
+        textAlign: textAlign,
       ),
     );
   }

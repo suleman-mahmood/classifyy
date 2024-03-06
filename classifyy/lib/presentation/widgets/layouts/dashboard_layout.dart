@@ -1,22 +1,62 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
+import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
+import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
 import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
+import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DashboardLayout extends StatelessWidget {
+class DashboardLayout extends StatefulWidget {
   final List<Widget> children;
 
   const DashboardLayout({super.key, this.children = const []});
 
   @override
+  State<DashboardLayout> createState() => _DashboardLayoutState();
+}
+
+class _DashboardLayoutState extends State<DashboardLayout> {
+  int currentPageIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+
+    Widget buildBottomSheet(BuildContext context) {
+      return SizedBox(
+        width: ScreenSizes.widthSlabFourRel(context),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const TitleLarge(
+                  title:
+                      'Are you sure you want to delete your account and its associated data?',
+                  shouldAnimate: false,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: ScreenSizes.slabThree),
+                ButtonPrimary(
+                  buttonText: 'Yes!',
+                  onPressed: () {
+                    context.router.push(const LoginRoute());
+                  },
+                ),
+                const SizedBox(height: ScreenSizes.slabThree),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     return RootLayout(
       child: Scaffold(
@@ -27,14 +67,61 @@ class DashboardLayout extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  if (userCubit.state.user?.userRole == UserRole.parent ||
-                      userCubit.state.user?.userRole == UserRole.teacher)
-                    const DropdownAppBar(),
-                  ...children,
+                  if (currentPageIndex == 0) ...[
+                    if (userCubit.state.user?.userRole == UserRole.parent ||
+                        userCubit.state.user?.userRole == UserRole.teacher)
+                      const DropdownAppBar(),
+                    ...widget.children,
+                  ],
+                  if (currentPageIndex == 1) ...[
+                    Card(
+                      color: const Color(0xFFFEF7FF),
+                      child: ListTile(
+                        title: const Text('Logout'),
+                        trailing: const Icon(Icons.logout_outlined),
+                        onTap: () {
+                          context.router.push(const LoginRoute());
+                        },
+                      ),
+                    ),
+                    Card(
+                      color: const Color(0xFFFEF7FF),
+                      child: ListTile(
+                        title: const Text('Delete account'),
+                        trailing: const Icon(Icons.delete_outlined),
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: buildBottomSheet,
+                          );
+                        },
+                      ),
+                    ),
+                  ]
                 ],
               ),
             ),
           ),
+        ),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          indicatorColor: Colors.purpleAccent,
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
+              label: 'Dashboard',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_outlined),
+              label: 'Profile',
+            ),
+          ],
         ),
       ),
     );
