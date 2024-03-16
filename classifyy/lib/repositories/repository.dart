@@ -7,9 +7,9 @@ import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 
 abstract class Repository {
-  String? authToken;
+  String? userId;
 
-  Repository({this.authToken});
+  Repository({this.userId});
 
   Future<String> loginUser(String email, String password);
 

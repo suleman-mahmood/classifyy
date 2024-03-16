@@ -9,9 +9,9 @@ import 'package:classifyy/repositories/repository.dart';
 
 class FakeRepository implements Repository {
   @override
-  String? authToken;
+  String? userId;
 
-  FakeRepository({this.authToken});
+  FakeRepository({this.userId});
 
   @override
   Future<String> loginUser(String email, String password) {

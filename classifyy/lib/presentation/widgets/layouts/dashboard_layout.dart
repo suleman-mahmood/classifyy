@@ -28,6 +28,8 @@ class _DashboardLayoutState extends State<DashboardLayout> {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    final classCubit = BlocProvider.of<ClassCubit>(context);
+    final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
     Widget buildBottomSheet(BuildContext context) {
       return SizedBox(
@@ -206,9 +208,12 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
                   ? userCubit.state.selectedChild!.displayName
                   : userCubit.state.selectedClass!.displayName,
             ),
-            trailing: showAdditionalClasses
-                ? const Icon(Icons.arrow_upward_outlined)
-                : const Icon(Icons.arrow_downward_outlined),
+            trailing: classCubit.state.classes.length > 1 ||
+                    childrenCubit.state.children.length > 1
+                ? showAdditionalClasses
+                    ? const Icon(Icons.arrow_upward_outlined)
+                    : const Icon(Icons.arrow_downward_outlined)
+                : null,
             onTap: () {
               setState(() {
                 showAdditionalClasses = !showAdditionalClasses;

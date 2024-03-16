@@ -11,9 +11,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ImpRepository implements Repository {
   @override
-  String? authToken;
+  String? userId;
 
-  ImpRepository({this.authToken});
+  ImpRepository({this.userId});
 
   @override
   Future<String> loginUser(String email, String password) async {
@@ -21,15 +21,18 @@ class ImpRepository implements Repository {
       email: email,
       password: password,
     );
-    print(res.user!.id);
+    userId = res.user!.id;
 
     return res.user!.id;
   }
 
   @override
-  Future<List<TeacherClass>> fetchClasses() {
-    // TODO: implement fetchClasses
-    throw UnimplementedError();
+  Future<List<TeacherClass>> fetchClasses() async {
+    final data = await supabase
+        .from('classes')
+        .select('*, users(id)')
+        .eq('users.id', userId!);
+    return TeacherClass.fromMapList(data);
   }
   
   @override
