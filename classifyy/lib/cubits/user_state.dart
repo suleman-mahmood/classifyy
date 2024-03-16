@@ -2,7 +2,7 @@ part of 'user_cubit.dart';
 
 @immutable
 sealed class UserState {
-  final User? user;
+  final UserModel? user;
   final ParentChild? selectedChild;
   final TeacherClass? selectedClass;
 

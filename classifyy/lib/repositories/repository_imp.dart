@@ -1,3 +1,4 @@
+import 'package:classifyy/locator.dart';
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -6,6 +7,7 @@ import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ImpRepository implements Repository {
   @override
@@ -14,9 +16,14 @@ class ImpRepository implements Repository {
   ImpRepository({this.authToken});
 
   @override
-  Future<String> loginUser(String email, String password) {
-    // TODO: implement loginUser
-    throw UnimplementedError();
+  Future<String> loginUser(String email, String password) async {
+    final AuthResponse res = await supabase.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
+    print(res.user!.id);
+
+    return res.user!.id;
   }
 
   @override
@@ -26,9 +33,9 @@ class ImpRepository implements Repository {
   }
   
   @override
-  Future<User> getUser(String id) {
-    // TODO: implement getUser
-    throw UnimplementedError();
+  Future<UserModel> getUser(String id) async {
+    final data = await supabase.from('users').select().eq('id', id).single();
+    return UserModel.fromMap(data);
   }
 
   @override

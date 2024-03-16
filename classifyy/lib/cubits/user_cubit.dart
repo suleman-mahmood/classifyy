@@ -4,6 +4,7 @@ import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'user_state.dart';
 
@@ -14,10 +15,23 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> loginUser(String email, String password) async {
     emit(const UserLoading());
+    
+    late String id;
+    try {
+      id = await repository.loginUser(email, password);
+    } on AuthException catch (e) {
+      emit(UserFailure(errorMessage: e.message));
+      return;
+    }
 
-    final id = await repository.loginUser(email, password);
+    late UserModel user;
+    try {
+      user = await repository.getUser(id);
+    } on PostgrestException catch (e) {
+      emit(UserFailure(errorMessage: e.message));
+      return;
+    }
 
-    final user = await repository.getUser(id);
 
     emit(UserSuccess(user: user));
   }

@@ -1,6 +1,6 @@
-enum UserRole { student, parent, teacher, schoolAdmin }
+enum UserRole { student, parent, teacher, school_admin }
 
-class User {
+class UserModel {
   final String id;
   final String displayName;
   final String firstName;
@@ -12,7 +12,7 @@ class User {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  User({
+  UserModel({
     required this.id,
     required this.displayName,
     required this.firstName,
@@ -24,6 +24,21 @@ class User {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'],
+      displayName: map['display_name'],
+      firstName: map['first_name'],
+      lastName: map['last_name'],
+      loginQr: map['login_qr'],
+      email: map['email'],
+      phoneNumber: map['phone_number'],
+      userRole: UserRole.values.byName(map['user_role']),
+      createdAt: DateTime.parse(map['created_at']),
+      updatedAt: DateTime.parse(map['updated_at']),
+    );
+  }
 
   String userRoleToSelectTitle() {
     if (userRole == UserRole.parent) return "child";

@@ -81,6 +81,14 @@ class LoginScreen extends StatelessWidget {
                       buttonText: 'Proceed',
                       onPressed: handleLogin,
                     ),
+                    BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        if (state is! UserFailure) {
+                          return const SizedBox.shrink();
+                        }
+                        return Text(state.errorMessage);
+                      },
+                    ),
                     BlocListener<UserCubit, UserState>(
                       listenWhen: (previous, current) {
                         return previous.user != current.user;

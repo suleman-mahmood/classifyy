@@ -3,9 +3,11 @@ import 'package:classifyy/cubits/announcement_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/user/user.dart';
-import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
+import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
+import 'package:classifyy/presentation/widgets/inputs/text_area.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
+import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_time_ago/get_time_ago.dart';
@@ -28,6 +30,8 @@ class AnnouncementScreen extends StatefulWidget {
 
 class _AnnouncementScreenState extends State<AnnouncementScreen>
     with TickerProviderStateMixin {
+  final TextEditingController _textController = TextEditingController();
+
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;
 
@@ -86,7 +90,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
                   (widget.userRole == UserRole.teacher
                       ? ann.announcerId != userCubit.state.user!.id
                       : true) &&
-                  ann.announcerRole == UserRole.schoolAdmin,
+                  ann.announcerRole == UserRole.school_admin,
             )
             .toList();
       } else {
@@ -96,14 +100,14 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
 
     return PrimaryLayout(
       appBarTitle: 'Announcements',
-      floatingActionButton: widget.userRole == UserRole.teacher
-          ? FloatingActionButton(
-              onPressed: () {
-                context.router.push(const NewAnnouncementRoute());
-              },
-              child: const Icon(Icons.add_outlined),
-            )
-          : null,
+      // floatingActionButton: widget.userRole == UserRole.teacher
+      //     ? FloatingActionButton(
+      //         onPressed: () {
+      //           context.router.push(const NewAnnouncementRoute());
+      //         },
+      //         child: const Icon(Icons.add_outlined),
+      //       )
+      //     : null,
       children: [
         SegmentedButton<AnnouncementType>(
           segments: [
@@ -174,7 +178,33 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
             }
             return const SizedBox.shrink();
           },
-        )
+        ),
+        const Expanded(child: SizedBox.shrink()),
+        if (selectedannouncementType == AnnouncementType.myAnnouncement &&
+            widget.userRole == UserRole.teacher)
+          Column(
+            children: [
+              TitleLarge(
+                title:
+                    'Send an announcement to ${userCubit.state.selectedClass!.displayName}',
+              ),
+              const SizedBox(height: ScreenSizes.slabTwo),
+              TextArea(
+                controller: _textController,
+                labelText: "Write something here...",
+              ),
+              const SizedBox(height: ScreenSizes.slabOne),
+              ButtonPrimary(buttonText: 'Send', onPressed: () {}),
+              // BlocListener<AnnouncementCubit, AnnouncementState>(
+              //   listener: (context, state) {
+              //     if (state is AnnouncementSuccess) {
+              //       context.router.pop();
+              //     }
+              //   },
+              //   child: const SizedBox.shrink(),
+              // )
+            ],
+          )
       ],
     );
   }

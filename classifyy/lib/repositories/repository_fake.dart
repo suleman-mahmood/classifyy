@@ -49,10 +49,10 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<User> getUser(String id) {
+  Future<UserModel> getUser(String id) {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => User(
+      () => UserModel(
         id: 'user_1',
         displayName: '',
         firstName: '',
@@ -110,7 +110,7 @@ class FakeRepository implements Repository {
             hours: 10,
           )),
           announcerId: 'user_3',
-          announcerRole: UserRole.schoolAdmin,
+          announcerRole: UserRole.school_admin,
         ),
       ],
     );

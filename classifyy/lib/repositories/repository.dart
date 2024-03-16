@@ -13,7 +13,7 @@ abstract class Repository {
 
   Future<String> loginUser(String email, String password);
 
-  Future<User> getUser(String id);
+  Future<UserModel> getUser(String id);
 
   Future<List<TeacherClass>> fetchClasses();
 
