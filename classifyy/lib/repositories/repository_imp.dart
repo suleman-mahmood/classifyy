@@ -42,9 +42,12 @@ class ImpRepository implements Repository {
   }
 
   @override
-  Future<List<ParentChild>> fetchChildren() {
-    // TODO: implement fetchChildren
-    throw UnimplementedError();
+  Future<List<ParentChild>> fetchChildren() async {
+    final data = await supabase
+        .from('users')
+        .select()
+        .eq('parent_id', userId!);
+    return ParentChild.fromMapList(data);
   }
 
   @override
