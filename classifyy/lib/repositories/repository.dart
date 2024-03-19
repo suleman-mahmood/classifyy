@@ -19,7 +19,7 @@ abstract class Repository {
 
   Future<List<ParentChild>> fetchChildren();
 
-  Future<List<ClassStudent>> fetchClassStudents();
+  Future<List<ClassStudent>> fetchClassStudents(String classId);
 
   Future<List<StudentTeacher>> fetchStudentTeachers();
 

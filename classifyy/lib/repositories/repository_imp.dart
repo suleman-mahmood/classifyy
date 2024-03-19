@@ -8,6 +8,7 @@ import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/v4.dart';
 
 class ImpRepository implements Repository {
   @override
@@ -51,21 +52,35 @@ class ImpRepository implements Repository {
   }
 
   @override
-  Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex) {
-    // TODO: implement fetchAnnouncements
-    throw UnimplementedError();
+  Future<List<Announcement>> fetchAnnouncements(
+      int startIndex, int endIndex) async {
+    final data = await supabase
+        .from('announcements')
+        .select('*, users(id, display_name, user_role)')
+        .order('created_at', ascending: false)
+        .limit(100); // TODO: Pagination
+    return Announcement.fromMapList(data);
   }
   
   @override
-  Future<void> createAnnouncement(String text) {
-    // TODO: implement createAnnouncement
-    throw UnimplementedError();
+  Future<void> createAnnouncement(String text) async {
+    final data = {
+      'id': const UuidV4(),
+      'announcer_id': userId!,
+      'text': text,
+      'created_at': DateTime.now(),
+    };
+    await supabase.from('announcements').insert(data);
   }
 
   @override
-  Future<List<ClassStudent>> fetchClassStudents() {
-    // TODO: implement fetchClassStudents
-    throw UnimplementedError();
+  Future<List<ClassStudent>> fetchClassStudents(String classId) async {
+    final data = await supabase
+        .from('users')
+        .select('*, users_classes(class_id)')
+        .eq('users_classes.class_id', classId)
+        .eq('user_role', 'student');
+    return ClassStudent.fromMapList(data);
   }
 
   @override

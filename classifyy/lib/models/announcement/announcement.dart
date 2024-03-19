@@ -18,4 +18,19 @@ class Announcement {
     required this.announcerRole,
     this.announcerDisplayName,
   });
+
+  static List<Announcement> fromMapList(List<Map<String, dynamic>> data) {
+    return data.map<Announcement>((d) => Announcement.fromMap(d)).toList();
+  }
+
+  factory Announcement.fromMap(Map<String, dynamic> map) {
+    return Announcement(
+      id: map['id'],
+      text: map['text'],
+      createdAt: map['created_at'],
+      announcerId: map['announcer_id'],
+      announcerRole: map['users.user_role'],
+      announcerDisplayName: map['users.display_name'],
+    );
+  }
 }

@@ -125,7 +125,7 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<List<ClassStudent>> fetchClassStudents() {
+  Future<List<ClassStudent>> fetchClassStudents(String classId) {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [
