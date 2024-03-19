@@ -10,10 +10,10 @@ class ClassStudentCubit extends Cubit<ClassStudentState> {
 
   ClassStudentCubit(this.repository) : super(const ClassStudentInitial());
 
-  Future<void> fetchClassStudents() async {
+  Future<void> fetchClassStudents(String classId) async {
     emit(const ClassStudentLoading());
 
-    final classStudents = await repository.fetchClassStudents();
+    final classStudents = await repository.fetchClassStudents(classId);
 
     emit(ClassStudentSuccess(classStudents: classStudents));
   }

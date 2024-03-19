@@ -35,7 +35,7 @@ abstract class Repository {
 
   Future<List<ClassStudent>> fetchUnreadChats();
 
-  Future<void> sendMessage(String message);
+  Future<void> sendMessage(String message, String otherUserId);
 
   Future<void> markChatRead(String chatId);
 }

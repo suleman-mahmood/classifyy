@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/repositories/repository.dart';
@@ -20,8 +18,8 @@ class ChatCubit extends Cubit<ChatState> {
     emit(ChatSuccess(chatMessages: chatMessages));
   }
 
-  Future<void> sendMessage(String text) async {
-    repository.sendMessage(text);
+  Future<void> sendMessage(String text, String otherUserId) async {
+    repository.sendMessage(text, otherUserId);
     
     final chatMessages = state.chatMessages;
     final newMessage = ChatMessage(

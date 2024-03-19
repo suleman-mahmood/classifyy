@@ -38,9 +38,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginRouteArgs>(
+          orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: LoginScreen(),
+        child: LoginScreen(key: args.key),
       );
     },
     NewAnnouncementRoute.name: (routeData) {
@@ -62,6 +64,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: StudentChatScreen(
           key: args.key,
           studentName: args.studentName,
+          otherUserId: args.otherUserId,
         ),
       );
     },
@@ -148,16 +151,30 @@ class AnnouncementRouteArgs {
 
 /// generated route for
 /// [LoginScreen]
-class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute({List<PageRouteInfo>? children})
-      : super(
+class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           LoginRoute.name,
+          args: LoginRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<LoginRouteArgs> page = PageInfo<LoginRouteArgs>(name);
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -194,12 +211,14 @@ class StudentChatRoute extends PageRouteInfo<StudentChatRouteArgs> {
   StudentChatRoute({
     Key? key,
     required String studentName,
+    required String otherUserId,
     List<PageRouteInfo>? children,
   }) : super(
           StudentChatRoute.name,
           args: StudentChatRouteArgs(
             key: key,
             studentName: studentName,
+            otherUserId: otherUserId,
           ),
           initialChildren: children,
         );
@@ -214,15 +233,18 @@ class StudentChatRouteArgs {
   const StudentChatRouteArgs({
     this.key,
     required this.studentName,
+    required this.otherUserId,
   });
 
   final Key? key;
 
   final String studentName;
 
+  final String otherUserId;
+
   @override
   String toString() {
-    return 'StudentChatRouteArgs{key: $key, studentName: $studentName}';
+    return 'StudentChatRouteArgs{key: $key, studentName: $studentName, otherUserId: $otherUserId}';
   }
 }
 

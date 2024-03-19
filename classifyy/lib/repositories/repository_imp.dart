@@ -35,7 +35,7 @@ class ImpRepository implements Repository {
         .eq('users.id', userId!);
     return TeacherClass.fromMapList(data);
   }
-  
+
   @override
   Future<UserModel> getUser(String id) async {
     final data = await supabase.from('users').select().eq('id', id).single();
@@ -44,10 +44,7 @@ class ImpRepository implements Repository {
 
   @override
   Future<List<ParentChild>> fetchChildren() async {
-    final data = await supabase
-        .from('users')
-        .select()
-        .eq('parent_id', userId!);
+    final data = await supabase.from('users').select().eq('parent_id', userId!);
     return ParentChild.fromMapList(data);
   }
 
@@ -61,11 +58,11 @@ class ImpRepository implements Repository {
         .limit(100); // TODO: Pagination
     return Announcement.fromMapList(data);
   }
-  
+
   @override
   Future<void> createAnnouncement(String text) async {
     final data = {
-      'id': const UuidV4(),
+      'id': const UuidV4().generate(),
       'announcer_id': userId!,
       'text': text,
       'created_at': DateTime.now(),
@@ -84,29 +81,82 @@ class ImpRepository implements Repository {
   }
 
   @override
-  Future<List<ChatMessage>> fetchChatMessages() {
-    // TODO: implement fetchChatMessages
-    throw UnimplementedError();
+  Future<List<StudentTeacher>> fetchStudentTeachers() async {
+    final classData = await supabase
+        .from('users_classes')
+        .select('class_id')
+        .eq('user_id', userId!);
+    final classIds = classData.map((d) => d['class_id']).toList();
+
+    final data = await supabase
+        .from('users')
+        .select('*, users_classes(class_id)')
+        .inFilter('users_classes.class_id', classIds)
+        .eq('user_role', 'teacher');
+    return StudentTeacher.fromMapList(data);
   }
 
   @override
-  Future<List<StudentTeacher>> fetchStudentTeachers() {
-    // TODO: implement fetchStudentTeachers
-    throw UnimplementedError();
+  Future<List<ChatMessage>> fetchChatMessages() async {
+    final chatData = await supabase
+      .from('chat')
+      .select('id')
+      .eq('chat_members(user_id)', userId!);
+    final chatIds = chatData.map((cd) => cd['id']).toList();
+    final data = await supabase
+      .from('chat_messages')
+      .select('*')
+      .inFilter('chat_id', chatIds);
+    return ChatMessage.fromMapList(data, userId!);
   }
-  
+
   @override
-  Future<void> sendMessage(String message) {
-    // TODO: implement sendMessage
-    throw UnimplementedError();
+  Future<void> sendMessage(String message, String otherUserId) async {
+    final myChatData = await supabase
+      .from('chat')
+      .select('id')
+      .eq('chat_members(user_id)', userId!);
+    final myChatIds = myChatData.map((cd) => cd['id']).toList();
+
+    final otherChatData = await supabase
+      .from('chat')
+      .select('id')
+      .inFilter('id', myChatIds)
+      .eq('chat_members(user_id)', otherUserId);
+
+    late String chatId;
+    if(otherChatData.isNotEmpty) {
+      chatId = otherChatData.first['id'];
+    }
+    else {
+      // No common chat exists, so create a DM chat with this user
+      chatId = const UuidV4().generate();
+      await supabase.from('chat').insert({'id': chatId, 'name': ''});
+      await supabase.from('chat_members').insert(
+        {'chat_id': chatId, 'new_messages': false, 'user_id': userId!},
+      );
+      await supabase.from('chat_members').insert(
+        {'chat_id': chatId, 'new_messages': true, 'user_id': otherUserId},
+      );
+    }
+
+    await supabase.from('chat_messages').insert(
+      {
+        'id': const UuidV4().generate(),
+        'chat_id': chatId,
+        'text': message,
+        'sent_at': DateTime.now(),
+        'sender_id': userId!
+      },
+    );
   }
-  
+
   @override
   Future<List<ClassStudent>> fetchUnreadChats() {
     // TODO: implement fetchUnreadChats
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> markChatRead(String chatId) {
     // TODO: implement markChatRead

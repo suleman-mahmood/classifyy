@@ -204,7 +204,7 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<void> sendMessage(String message) {
+  Future<void> sendMessage(String message, String otherUserId) {
     return Future.delayed(
       const Duration(seconds: 1),
       () {},

@@ -71,7 +71,9 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
               buttonText: 'Students',
               iconData: Icons.person_2_outlined,
               onPressed: () {
-                classStudentCubit.fetchClassStudents();
+                classStudentCubit.fetchClassStudents(
+                  userCubit.state.selectedClass!.id,
+                );
                 context.router.push(const AllStudentsRoute());
               },
             ),

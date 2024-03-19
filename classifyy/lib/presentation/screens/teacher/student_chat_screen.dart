@@ -10,8 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class StudentChatScreen extends StatefulWidget {
   final String studentName;
+  final String otherUserId;
 
-  const StudentChatScreen({super.key, required this.studentName});
+  const StudentChatScreen({
+    super.key,
+    required this.studentName,
+    required this.otherUserId,
+  });
 
   @override
   State<StudentChatScreen> createState() => _StudentChatScreenState();
@@ -55,7 +60,7 @@ class _StudentChatScreenState extends State<StudentChatScreen> {
           labelText: 'New message...',
           controller: _messageController,
           onPressed: () {
-            chatCubit.sendMessage(_messageController.text);
+            chatCubit.sendMessage(_messageController.text, widget.otherUserId);
             _messageController.clear();
           },
         ),

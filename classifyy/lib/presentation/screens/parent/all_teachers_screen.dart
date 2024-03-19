@@ -32,6 +32,7 @@ class _AllTeachersScreenState extends State<AllTeachersScreen> {
             chatCubit.fetchChatMessages();
             context.router.push(StudentChatRoute(
               studentName: student.teacherName,
+              otherUserId: student.id,
             ));
           },
         ),

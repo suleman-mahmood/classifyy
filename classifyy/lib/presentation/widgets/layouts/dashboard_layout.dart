@@ -49,7 +49,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                 ButtonPrimary(
                   buttonText: 'Yes!',
                   onPressed: () {
-                    context.router.push(const LoginRoute());
+                    context.router.push(LoginRoute());
                   },
                 ),
                 const SizedBox(height: ScreenSizes.slabThree),
@@ -82,7 +82,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                         title: const Text('Logout'),
                         trailing: const Icon(Icons.logout_outlined),
                         onTap: () {
-                          context.router.push(const LoginRoute());
+                          context.router.push(LoginRoute());
                         },
                       ),
                     ),

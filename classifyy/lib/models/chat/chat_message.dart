@@ -14,4 +14,19 @@ class ChatMessage {
     required this.sentAt,
     required this.chatMessageType
   });
+
+  static List<ChatMessage> fromMapList(List<Map<String, dynamic>> data, String userId) {
+    return data.map<ChatMessage>((d) => ChatMessage.fromMap(d, userId)).toList();
+  }
+
+  factory ChatMessage.fromMap(Map<String, dynamic> map, String userId) {
+    return ChatMessage(
+      id: map['id'],
+      text: map['text'],
+      sentAt: map['sent_at'],
+      chatMessageType: map['sender_id'] == userId
+          ? ChatMessageType.currentUser
+          : ChatMessageType.otherUser,
+    );
+  }
 }
