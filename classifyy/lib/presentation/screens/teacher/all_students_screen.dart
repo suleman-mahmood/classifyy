@@ -7,6 +7,7 @@ import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
@@ -25,21 +26,29 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
     final userCubit = BlocProvider.of<UserCubit>(context);
     final chatCubit = BlocProvider.of<ChatCubit>(context);
 
-    Widget buildStudent(BuildContext context, ClassStudent student) {
-      return Card(
-        color: const Color(0xFFFEF7FF),
-        child: ListTile(
-          title: Text(student.studentName),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            chatCubit.fetchChatMessages();
-            context.router.push(StudentChatRoute(
-              studentName: student.studentName,
-              otherUserId: student.id,
-            ));
-          },
+    Widget buildStudent(BuildContext context, ClassStudent student,
+        {bool loading = false}) {
+      return Opacity(
+        opacity: loading ? 0.5 : 1,
+        child: Card(
+          color: const Color(0xFFFEF7FF),
+          child: ListTile(
+            title: Text(student.studentName),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: loading
+                ? () {}
+                : () {
+                    chatCubit.fetchChatMessages();
+                    context.router.push(StudentChatRoute(
+                      studentName: student.studentName,
+                      otherUserId: student.id,
+                    ));
+                  },
+          ),
         ),
-      );
+      )
+          .animate(onPlay: (controller) => controller.repeat())
+          .shimmer(duration: loading ? 1.seconds : 0.seconds);
     }
 
     return PrimaryLayout(
@@ -90,6 +99,13 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
         const SizedBox(height: ScreenSizes.slabTwo),
         BlocBuilder<ClassStudentCubit, ClassStudentState>(
           builder: (context, state) {
+            if (state is ClassStudentLoading) {
+              return buildStudent(
+                context,
+                const ClassStudent(id: '1', studentName: 'Someone'),
+                loading: true,
+              );
+            }
             if (state is ClassStudentSuccess) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 setState(() {

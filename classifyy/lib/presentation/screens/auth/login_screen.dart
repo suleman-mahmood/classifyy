@@ -12,6 +12,7 @@ import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
@@ -183,6 +184,32 @@ class _ClassOptionsState extends State<ClassOptions> {
     return BlocBuilder<ClassCubit, ClassState>(
       builder: (context, state) {
         switch (state.runtimeType) {
+          case ClassLoading:
+            return Opacity(
+              opacity: 0.5,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: ScreenSizes.heightQuarterRel(context),
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.all(0),
+                  shrinkWrap: true,
+                  children: [
+                    ListTile(
+                      title: const Text('Class I'),
+                      leading: Radio<String>(
+                        value: "",
+                        groupValue: null,
+                        onChanged: (_) {},
+                      ),
+                    ),
+                  ],
+                )
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .shimmer(duration: 1.seconds),
+              ),
+            );
+
           case ClassSuccess:
             if (state.classes.isEmpty) {
               return const Padding(
@@ -250,6 +277,31 @@ class _ChildrenOptionsState extends State<ChildrenOptions> {
     return BlocBuilder<ChildrenCubit, ChildrenState>(
       builder: (context, state) {
         switch (state.runtimeType) {
+          case ChildrenLoading:
+            return Opacity(
+              opacity: 0.5,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: ScreenSizes.heightQuarterRel(context),
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.all(0),
+                  shrinkWrap: true,
+                  children: [
+                    ListTile(
+                      title: const Text('Some child'),
+                      leading: Radio<String>(
+                        value: "",
+                        groupValue: null,
+                        onChanged: (_) {},
+                      ),
+                    ),
+                  ],
+                )
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .shimmer(duration: 1.seconds),
+              ),
+            );
           case ChildrenSuccess:
             if (state.children.isEmpty) {
               return const Padding(

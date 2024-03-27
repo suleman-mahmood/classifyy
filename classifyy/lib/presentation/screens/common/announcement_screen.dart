@@ -9,6 +9,7 @@ import 'package:classifyy/presentation/widgets/inputs/text_area.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 
@@ -136,6 +137,39 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
         const SizedBox(height: ScreenSizes.slabOne),
         BlocBuilder<AnnouncementCubit, AnnouncementState>(
           builder: (context, state) {
+            if (state is AnnouncementLoading) {
+              return Opacity(
+                opacity: 0.5,
+                child: SizedBox(
+                  height: ScreenSizes.widthSlabOneRel(context),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 16,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Some important announcement'),
+                          const Expanded(child: SizedBox.shrink()),
+                          Row(
+                            children: [
+                              const Text('From: Someone else'),
+                              const Expanded(child: SizedBox.shrink()),
+                              Text(GetTimeAgo.parse(
+                                  DateTime.now().subtract(1.minutes)))
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .shimmer(duration: 1.seconds),
+              );
+            }
             if (state is AnnouncementSuccess) {
               final ann = filterAnnouncements(state.announcements);
 
