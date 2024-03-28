@@ -1,4 +1,6 @@
 import 'package:classifyy/cubits/user_cubit.dart';
+import 'package:classifyy/locator.dart';
+import 'package:classifyy/presentation/config/listeners.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,13 @@ class RootLayout extends StatefulWidget {
 }
 
 class _RootLayoutState extends State<RootLayout> {
+  @override
+  void initState() {
+    super.initState();
+
+    locator<Listeners>().registerAuthListener(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget buildLoader() {

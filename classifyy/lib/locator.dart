@@ -1,3 +1,4 @@
+import 'package:classifyy/presentation/config/listeners.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:classifyy/repositories/repository_fake.dart';
 import 'package:classifyy/repositories/repository_imp.dart';
@@ -15,6 +16,8 @@ Future<void> initializeDependencies() async {
   );
 
   locator.registerSingleton<Repository>(
-    kDebugMode ? FakeRepository() : ImpRepository(),
+    kDebugMode ? ImpRepository() : ImpRepository(),
   );
+
+  locator.registerSingleton<Listeners>(Listeners());
 }

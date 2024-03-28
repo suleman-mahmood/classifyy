@@ -17,18 +17,18 @@ class ImpRepository implements Repository {
   ImpRepository({this.userId});
 
   @override
-  Future<String> loginUser(String email, String password) async {
+  Future<void> loginUser(String email, String password) async {
     final AuthResponse res = await supabase.auth.signInWithPassword(
       email: email,
       password: password,
     );
     userId = res.user!.id;
-
-    return res.user!.id;
   }
 
   @override
   Future<List<TeacherClass>> fetchClasses() async {
+    userId ??= (await supabase.auth.getUser()).user!.id;
+
     final data = await supabase
         .from('classes')
         .select('*, users(id)')
@@ -44,6 +44,8 @@ class ImpRepository implements Repository {
 
   @override
   Future<List<ParentChild>> fetchChildren() async {
+    userId ??= (await supabase.auth.getUser()).user!.id;
+
     final data = await supabase.from('users').select().eq('parent_id', userId!);
     return ParentChild.fromMapList(data);
   }

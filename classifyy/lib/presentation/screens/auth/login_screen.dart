@@ -92,7 +92,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                     BlocListener<UserCubit, UserState>(
                       listenWhen: (previous, current) {
-                        return previous.user != current.user;
+                        return previous.user != current.user &&
+                            current.user != null;
                       },
                       listener: (context, state) {
                         switch (state.runtimeType) {

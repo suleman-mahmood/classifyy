@@ -14,10 +14,10 @@ class FakeRepository implements Repository {
   FakeRepository({this.userId});
 
   @override
-  Future<String> loginUser(String email, String password) {
+  Future<void> loginUser(String email, String password) {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => email,
+      () {},
     );
   }
 

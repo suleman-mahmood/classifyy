@@ -13,27 +13,28 @@ class UserCubit extends Cubit<UserState> {
 
   UserCubit(this.repository) : super(const UserInitial());
 
+  Future<void> fetchUser(String id) async {
+    emit(const UserLoading());
+
+    try {
+      final user = await repository.getUser(id);
+      emit(UserSuccess(user: user));
+    } on PostgrestException catch (e) {
+      emit(UserFailure(errorMessage: e.message));
+    }
+  }
+
   Future<void> loginUser(String email, String password) async {
     emit(const UserLoading());
-    
-    late String id;
+
     try {
-      id = await repository.loginUser(email, password);
+      await repository.loginUser(email, password);
     } on AuthException catch (e) {
       emit(UserFailure(errorMessage: e.message));
       return;
     }
 
-    late UserModel user;
-    try {
-      user = await repository.getUser(id);
-    } on PostgrestException catch (e) {
-      emit(UserFailure(errorMessage: e.message));
-      return;
-    }
-
-
-    emit(UserSuccess(user: user));
+    emit(const UserSuccess());
   }
 
   Future<void> selectChild(ParentChild student) async {

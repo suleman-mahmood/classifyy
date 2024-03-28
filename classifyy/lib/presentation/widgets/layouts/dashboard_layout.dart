@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
+import 'package:classifyy/locator.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
@@ -48,9 +49,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                 const SizedBox(height: ScreenSizes.slabThree),
                 ButtonPrimary(
                   buttonText: 'Yes!',
-                  onPressed: () {
-                    context.router.push(LoginRoute());
-                  },
+                  onPressed: supabase.auth.signOut,
                 ),
                 const SizedBox(height: ScreenSizes.slabThree),
               ],
@@ -81,9 +80,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                       child: ListTile(
                         title: const Text('Logout'),
                         trailing: const Icon(Icons.logout_outlined),
-                        onTap: () {
-                          context.router.push(LoginRoute());
-                        },
+                        onTap: supabase.auth.signOut,
                       ),
                     ),
                     Card(
