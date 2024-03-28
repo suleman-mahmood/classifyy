@@ -10,6 +10,7 @@ import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
 import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
+import 'package:classifyy/presentation/widgets/typography/error_message.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -78,17 +79,18 @@ class LoginScreen extends StatelessWidget {
                       labelText: "Password",
                     ),
                     const SizedBox(height: ScreenSizes.slabTwo),
-                    ButtonPrimary(
-                      buttonText: 'Proceed',
-                      onPressed: handleLogin,
-                    ),
                     BlocBuilder<UserCubit, UserState>(
                       builder: (context, state) {
                         if (state is! UserFailure) {
                           return const SizedBox.shrink();
                         }
-                        return Text(state.errorMessage);
+                        return ErrorMessage(text: state.errorMessage);
                       },
+                    ),
+                    const SizedBox(height: ScreenSizes.slabTwo),
+                    ButtonPrimary(
+                      buttonText: 'Proceed',
+                      onPressed: handleLogin,
                     ),
                     BlocListener<UserCubit, UserState>(
                       listenWhen: (previous, current) {
