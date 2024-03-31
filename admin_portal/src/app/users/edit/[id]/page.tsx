@@ -17,7 +17,6 @@ export default function BlogPostEdit() {
         value: "parent",
       }
     ],
-    // meta: "",
   });
 
   return (

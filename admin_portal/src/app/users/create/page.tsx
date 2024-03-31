@@ -19,8 +19,7 @@ export default function UserCreate() {
     }
 
     if (data) {
-      const currentDate = new Date();
-      await onFinish({ ...values, id: data.user?.id, created_at: currentDate });
+      await onFinish({ ...values, id: data.user?.id });
     }
   }
 

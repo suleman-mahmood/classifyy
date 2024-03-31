@@ -55,6 +55,15 @@ export default function RootLayout({
                         },
                       },
                       {
+                        name: "classes",
+                        list: "/classes",
+                        create: "/classes/create",
+                        edit: "/classes/edit/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                      },
+                      {
                         name: "blog_posts",
                         list: "/blog-posts",
                         create: "/blog-posts/create",
