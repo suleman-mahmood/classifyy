@@ -1,11 +1,24 @@
 "use client";
 
-import { Edit, useForm } from "@refinedev/antd";
+import { Edit, useForm, useSelect } from "@refinedev/antd";
 import { Form, Input, Select } from "antd";
 
 export default function BlogPostEdit() {
   const { formProps, saveButtonProps } = useForm({});
 
+  const { selectProps: relationSelectProps } = useSelect({
+    resource: "users",
+    optionLabel: "display_name",
+    optionValue: "id",
+    filters: [
+      {
+        field: "user_role",
+        operator: "eq",
+        value: "parent",
+      }
+    ],
+    // meta: "",
+  });
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
@@ -84,6 +97,17 @@ export default function BlogPostEdit() {
             ]}
             style={{ width: 120 }}
           />
+        </Form.Item>
+        <Form.Item
+          label={"Relationship"}
+          name={"parent_id"}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select {...relationSelectProps} />
         </Form.Item>
       </Form>
     </Edit>
