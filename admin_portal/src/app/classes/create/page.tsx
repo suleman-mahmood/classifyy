@@ -6,11 +6,10 @@ import { Checkbox, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
-export default function UserCreate() {
+export default function ClassCreate() {
   const router = useRouter()
   const { formProps, saveButtonProps, onFinish } = useForm({redirect: false});
-
-  const { checkboxGroupProps, } = useCheckboxGroup({
+  const { checkboxGroupProps } = useCheckboxGroup({
     resource: "users",
     optionLabel: "display_name",
     optionValue: "id",
