@@ -37,7 +37,6 @@ export default function RootLayout({
           <RefineKbarProvider>
             <AntdRegistry>
               <ColorModeContextProvider defaultMode={defaultMode}>
-                <DevtoolsProvider>
                   <Refine
                     routerProvider={routerProvider}
                     authProvider={authProvider}
@@ -94,7 +93,6 @@ export default function RootLayout({
                     {children}
                     <RefineKbar />
                   </Refine>
-                </DevtoolsProvider>
               </ColorModeContextProvider>
             </AntdRegistry>
           </RefineKbarProvider>
