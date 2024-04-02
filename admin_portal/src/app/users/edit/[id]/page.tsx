@@ -158,11 +158,6 @@ export default function UserEdit() {
           <Form.Item
             label={"Parent"}
             name={"parent_id"}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
           >
             <Select {...relationSelectProps} />
           </Form.Item>
