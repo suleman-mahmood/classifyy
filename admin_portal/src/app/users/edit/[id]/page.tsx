@@ -1,19 +1,26 @@
 "use client";
 
-import { Edit, useForm, useSelect } from "@refinedev/antd";
+import { Edit, useCheckboxGroup, useForm, useSelect } from "@refinedev/antd";
 import { supabaseClient } from "@utility/supabase-client";
-import { Form, Input, Select } from "antd";
+import { Checkbox, Form, Input, Select } from "antd";
 import { useRouter } from "next/navigation";
 
 export default function UserEdit() {
   const router = useRouter()
-  const { formProps, saveButtonProps, queryResult, onFinish } = useForm({ redirect: false, meta: {
-    select: ("*, classes(id) as class_id"),
-  } });
+  const { formProps, saveButtonProps, queryResult, onFinish } = useForm({
+    redirect: false,
+    meta: {
+      select: ("*, classes(id)"),
+    },
+  });
 
   const userRole = queryResult?.data?.data.user_role;
   const userId = queryResult?.data?.data.id;
-  const classId = queryResult?.data?.data.classes[0].id;
+  let classId = '';
+  if (queryResult?.data?.data.classes !== undefined && queryResult?.data?.data.classes.length > 0) {
+    classId = queryResult?.data?.data.classes[0].id;
+  }
+  const teacherClassIds = queryResult?.data?.data.classes.map((c: any) => c.id);
 
   const { selectProps: relationSelectProps } = useSelect({
     resource: "users",
@@ -34,16 +41,39 @@ export default function UserEdit() {
     optionValue: "id",
   });
 
+  const { checkboxGroupProps } = useCheckboxGroup({
+    resource: "classes",
+    optionLabel: "display_name",
+    optionValue: "id",
+  });
+
   const handleOnFinish = async (values: any) => {
     const classId = values.class_id;
-    delete values.class_id
+    const teacherClassIds: string[] = values.teacher_class_ids;
+
+    if (userRole === 'student') delete values.class_id;
+    if (userRole === 'teacher') delete values.teacher_class_ids;
+
     await onFinish({ ...values });
 
     await supabaseClient.from("users_classes").delete().eq("user_id", userId);
-    await supabaseClient.from("users_classes").insert({
-      "class_id": classId,
-      "user_id": userId,
-    });
+
+    if (userRole === 'student') {
+      await supabaseClient.from("users_classes").insert({
+        "class_id": classId,
+        "user_id": userId,
+      });
+    }
+    else if (userRole === 'teacher') {
+      const promises = teacherClassIds.map(id =>
+        supabaseClient.
+          from("users_classes")
+          .insert({
+            "class_id": id,
+            "user_id": userId,
+          }));
+      await Promise.all(promises);
+    }
 
     router.push("/users");
   }
@@ -109,7 +139,6 @@ export default function UserEdit() {
         <Form.Item
           label={"User Role"}
           name={["user_role"]}
-          initialValue={"student"}
           rules={[
             {
               required: true,
@@ -117,7 +146,6 @@ export default function UserEdit() {
           ]}
         >
           <Select
-            defaultValue={"student"}
             options={[
               { value: "student", label: "Student" },
               { value: "parent", label: "Parent" },
@@ -148,8 +176,23 @@ export default function UserEdit() {
                 required: true,
               },
             ]}
+            initialValue={classId}
           >
-            <Select {...classSelectProps} defaultValue={classId} />
+            <Select {...classSelectProps} />
+          </Form.Item>
+        )}
+        {userRole === 'teacher' && (
+          <Form.Item
+            label="Classes"
+            name="teacher_class_ids"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+            initialValue={teacherClassIds}
+          >
+            <Checkbox.Group {...checkboxGroupProps} />
           </Form.Item>
         )}
       </Form>
