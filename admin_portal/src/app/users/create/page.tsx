@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function UserCreate() {
   const router = useRouter();
-  const [userRole, setUserRole] = useState<String>("");
+  const [userRole, setUserRole] = useState<String>("student");
   const { formProps, saveButtonProps, onFinish } = useForm({});
 
   const { selectProps: relationSelectProps } = useSelect({
@@ -54,7 +54,7 @@ export default function UserCreate() {
     if (userRole === 'student') delete values.class_id;
     if (userRole === 'teacher') delete values.teacher_class_ids;
 
-    await onFinish({ ...values, id: userId });
+    await onFinish({ ...values, id: userId, display_name: values.first_name + values.last_name });
 
     if (userRole === 'student') {
       await supabaseClient.from("users_classes").insert({
@@ -78,40 +78,7 @@ export default function UserCreate() {
 
   return (
     <Create saveButtonProps={saveButtonProps}>
-      <Form {...formProps} layout="vertical" onFinish={handleOnFinish}>
-        <Form.Item
-          label={"Email"}
-          name={["email"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label={"Phone Number"}
-          name={["phone_number"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label={"Display Name"}
-          name={["display_name"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+      <Form {...formProps} layout="vertical" onFinish={handleOnFinish} >
         <Form.Item
           label={"First Name"}
           name={["first_name"]}
@@ -131,6 +98,23 @@ export default function UserCreate() {
               required: true,
             },
           ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"Email"}
+          name={["email"]}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"Phone Number"}
+          name={["phone_number"]}
         >
           <Input />
         </Form.Item>
@@ -167,11 +151,6 @@ export default function UserCreate() {
           <Form.Item
             label={"Class"}
             name={"class_id"}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
           >
             <Select {...classSelectProps} />
           </Form.Item>
@@ -180,11 +159,6 @@ export default function UserCreate() {
           <Form.Item
             label="Classes"
             name="teacher_class_ids"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
           >
             <Checkbox.Group {...checkboxGroupProps} />
           </Form.Item>
