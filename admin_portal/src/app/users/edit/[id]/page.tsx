@@ -14,9 +14,10 @@ export default function UserEdit() {
       select: ("*, classes(id)"),
     },
   });
-  const [userRole, setUserRole] = useState<String>("");
+  const [userRole, setUserRole] = useState<String>();
 
   useEffect(() => {
+    if (userRole !== undefined) return;
     setUserRole(queryResult?.data?.data.user_role);
   }, [queryResult]);
 
