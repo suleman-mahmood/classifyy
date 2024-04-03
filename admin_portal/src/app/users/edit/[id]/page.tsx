@@ -4,6 +4,7 @@ import { Edit, useCheckboxGroup, useForm, useSelect } from "@refinedev/antd";
 import { supabaseClient } from "@utility/supabase-client";
 import { Checkbox, Form, Input, Select } from "antd";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function UserEdit() {
   const router = useRouter()
@@ -13,9 +14,12 @@ export default function UserEdit() {
       select: ("*, classes(id)"),
     },
   });
+  const [userRole, setUserRole] = useState<String>("");
 
-  const userRole = queryResult?.data?.data.user_role;
-  const userId = queryResult?.data?.data.id;
+  useEffect(() => {
+    setUserRole(queryResult?.data?.data.user_role);
+  }, [queryResult]);
+
   let classId = '';
   if (queryResult?.data?.data.classes !== undefined && queryResult?.data?.data.classes.length > 0) {
     classId = queryResult?.data?.data.classes[0].id;
@@ -48,6 +52,7 @@ export default function UserEdit() {
   });
 
   const handleOnFinish = async (values: any) => {
+    const userId = queryResult?.data?.data.id;
     const classId = values.class_id;
     const teacherClassIds: string[] = values.teacher_class_ids;
 
@@ -82,8 +87,8 @@ export default function UserEdit() {
     <Edit saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical" onFinish={handleOnFinish}>
         <Form.Item
-          label={"Email"}
-          name={["email"]}
+          label={"First Name"}
+          name={["first_name"]}
           rules={[
             {
               required: true,
@@ -93,8 +98,8 @@ export default function UserEdit() {
           <Input />
         </Form.Item>
         <Form.Item
-          label={"Phone Number"}
-          name={["phone_number"]}
+          label={"Last Name"}
+          name={["last_name"]}
           rules={[
             {
               required: true,
@@ -115,8 +120,8 @@ export default function UserEdit() {
           <Input />
         </Form.Item>
         <Form.Item
-          label={"First Name"}
-          name={["first_name"]}
+          label={"Email"}
+          name={["email"]}
           rules={[
             {
               required: true,
@@ -126,8 +131,8 @@ export default function UserEdit() {
           <Input />
         </Form.Item>
         <Form.Item
-          label={"Last Name"}
-          name={["last_name"]}
+          label={"Phone Number"}
+          name={["phone_number"]}
           rules={[
             {
               required: true,
@@ -152,6 +157,7 @@ export default function UserEdit() {
               { value: "teacher", label: "Teacher" },
             ]}
             style={{ width: 120 }}
+            onChange={(v) => setUserRole(v)}
           />
         </Form.Item>
         {userRole === "student" && (

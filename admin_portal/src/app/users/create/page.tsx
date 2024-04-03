@@ -129,7 +129,6 @@ export default function UserCreate() {
           ]}
         >
           <Select
-            defaultValue={"student"}
             options={[
               { value: "student", label: "Student" },
               { value: "parent", label: "Parent" },
