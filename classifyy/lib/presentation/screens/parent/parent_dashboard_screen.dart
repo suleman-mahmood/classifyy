@@ -70,7 +70,8 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen>
               buttonText: 'Teachers',
               iconData: Icons.person_2_outlined,
               onPressed: () {
-                studentTeacherCubit.fetchStudentTeachers();
+                studentTeacherCubit
+                    .fetchStudentTeachers(userCubit.state.selectedChild!.id);
                 context.router.push(const AllTeachersRoute());
               },
             ),
