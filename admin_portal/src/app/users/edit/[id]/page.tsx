@@ -134,11 +134,6 @@ export default function UserEdit() {
         <Form.Item
           label={"Phone Number"}
           name={["phone_number"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
           <Input />
         </Form.Item>
@@ -173,11 +168,6 @@ export default function UserEdit() {
           <Form.Item
             label={"Class"}
             name={"class_id"}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
             initialValue={classId}
           >
             <Select {...classSelectProps} />
