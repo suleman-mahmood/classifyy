@@ -5,9 +5,9 @@ class UserModel {
   final String displayName;
   final String firstName;
   final String lastName;
-  final String loginQr;
+  final String? loginQr;
   final String email;
-  final String phoneNumber;
+  final String? phoneNumber;
   final UserRole userRole;
   final DateTime createdAt;
   final DateTime updatedAt;

@@ -41,7 +41,7 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
                     chatCubit.fetchChatMessages();
                     context.router.push(StudentChatRoute(
                       studentName: student.studentName,
-                      otherUserId: student.id,
+                      otherUserId: student.parentId!,
                     ));
                   },
           ),
@@ -52,7 +52,8 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
     }
 
     return PrimaryLayout(
-      appBarTitle: 'Class ${userCubit.state.selectedClass?.displayName} students',
+      appBarTitle:
+          'Class ${userCubit.state.selectedClass?.displayName} students',
       children: [
         SearchAnchor(
           builder: (
@@ -87,10 +88,12 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       chatCubit.fetchChatMessages();
-                      context.router.push(StudentChatRoute(
-                        studentName: st.studentName,
-                        otherUserId: st.id,
-                      ),);
+                      context.router.push(
+                        StudentChatRoute(
+                          studentName: st.studentName,
+                          otherUserId: st.parentId!,
+                        ),
+                      );
                     },
                   ),
                 );

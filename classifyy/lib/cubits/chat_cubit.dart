@@ -19,8 +19,8 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   Future<void> sendMessage(String text, String otherUserId) async {
-    repository.sendMessage(text, otherUserId);
-    
+    await repository.sendMessage(text, otherUserId);
+
     final chatMessages = state.chatMessages;
     final newMessage = ChatMessage(
       id: '1',

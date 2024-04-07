@@ -1,9 +1,11 @@
 class ClassStudent {
   final String id;
+  final String? parentId;
   final String studentName;
 
   const ClassStudent({
     required this.id,
+    this.parentId,
     required this.studentName,
   });
 
@@ -14,6 +16,7 @@ class ClassStudent {
   factory ClassStudent.fromMap(Map<String, dynamic> map) {
     return ClassStudent(
       id: map['id'],
+      parentId: map['parent_id'],
       studentName: map['display_name'],
     );
   }

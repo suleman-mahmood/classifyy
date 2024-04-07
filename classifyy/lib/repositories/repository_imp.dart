@@ -67,7 +67,7 @@ class ImpRepository implements Repository {
       'id': const UuidV4().generate(),
       'announcer_id': userId!,
       'text': text,
-      'created_at': DateTime.now(),
+      'created_at': DateTime.now().toIso8601String(),
     };
     await supabase.from('announcements').insert(data);
   }
@@ -101,36 +101,43 @@ class ImpRepository implements Repository {
   @override
   Future<List<ChatMessage>> fetchChatMessages() async {
     final chatData = await supabase
-      .from('chat')
-      .select('id')
-      .eq('chat_members(user_id)', userId!);
+        .from('chat')
+        .select('id, chat_members!inner(chat_id, user_id)')
+        .eq('chat_members.user_id)', userId!);
     final chatIds = chatData.map((cd) => cd['id']).toList();
     final data = await supabase
-      .from('chat_messages')
-      .select('*')
-      .inFilter('chat_id', chatIds);
+        .from('chat_messages')
+        .select('*')
+        .inFilter('chat_id', chatIds);
     return ChatMessage.fromMapList(data, userId!);
   }
 
   @override
   Future<void> sendMessage(String message, String otherUserId) async {
-    final myChatData = await supabase
-      .from('chat')
-      .select('id')
-      .eq('chat_members(user_id)', userId!);
-    final myChatIds = myChatData.map((cd) => cd['id']).toList();
-
     final otherChatData = await supabase
-      .from('chat')
-      .select('id')
-      .inFilter('id', myChatIds)
-      .eq('chat_members(user_id)', otherUserId);
+        .from('chat')
+        .select('id, chat_members!inner(chat_id, user_id)')
+        .eq('chat_members.user_id', otherUserId);
+    final myChatData = await supabase
+        .from('chat')
+        .select('id, chat_members!inner(chat_id, user_id)')
+        .eq('chat_members.user_id', userId!);
 
-    late String chatId;
-    if(otherChatData.isNotEmpty) {
-      chatId = otherChatData.first['id'];
-    }
-    else {
+    String? chatId = otherChatData.map<String?>(
+      (ocd) {
+        final matchedChat = myChatData.firstWhere(
+          (mcd) => mcd['id'] == ocd['id'],
+          orElse: () => {'id': null},
+        );
+
+        return matchedChat['id'];
+      },
+    ).firstWhere(
+      (id) => id != null,
+      orElse: () => null,
+    );
+
+    if (chatId == null) {
       // No common chat exists, so create a DM chat with this user
       chatId = const UuidV4().generate();
       await supabase.from('chat').insert({'id': chatId, 'name': ''});
@@ -147,7 +154,7 @@ class ImpRepository implements Repository {
         'id': const UuidV4().generate(),
         'chat_id': chatId,
         'text': message,
-        'sent_at': DateTime.now(),
+        'sent_at': DateTime.now().toIso8601String(),
         'sender_id': userId!
       },
     );

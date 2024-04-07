@@ -66,6 +66,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
 
     List<Announcement> filterAnnouncements(List<Announcement> announcements) {
       if (selectedannouncementType == AnnouncementType.myAnnouncement) {
@@ -99,16 +100,13 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
       }
     }
 
+    Future<void> handleProceed() async {
+      await announcementCubit.createAnnouncement(_textController.text);
+      _textController.clear();
+    }
+
     return PrimaryLayout(
       appBarTitle: 'Announcements',
-      // floatingActionButton: widget.userRole == UserRole.teacher
-      //     ? FloatingActionButton(
-      //         onPressed: () {
-      //           context.router.push(const NewAnnouncementRoute());
-      //         },
-      //         child: const Icon(Icons.add_outlined),
-      //       )
-      //     : null,
       children: [
         SegmentedButton<AnnouncementType>(
           segments: [
@@ -228,15 +226,20 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
                 labelText: "Write something here...",
               ),
               const SizedBox(height: ScreenSizes.slabOne),
-              ButtonPrimary(buttonText: 'Send', onPressed: () {}),
-              // BlocListener<AnnouncementCubit, AnnouncementState>(
-              //   listener: (context, state) {
-              //     if (state is AnnouncementSuccess) {
-              //       context.router.pop();
-              //     }
-              //   },
-              //   child: const SizedBox.shrink(),
-              // )
+              BlocBuilder<AnnouncementCubit, AnnouncementState>(
+                builder: (context, state) {
+                  if (state is AnnouncementLoading) {
+                    return ButtonPrimary(
+                      buttonText: 'Loading..',
+                      onPressed: () {},
+                    );
+                  }
+                  return ButtonPrimary(
+                    buttonText: 'Send',
+                    onPressed: handleProceed,
+                  );
+                },
+              ),
             ],
           )
       ],

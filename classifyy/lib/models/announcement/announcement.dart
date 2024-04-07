@@ -13,7 +13,6 @@ class Announcement {
     required this.id,
     required this.text,
     required this.createdAt,
-    
     required this.announcerId,
     required this.announcerRole,
     this.announcerDisplayName,
@@ -27,9 +26,9 @@ class Announcement {
     return Announcement(
       id: map['id'],
       text: map['text'],
-      createdAt: map['created_at'],
+      createdAt: DateTime.parse(map['created_at']),
       announcerId: map['announcer_id'],
-      announcerRole: map['users.user_role'],
+      announcerRole: UserRole.values.byName(map['users']['user_role']),
       announcerDisplayName: map['users.display_name'],
     );
   }
