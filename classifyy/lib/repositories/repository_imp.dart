@@ -76,23 +76,23 @@ class ImpRepository implements Repository {
   Future<List<ClassStudent>> fetchClassStudents(String classId) async {
     final data = await supabase
         .from('users')
-        .select('*, users_classes(class_id)')
+        .select('*, users_classes!inner(class_id)')
         .eq('users_classes.class_id', classId)
         .eq('user_role', 'student');
     return ClassStudent.fromMapList(data);
   }
 
   @override
-  Future<List<StudentTeacher>> fetchStudentTeachers() async {
+  Future<List<StudentTeacher>> fetchStudentTeachers(String childId) async {
     final classData = await supabase
         .from('users_classes')
         .select('class_id')
-        .eq('user_id', userId!);
+        .eq('user_id', childId);
     final classIds = classData.map((d) => d['class_id']).toList();
 
     final data = await supabase
         .from('users')
-        .select('*, users_classes(class_id)')
+        .select('*, users_classes!inner(class_id)')
         .inFilter('users_classes.class_id', classIds)
         .eq('user_role', 'teacher');
     return StudentTeacher.fromMapList(data);
