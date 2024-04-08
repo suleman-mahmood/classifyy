@@ -6,12 +6,14 @@ class PrimaryLayout extends StatefulWidget {
   final List<Widget> children;
   final String appBarTitle;
   final FloatingActionButton? floatingActionButton;
+  final bool useStack;
 
   const PrimaryLayout({
     super.key,
     this.children = const [],
     required this.appBarTitle,
     this.floatingActionButton,
+    this.useStack = false,
   });
 
   @override
@@ -19,6 +21,15 @@ class PrimaryLayout extends StatefulWidget {
 }
 
 class _PrimaryLayoutState extends State<PrimaryLayout> {
+  Widget buildCol() {
+    if (widget.useStack) {
+      return Stack(
+        children: widget.children,
+      );
+    }
+    return Column(children: widget.children);
+  }
+
   @override
   Widget build(BuildContext context) {
     return RootLayout(
@@ -32,9 +43,7 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
             width: ScreenSizes.widthSlabFourRel(context),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: widget.children,
-              ),
+              child: buildCol(),
             ),
           ),
         ),

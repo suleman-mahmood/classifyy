@@ -101,120 +101,129 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
     }
 
     Future<void> handleProceed() async {
+      if (_textController.text.isEmpty) return;
       await announcementCubit.createAnnouncement(_textController.text);
       _textController.clear();
     }
 
     return PrimaryLayout(
       appBarTitle: 'Announcements',
+      useStack: true,
       children: [
-        SegmentedButton<AnnouncementType>(
-          segments: [
-            if (widget.userRole == UserRole.teacher)
-              const ButtonSegment(
-                value: AnnouncementType.myAnnouncement,
-                label: Text('My'),
-              ),
-            const ButtonSegment(
-              value: AnnouncementType.classAnnouncement,
-              label: Text('Class'),
-            ),
-            const ButtonSegment(
-              value: AnnouncementType.schoolAdminAnnouncement,
-              label: Text('School admin'),
-            ),
-          ],
-          showSelectedIcon: false,
-          selected: <AnnouncementType>{selectedannouncementType},
-          onSelectionChanged: (Set<AnnouncementType> newSelection) {
-            setState(() {
-              selectedannouncementType = newSelection.first;
-            });
-          },
-        ),
-        const SizedBox(height: ScreenSizes.slabOne),
-        BlocBuilder<AnnouncementCubit, AnnouncementState>(
-          builder: (context, state) {
-            if (state is AnnouncementLoading) {
-              return Opacity(
-                opacity: 0.5,
-                child: SizedBox(
-                  height: ScreenSizes.widthSlabOneRel(context),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Some important announcement'),
-                          const Expanded(child: SizedBox.shrink()),
-                          Row(
-                            children: [
-                              const Text('From: Someone else'),
-                              const Expanded(child: SizedBox.shrink()),
-                              Text(GetTimeAgo.parse(
-                                  DateTime.now().subtract(1.minutes)))
-                            ],
-                          )
-                        ],
-                      ),
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              SegmentedButton<AnnouncementType>(
+                segments: [
+                  if (widget.userRole == UserRole.teacher)
+                    const ButtonSegment(
+                      value: AnnouncementType.myAnnouncement,
+                      label: Text('My'),
                     ),
+                  const ButtonSegment(
+                    value: AnnouncementType.classAnnouncement,
+                    label: Text('Class'),
                   ),
-                )
-                    .animate(onPlay: (controller) => controller.repeat())
-                    .shimmer(duration: 1.seconds),
-              );
-            }
-            if (state is AnnouncementSuccess) {
-              final ann = filterAnnouncements(state.announcements);
-
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: ann.length,
-                itemBuilder: (context, index) {
-                  final item = ann[index];
-
-                  return SizedBox(
-                    height: ScreenSizes.widthSlabOneRel(context),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 16,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(item.text),
-                            const Expanded(child: SizedBox.shrink()),
-                            Row(
-                              children: [
-                                if (item.announcerDisplayName != null &&
-                                    selectedannouncementType !=
-                                        AnnouncementType.myAnnouncement)
-                                  Text('From: ${item.announcerDisplayName!}'),
-                                const Expanded(child: SizedBox.shrink()),
-                                Text(GetTimeAgo.parse(item.createdAt))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                  const ButtonSegment(
+                    value: AnnouncementType.schoolAdminAnnouncement,
+                    label: Text('School admin'),
+                  ),
+                ],
+                showSelectedIcon: false,
+                selected: <AnnouncementType>{selectedannouncementType},
+                onSelectionChanged: (Set<AnnouncementType> newSelection) {
+                  setState(() {
+                    selectedannouncementType = newSelection.first;
+                  });
                 },
-              );
-            }
-            return const SizedBox.shrink();
-          },
+              ),
+              const SizedBox(height: ScreenSizes.slabOne),
+              BlocBuilder<AnnouncementCubit, AnnouncementState>(
+                builder: (context, state) {
+                  if (state is AnnouncementLoading) {
+                    return Opacity(
+                      opacity: 0.5,
+                      child: SizedBox(
+                        height: ScreenSizes.widthSlabOneRel(context),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 16,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Some important announcement'),
+                                const Expanded(child: SizedBox.shrink()),
+                                Row(
+                                  children: [
+                                    const Text('From: Someone else'),
+                                    const Expanded(child: SizedBox.shrink()),
+                                    Text(GetTimeAgo.parse(
+                                        DateTime.now().subtract(1.minutes)))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                          .animate(onPlay: (controller) => controller.repeat())
+                          .shimmer(duration: 1.seconds),
+                    );
+                  }
+                  if (state is AnnouncementSuccess) {
+                    final ann = filterAnnouncements(state.announcements);
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: ann.length,
+                      itemBuilder: (context, index) {
+                        final item = ann[index];
+
+                        return SizedBox(
+                          height: ScreenSizes.widthSlabOneRel(context),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 16,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(item.text),
+                                  const Expanded(child: SizedBox.shrink()),
+                                  Row(
+                                    children: [
+                                      if (item.announcerDisplayName != null &&
+                                          selectedannouncementType !=
+                                              AnnouncementType.myAnnouncement)
+                                        Text(
+                                            'From: ${item.announcerDisplayName!}'),
+                                      const Expanded(child: SizedBox.shrink()),
+                                      Text(GetTimeAgo.parse(item.createdAt))
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
         ),
-        const Expanded(child: SizedBox.shrink()),
         if (selectedannouncementType == AnnouncementType.myAnnouncement &&
             widget.userRole == UserRole.teacher)
           Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TitleLarge(
                 title:
