@@ -29,7 +29,7 @@ class Announcement {
       createdAt: DateTime.parse(map['created_at']),
       announcerId: map['announcer_id'],
       announcerRole: UserRole.values.byName(map['users']['user_role']),
-      announcerDisplayName: map['users.display_name'],
+      announcerDisplayName: map['users']['display_name'],
     );
   }
 }

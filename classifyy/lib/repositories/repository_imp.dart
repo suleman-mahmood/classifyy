@@ -31,7 +31,7 @@ class ImpRepository implements Repository {
 
     final data = await supabase
         .from('classes')
-        .select('*, users(id)')
+        .select('*, users!inner(id)')
         .eq('users.id', userId!);
     return TeacherClass.fromMapList(data);
   }
@@ -55,7 +55,7 @@ class ImpRepository implements Repository {
       int startIndex, int endIndex) async {
     final data = await supabase
         .from('announcements')
-        .select('*, users(id, display_name, user_role)')
+        .select('*, users!inner(id, display_name, user_role)')
         .order('created_at', ascending: false)
         .limit(100); // TODO: Pagination
     return Announcement.fromMapList(data);

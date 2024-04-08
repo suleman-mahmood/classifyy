@@ -15,7 +15,7 @@ class ErrorMessage extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 24,
+        fontSize: 16,
         color: Colors.red[500],
       ),
       textAlign: textAlign,
