@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
+            VALUE "CompanyName", "io.classifyy" "\0"
             VALUE "FileDescription", "classifyy" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "classifyy" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 io.classifyy. All rights reserved." "\0"
             VALUE "OriginalFilename", "classifyy.exe" "\0"
             VALUE "ProductName", "classifyy" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
