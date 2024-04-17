@@ -82,7 +82,12 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex) {
+  Future<List<Announcement>> fetchAnnouncements(
+    int startIndex,
+    int endIndex, {
+    String? studentId,
+    String? classId,
+  }) {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [

@@ -52,10 +52,26 @@ class ImpRepository implements Repository {
 
   @override
   Future<List<Announcement>> fetchAnnouncements(
-      int startIndex, int endIndex) async {
+    int startIndex,
+    int endIndex, {
+    String? studentId,
+    String? classId,
+  }) async {
+    if (studentId == null && classId == null) {
+      return Future.value([]);
+    }
+    if (studentId != null) {
+      final studentClass = await supabase
+          .from('classes')
+          .select('*, users!inner(id)')
+          .eq('users.id', studentId)
+          .single();
+      classId = studentClass['id'];
+    }
     final data = await supabase
         .from('announcements')
         .select('*, users!inner(id, display_name, user_role)')
+        .eq('class_id', classId!)
         .order('created_at', ascending: false)
         .limit(100); // TODO: Pagination
     return Announcement.fromMapList(data);

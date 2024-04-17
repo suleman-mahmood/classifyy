@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:classifyy/models/announcement/announcement.dart';
-import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 
 part 'announcement_state.dart';
@@ -10,12 +9,19 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
 
   AnnouncementCubit(this.repository) : super(const AnnouncementInitial());
 
-  Future<void> fetchAnnouncements(int startIndex, int endIndex) async {
+  Future<void> fetchAnnouncements(
+    int startIndex,
+    int endIndex, {
+    String? classId,
+    String? studentId,
+  }) async {
     emit(const AnnouncementLoading());
 
     final announcements = await repository.fetchAnnouncements(
       startIndex,
       endIndex,
+      classId: classId,
+      studentId: studentId,
     );
 
     emit(AnnouncementSuccess(announcements: announcements));
@@ -29,6 +35,7 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
     final announcements = await repository.fetchAnnouncements(
       startIndex,
       endIndex,
+      classId: classId,
     );
 
     emit(AnnouncementSuccess(announcements: announcements));
