@@ -62,10 +62,11 @@ class ImpRepository implements Repository {
   }
 
   @override
-  Future<void> createAnnouncement(String text) async {
+  Future<void> createAnnouncement(String text, String? classId) async {
     final data = {
       'id': const UuidV4().generate(),
       'announcer_id': userId!,
+      if (classId != null) 'class_id': classId,
       'text': text,
       'created_at': DateTime.now().toIso8601String(),
     };

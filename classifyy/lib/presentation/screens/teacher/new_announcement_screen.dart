@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/announcement_cubit.dart';
+import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
@@ -47,10 +48,14 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
 
   @override
   Widget build(BuildContext context) {
+    final userCubit = BlocProvider.of<UserCubit>(context);
     final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
 
     Future<void> handleProceed() async {
-      await announcementCubit.createAnnouncement(_textController.text);
+      await announcementCubit.createAnnouncement(
+        _textController.text,
+        classId: userCubit.state.selectedClass!.id,
+      );
     }
 
     return PrimaryLayout(

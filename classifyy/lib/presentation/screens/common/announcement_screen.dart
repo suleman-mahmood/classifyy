@@ -102,7 +102,10 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
 
     Future<void> handleProceed() async {
       if (_textController.text.isEmpty) return;
-      await announcementCubit.createAnnouncement(_textController.text);
+      await announcementCubit.createAnnouncement(
+        _textController.text,
+        classId: userCubit.state.selectedClass!.id,
+      );
       _textController.clear();
     }
 

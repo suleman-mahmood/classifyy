@@ -117,7 +117,7 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<void> createAnnouncement(String text) async {
+  Future<void> createAnnouncement(String text, String? classId) async {
     return Future.delayed(
       const Duration(seconds: 1),
       () {},

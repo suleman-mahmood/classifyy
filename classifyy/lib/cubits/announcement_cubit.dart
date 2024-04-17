@@ -22,10 +22,10 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
   }
 
   Future<void> createAnnouncement(String text,
-      {int startIndex = 0, int endIndex = 100}) async {
+      {String? classId, int startIndex = 0, int endIndex = 100}) async {
     emit(AnnouncementLoading(announcements: state.announcements));
 
-    await repository.createAnnouncement(text);
+    await repository.createAnnouncement(text, classId);
     final announcements = await repository.fetchAnnouncements(
       startIndex,
       endIndex,

@@ -27,7 +27,7 @@ abstract class Repository {
 
   Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex);
 
-  Future<void> createAnnouncement(String text);
+  Future<void> createAnnouncement(String text, String? classId);
 
   // Chat
 
