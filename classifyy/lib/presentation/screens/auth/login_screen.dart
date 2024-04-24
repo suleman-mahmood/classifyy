@@ -12,9 +12,11 @@ import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
 import 'package:classifyy/presentation/widgets/typography/error_message.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -86,6 +88,28 @@ class LoginScreen extends StatelessWidget {
                         }
                         return ErrorMessage(text: state.errorMessage);
                       },
+                    ),
+                    const SizedBox(height: ScreenSizes.slabTwo),
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          const TextSpan(
+                            text: "* by signing in you agree to our ",
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                          TextSpan(
+                            text: 'terms & conditions',
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launchUrlString(
+                                    'https://classifyy.vercel.app/privacy-policy',
+                                  ),
+                          )
+                        ],
+                      ),
                     ),
                     const SizedBox(height: ScreenSizes.slabTwo),
                     ButtonPrimary(
