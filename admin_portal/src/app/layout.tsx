@@ -1,3 +1,4 @@
+import "./globals.css";
 import { useNotificationProvider } from "@refinedev/antd";
 import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
@@ -36,41 +37,41 @@ export default function RootLayout({
           <RefineKbarProvider>
             <AntdRegistry>
               <ColorModeContextProvider defaultMode={defaultMode}>
-                  <Refine
-                    routerProvider={routerProvider}
-                    authProvider={authProvider}
-                    dataProvider={dataProvider}
-                    notificationProvider={useNotificationProvider}
-                    resources={[
-                      {
-                        name: "users",
-                        list: "/users",
-                        create: "/users/create",
-                        edit: "/users/edit/:id",
-                        meta: {
-                          canDelete: true,
-                        },
+                <Refine
+                  routerProvider={routerProvider}
+                  authProvider={authProvider}
+                  dataProvider={dataProvider}
+                  notificationProvider={useNotificationProvider}
+                  resources={[
+                    {
+                      name: "users",
+                      list: "/users",
+                      create: "/users/create",
+                      edit: "/users/edit/:id",
+                      meta: {
+                        canDelete: true,
                       },
-                      {
-                        name: "classes",
-                        list: "/classes",
-                        create: "/classes/create",
-                        edit: "/classes/edit/:id",
-                        meta: {
-                          canDelete: true,
-                        },
+                    },
+                    {
+                      name: "classes",
+                      list: "/classes",
+                      create: "/classes/create",
+                      edit: "/classes/edit/:id",
+                      meta: {
+                        canDelete: true,
                       },
-                    ]}
-                    options={{
-                      syncWithLocation: true,
-                      warnWhenUnsavedChanges: true,
-                      useNewQueryKeys: true,
-                      projectId: "p8hhTx-4uRbEq-nUE0Oc",
-                    }}
-                  >
-                    {children}
-                    <RefineKbar />
-                  </Refine>
+                    },
+                  ]}
+                  options={{
+                    syncWithLocation: true,
+                    warnWhenUnsavedChanges: true,
+                    useNewQueryKeys: true,
+                    projectId: "p8hhTx-4uRbEq-nUE0Oc",
+                  }}
+                >
+                  {children}
+                  <RefineKbar />
+                </Refine>
               </ColorModeContextProvider>
             </AntdRegistry>
           </RefineKbarProvider>
