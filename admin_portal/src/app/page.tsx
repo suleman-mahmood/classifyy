@@ -1,6 +1,5 @@
 "use client";
 
-import "global.css";
 import { Suspense } from "react";
 
 import { Authenticated } from "@refinedev/core";
