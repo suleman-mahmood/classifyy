@@ -134,11 +134,31 @@ class FakeRepository implements Repository {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [
-        const ClassStudent(id: '1', studentName: 'Abdullah Khan'),
-        const ClassStudent(id: '2', studentName: 'Fawaz Ahmad'),
-        const ClassStudent(id: '3', studentName: 'Shah Faraz ul Haq'),
-        const ClassStudent(id: '4', studentName: 'Ahmed Sheikhani'),
-        const ClassStudent(id: '5', studentName: 'Mahnoor Malik'),
+        const ClassStudent(
+          id: '1',
+          studentName: 'Abdullah Khan',
+          parentId: "p-1",
+        ),
+        const ClassStudent(
+          id: '2',
+          studentName: 'Fawaz Ahmad',
+          parentId: "p-1",
+        ),
+        const ClassStudent(
+          id: '3',
+          studentName: 'Shah Faraz ul Haq',
+          parentId: "p-1",
+        ),
+        const ClassStudent(
+          id: '4',
+          studentName: 'Ahmed Sheikhani',
+          parentId: "p-1",
+        ),
+        const ClassStudent(
+          id: '5',
+          studentName: 'Mahnoor Malik',
+          parentId: "p-1",
+        ),
       ],
     );
   }
