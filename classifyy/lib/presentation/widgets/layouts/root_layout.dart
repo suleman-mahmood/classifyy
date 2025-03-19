@@ -1,6 +1,4 @@
 import 'package:classifyy/cubits/user_cubit.dart';
-import 'package:classifyy/locator.dart';
-import 'package:classifyy/presentation/config/listeners.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,32 +17,37 @@ class _RootLayoutState extends State<RootLayout> {
   void initState() {
     super.initState();
 
-    locator<Listeners>().registerAuthListener(context);
+    // locator<Listeners>().registerAuthListener(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget buildLoader() {
-      return Container(
-        color: Colors.grey.withOpacity(0.5),
-        width: ScreenSizes.heightFullRel(context),
-      );
-    }
-
     return Stack(
       children: [
         widget.child,
         BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             switch (state.runtimeType) {
-              case UserLoading:
-                return buildLoader();
+              case const (UserLoading):
+                return PageLoader();
               default:
                 return const SizedBox.shrink();
             }
           },
         ),
       ],
+    );
+  }
+}
+
+class PageLoader extends StatelessWidget {
+  const PageLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey.withValues(alpha: 0.5),
+      width: ScreenSizes.heightFullRel(context),
     );
   }
 }

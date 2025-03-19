@@ -10,11 +10,12 @@ import 'package:classifyy/repositories/repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/v4.dart';
 
-class ImpRepository implements Repository {
+@Deprecated("Migrated out of Supabase")
+class SupabaseImpRepository implements Repository {
   @override
   String? userId;
 
-  ImpRepository({this.userId});
+  SupabaseImpRepository({this.userId});
 
   @override
   Future<void> loginUser(String email, String password) async {

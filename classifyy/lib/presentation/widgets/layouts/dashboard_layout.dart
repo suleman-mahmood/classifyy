@@ -49,7 +49,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                 const SizedBox(height: ScreenSizes.slabThree),
                 ButtonPrimary(
                   buttonText: 'Yes!',
-                  onPressed: supabase.auth.signOut,
+                  onPressed: userCubit.logoutUser,
                 ),
                 const SizedBox(height: ScreenSizes.slabThree),
               ],
@@ -80,7 +80,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                       child: ListTile(
                         title: const Text('Logout'),
                         trailing: const Icon(Icons.logout_outlined),
-                        onTap: supabase.auth.signOut,
+                        onTap: userCubit.logoutUser,
                       ),
                     ),
                     Card(

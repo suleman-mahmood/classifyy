@@ -52,4 +52,10 @@ class UserCubit extends Cubit<UserState> {
       selectedClass: selectedClass,
     ));
   }
+
+  Future<void> logoutUser() async {
+    // TODO: Complete Impl
+    // supabase.auth.signOut
+    emit(UserSuccess());
+  }
 }
