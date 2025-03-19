@@ -14,20 +14,17 @@ import 'package:flutter/material.dart';
 part 'app_router.gr.dart';
 
 @AutoRouterConfig()
-class AppRouter extends _$AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: LoginRoute.page, initial: true),
-        
         AutoRoute(page: TeacherDashboardRoute.page),
         AutoRoute(page: ParentDashboardRoute.page),
         AutoRoute(page: StudentDashboardRoute.page),
-
         AutoRoute(page: AnnouncementRoute.page),
         AutoRoute(page: NewAnnouncementRoute.page),
         AutoRoute(page: StudentChatRoute.page),
         AutoRoute(page: AllStudentsRoute.page),
-
         AutoRoute(page: AllTeachersRoute.page),
       ];
 }

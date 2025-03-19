@@ -16,7 +16,7 @@ Future<void> initializeDependencies() async {
   );
 
   locator.registerSingleton<Repository>(
-    kDebugMode ? ImpRepository() : ImpRepository(),
+    kDebugMode ? FakeRepository() : ImpRepository(),
   );
 
   locator.registerSingleton<Listeners>(Listeners());
