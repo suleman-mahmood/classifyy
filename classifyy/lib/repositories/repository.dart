@@ -11,6 +11,8 @@ abstract class Repository {
 
   Repository({this.userId});
 
+  // User
+
   Future<String> loginUser(String email, String password);
 
   Future<UserModel> getUser(String id);
