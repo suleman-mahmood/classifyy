@@ -28,13 +28,11 @@ class UserCubit extends Cubit<UserState> {
     emit(const UserLoading());
 
     try {
-      await repository.loginUser(email, password);
+      final id = await repository.loginUser(email, password);
+      fetchUser(id);
     } on AuthException catch (e) {
       emit(UserFailure(errorMessage: e.message));
-      return;
     }
-
-    emit(const UserSuccess());
   }
 
   Future<void> selectChild(ParentChild student) async {
@@ -56,6 +54,6 @@ class UserCubit extends Cubit<UserState> {
   Future<void> logoutUser() async {
     // TODO: Complete Impl
     // supabase.auth.signOut
-    emit(UserSuccess());
+    emit(UserLogoutSuccess());
   }
 }

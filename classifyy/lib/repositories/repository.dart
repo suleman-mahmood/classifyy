@@ -11,7 +11,7 @@ abstract class Repository {
 
   Repository({this.userId});
 
-  Future<void> loginUser(String email, String password);
+  Future<String> loginUser(String email, String password);
 
   Future<UserModel> getUser(String id);
 
@@ -25,7 +25,12 @@ abstract class Repository {
 
   // Announcements
 
-  Future<List<Announcement>> fetchAnnouncements(int startIndex, int endIndex, {String? studentId, String? classId});
+  Future<List<Announcement>> fetchAnnouncements(
+    int startIndex,
+    int endIndex, {
+    String? studentId,
+    String? classId,
+  });
 
   Future<void> createAnnouncement(String text, String? classId);
 

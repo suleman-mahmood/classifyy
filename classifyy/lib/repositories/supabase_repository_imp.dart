@@ -6,13 +6,11 @@ import 'package:classifyy/models/user/class_student.dart';
 import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
-import 'package:classifyy/repositories/repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/v4.dart';
 
 @Deprecated("Migrated out of Supabase")
-class SupabaseImpRepository implements Repository {
-  @override
+class SupabaseImpRepository {
   String? userId;
 
   SupabaseImpRepository({this.userId});

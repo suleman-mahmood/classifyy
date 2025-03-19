@@ -28,6 +28,10 @@ final class UserSuccess extends UserState {
   const UserSuccess({super.user, super.selectedChild, super.selectedClass});
 }
 
+final class UserLogoutSuccess extends UserState {
+  const UserLogoutSuccess();
+}
+
 final class UserFailure extends UserState {
   const UserFailure({super.errorMessage});
 }

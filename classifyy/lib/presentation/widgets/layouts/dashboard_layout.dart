@@ -26,8 +26,6 @@ class _DashboardLayoutState extends State<DashboardLayout> {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
-    final classCubit = BlocProvider.of<ClassCubit>(context);
-    final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
     Widget buildBottomSheet(BuildContext context) {
       return SizedBox(
@@ -93,7 +91,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                         },
                       ),
                     ),
-                  ]
+                  ],
                 ],
               ),
             ),
@@ -133,8 +131,6 @@ class DropdownAppBar extends StatefulWidget {
 
 class _DropdownAppBarState extends State<DropdownAppBar> {
   bool showAdditionalClasses = false;
-  ParentChild? _selectedChild;
-  TeacherClass? _selectedClass;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +149,6 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
                     setState(() {
                       userCubit.selectChild(st);
                       showAdditionalClasses = false;
-                      _selectedChild = st;
                     });
                   },
                 ))
@@ -175,7 +170,6 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
                 setState(() {
                   userCubit.selectClass(cl);
                   showAdditionalClasses = false;
-                  _selectedClass = cl;
                 });
               },
             ),

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
+import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +36,18 @@ class _RootLayoutState extends State<RootLayout> {
                 return const SizedBox.shrink();
             }
           },
+        ),
+        BlocListener<UserCubit, UserState>(
+          listener: (context, state) {
+            switch (state.runtimeType) {
+              case const (UserLogoutSuccess):
+                context.router.pushAndPopUntil(
+                  LoginRoute(),
+                  predicate: (_) => false,
+                );
+            }
+          },
+          child: const SizedBox.shrink(),
         ),
       ],
     );
