@@ -6,7 +6,6 @@ import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/dashboard_button.dart';
 import 'package:classifyy/presentation/widgets/layouts/dashboard_layout.dart';
-import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

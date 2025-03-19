@@ -5,10 +5,10 @@ class ErrorMessage extends StatelessWidget {
   final TextAlign textAlign;
 
   const ErrorMessage({
-    Key? key,
+    super.key,
     required this.text,
     this.textAlign = TextAlign.left,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

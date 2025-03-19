@@ -7,11 +7,11 @@ class TitleLarge extends StatelessWidget {
   final TextAlign textAlign;
 
   const TitleLarge({
-    Key? key,
+    super.key,
     required this.title,
     this.shouldAnimate = true,
     this.textAlign = TextAlign.left,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

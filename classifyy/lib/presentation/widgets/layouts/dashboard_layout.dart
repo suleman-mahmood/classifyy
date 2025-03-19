@@ -1,12 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
-import 'package:classifyy/locator.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
-import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
 import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';

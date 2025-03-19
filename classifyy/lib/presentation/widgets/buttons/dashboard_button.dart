@@ -8,12 +8,12 @@ class DashboardButton extends StatelessWidget {
   final bool shouldAnimate;
 
   const DashboardButton({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.onPressed,
     required this.iconData,
     this.shouldAnimate = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,10 @@ class DashboardButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(
+          padding: WidgetStateProperty.all(
             const EdgeInsets.all(24),
           ),
-          shape: MaterialStateProperty.all(
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             )

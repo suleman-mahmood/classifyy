@@ -123,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                       },
                       listener: (context, state) {
                         switch (state.runtimeType) {
-                          case UserSuccess:
+                          case const (UserSuccess):
                             if (state.user!.userRole == UserRole.teacher) {
                               classCubit.fetchClasses();
                             } else if (state.user!.userRole ==

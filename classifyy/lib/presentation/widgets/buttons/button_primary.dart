@@ -8,12 +8,12 @@ class ButtonPrimary extends StatelessWidget {
   final bool disabled;
 
   const ButtonPrimary({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.onPressed,
     this.shouldAnimate = true,
     this.disabled = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ButtonPrimary extends StatelessWidget {
       child: FilledButton(
         style: ButtonStyle(
           backgroundColor:
-              disabled ? const MaterialStatePropertyAll(Colors.grey) : null,
+              disabled ? const WidgetStatePropertyAll(Colors.grey) : null,
         ),
         onPressed: onPressed,
         child: Text(buttonText),

@@ -6,11 +6,11 @@ class TextFieldChat extends StatelessWidget {
   final TextEditingController controller;
 
   const TextFieldChat({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.onPressed,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -5,10 +5,10 @@ class TextFieldPrimary extends StatelessWidget {
   final TextEditingController controller;
 
   const TextFieldPrimary({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

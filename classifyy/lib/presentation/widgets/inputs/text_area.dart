@@ -5,10 +5,10 @@ class TextArea extends StatelessWidget {
   final TextEditingController? controller;
 
   const TextArea({
-    Key? key,
+    super.key,
     required this.labelText,
     this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

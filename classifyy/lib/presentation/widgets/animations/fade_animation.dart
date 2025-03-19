@@ -5,10 +5,10 @@ class FadeAnimation extends StatefulWidget {
   final bool shouldAnimate;
 
   const FadeAnimation({
-    Key? key,
+    super.key,
     required this.child,
     this.shouldAnimate = true,
-  }) : super(key: key);
+  });
 
   @override
   State<FadeAnimation> createState() => _FadeAnimationState();
