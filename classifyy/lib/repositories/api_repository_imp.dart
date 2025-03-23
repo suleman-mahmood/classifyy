@@ -35,27 +35,30 @@ class ApiImpRepository implements Repository {
 
   @override
   Future<UserModel> getUser(String id) async {
-    final res = await _dio.get('/user', queryParameters: {"user_id": userId});
+    final res = await _dio.get(
+      '/user',
+      queryParameters: {"user_id": userId},
+    );
     return UserModel.fromMap(res.data);
   }
 
   @override
-  Future<List<TeacherClass>> fetchClasses() {
+  Future<List<TeacherClass>> fetchClasses() async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<ParentChild>> fetchChildren() {
+  Future<List<ParentChild>> fetchChildren() async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<ClassStudent>> fetchClassStudents(String classId) {
+  Future<List<ClassStudent>> fetchClassStudents(String classId) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<StudentTeacher>> fetchStudentTeachers(String childId) {
+  Future<List<StudentTeacher>> fetchStudentTeachers(String childId) async {
     throw UnimplementedError();
   }
 
@@ -67,34 +70,34 @@ class ApiImpRepository implements Repository {
     int endIndex, {
     String? studentId,
     String? classId,
-  }) {
+  }) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> createAnnouncement(String text, String? classId) {
+  Future<void> createAnnouncement(String text, String? classId) async {
     throw UnimplementedError();
   }
 
   // Chat
 
   @override
-  Future<List<ChatMessage>> fetchChatMessages() {
+  Future<List<ChatMessage>> fetchChatMessages() async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<ClassStudent>> fetchUnreadChats() {
+  Future<List<ClassStudent>> fetchUnreadChats() async {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendMessage(String message, String otherUserId) {
+  Future<void> sendMessage(String message, String otherUserId) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> markChatRead(String chatId) {
+  Future<void> markChatRead(String chatId) async {
     throw UnimplementedError();
   }
 }
