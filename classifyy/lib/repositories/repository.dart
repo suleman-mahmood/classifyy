@@ -7,9 +7,9 @@ import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 
 abstract class Repository {
-  String? userId;
+  late String userId;
 
-  Repository({this.userId});
+  Repository();
 
   // User
 

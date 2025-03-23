@@ -9,12 +9,13 @@ import 'package:classifyy/repositories/repository.dart';
 
 class FakeRepository implements Repository {
   @override
-  String? userId;
+  late String userId;
 
-  FakeRepository({this.userId});
+  FakeRepository();
 
   @override
   Future<String> loginUser(String email, String password) {
+    userId = "test-user-id";
     return Future.delayed(
       const Duration(seconds: 1),
       () => email,
@@ -55,16 +56,11 @@ class FakeRepository implements Repository {
       () => UserModel(
         id: 'user_1',
         displayName: '',
-        firstName: '',
-        lastName: '',
-        loginQr: '',
         email: '',
         phoneNumber: '',
         userRole: id == 'te'
-            ? UserRole.teacher
-            : (id == 'pa' ? UserRole.parent : UserRole.student),
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+            ? UserRole.Teacher
+            : (id == 'pa' ? UserRole.Parent : UserRole.Student),
       ),
     );
   }
@@ -97,7 +93,7 @@ class FakeRepository implements Repository {
           createdAt: DateTime.now().subtract(const Duration(days: 1)),
           announcerId: 'user_1',
           announcerDisplayName: 'Momin Ahmed',
-          announcerRole: UserRole.teacher,
+          announcerRole: UserRole.Teacher,
         ),
         Announcement(
           id: '2',
@@ -105,7 +101,7 @@ class FakeRepository implements Repository {
           createdAt: DateTime.now().subtract(const Duration(hours: 5)),
           announcerId: 'user_2',
           announcerDisplayName: 'Imtiaz Bahadur',
-          announcerRole: UserRole.teacher,
+          announcerRole: UserRole.Teacher,
         ),
         Announcement(
           id: '3',
@@ -115,7 +111,7 @@ class FakeRepository implements Repository {
             hours: 10,
           )),
           announcerId: 'user_3',
-          announcerRole: UserRole.school_admin,
+          announcerRole: UserRole.SchoolAdmin,
         ),
       ],
     );

@@ -64,8 +64,8 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               child: Column(
                 children: [
                   if (currentPageIndex == 0) ...[
-                    if (userCubit.state.user?.userRole == UserRole.parent ||
-                        userCubit.state.user?.userRole == UserRole.teacher)
+                    if (userCubit.state.user?.userRole == UserRole.Parent ||
+                        userCubit.state.user?.userRole == UserRole.Teacher)
                       const DropdownAppBar(),
                     ...widget.children,
                   ],
@@ -139,7 +139,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
     final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
     Widget buildOptions() {
-      if (userCubit.state.user?.userRole == UserRole.parent) {
+      if (userCubit.state.user?.userRole == UserRole.Parent) {
         final children = childrenCubit.state.children
             .where((st) =>
                 st.displayName != userCubit.state.selectedChild!.displayName)
@@ -192,7 +192,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
               'Current ${userCubit.state.user?.userRoleToSelectTitle()}',
             ),
             subtitle: Text(
-              userCubit.state.user?.userRole == UserRole.parent
+              userCubit.state.user?.userRole == UserRole.Parent
                   ? userCubit.state.selectedChild!.displayName
                   : userCubit.state.selectedClass!.displayName,
             ),

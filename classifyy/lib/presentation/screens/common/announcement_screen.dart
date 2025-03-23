@@ -52,7 +52,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
       curve: Curves.easeInOut,
     );
 
-    selectedannouncementType = widget.userRole == UserRole.teacher
+    selectedannouncementType = widget.userRole == UserRole.Teacher
         ? AnnouncementType.myAnnouncement
         : AnnouncementType.classAnnouncement;
   }
@@ -78,10 +78,10 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
         return announcements
             .where(
               (ann) =>
-                  (widget.userRole == UserRole.teacher
+                  (widget.userRole == UserRole.Teacher
                       ? ann.announcerId != userCubit.state.user!.id
                       : true) &&
-                  ann.announcerRole == UserRole.teacher,
+                  ann.announcerRole == UserRole.Teacher,
             )
             .toList();
       } else if (selectedannouncementType ==
@@ -89,10 +89,10 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
         return announcements
             .where(
               (ann) =>
-                  (widget.userRole == UserRole.teacher
+                  (widget.userRole == UserRole.Teacher
                       ? ann.announcerId != userCubit.state.user!.id
                       : true) &&
-                  ann.announcerRole == UserRole.school_admin,
+                  ann.announcerRole == UserRole.SchoolAdmin,
             )
             .toList();
       } else {
@@ -118,7 +118,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
             children: [
               SegmentedButton<AnnouncementType>(
                 segments: [
-                  if (widget.userRole == UserRole.teacher)
+                  if (widget.userRole == UserRole.Teacher)
                     const ButtonSegment(
                       value: AnnouncementType.myAnnouncement,
                       label: Text('My'),
@@ -224,7 +224,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
           ),
         ),
         if (selectedannouncementType == AnnouncementType.myAnnouncement &&
-            widget.userRole == UserRole.teacher)
+            widget.userRole == UserRole.Teacher)
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

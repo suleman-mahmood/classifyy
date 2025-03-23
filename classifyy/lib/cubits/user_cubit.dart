@@ -3,6 +3,7 @@ import 'package:classifyy/models/user/teacher_class.dart';
 import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -30,8 +31,9 @@ class UserCubit extends Cubit<UserState> {
     try {
       final id = await repository.loginUser(email, password);
       fetchUser(id);
-    } on AuthException catch (e) {
-      emit(UserFailure(errorMessage: e.message));
+    } on DioException catch (e) {
+      print(e.response);
+      emit(UserFailure(errorMessage: "Wrong email or password"));
     }
   }
 
