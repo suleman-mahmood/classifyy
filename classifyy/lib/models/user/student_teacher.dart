@@ -1,10 +1,10 @@
 class StudentTeacher {
   final String id;
-  final String teacherName;
+  final String displayName;
 
   const StudentTeacher({
     required this.id,
-    required this.teacherName,
+    required this.displayName,
   });
 
   static List<StudentTeacher> fromMapList(List<Map<String, dynamic>> data) {
@@ -14,7 +14,7 @@ class StudentTeacher {
   factory StudentTeacher.fromMap(Map<String, dynamic> map) {
     return StudentTeacher(
       id: map['id'],
-      teacherName: map['display_name'],
+      displayName: map['display_name'],
     );
   }
 }

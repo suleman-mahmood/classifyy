@@ -33,14 +33,14 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
         child: Card(
           color: const Color(0xFFFEF7FF),
           child: ListTile(
-            title: Text(student.studentName),
+            title: Text(student.displayName),
             trailing: const Icon(Icons.chevron_right),
             onTap: loading
                 ? () {}
                 : () {
                     chatCubit.fetchChatMessages();
                     context.router.push(StudentChatRoute(
-                      studentName: student.studentName,
+                      studentName: student.displayName,
                       otherUserId: student.parentId!,
                     ));
                   },
@@ -81,16 +81,16 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
             final query = controller.value.text;
             return students
                 .where((st) =>
-                    st.studentName.toLowerCase().contains(query.toLowerCase()))
+                    st.displayName.toLowerCase().contains(query.toLowerCase()))
                 .map(
                   (st) => ListTile(
-                    title: Text(st.studentName),
+                    title: Text(st.displayName),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       chatCubit.fetchChatMessages();
                       context.router.push(
                         StudentChatRoute(
-                          studentName: st.studentName,
+                          studentName: st.displayName,
                           otherUserId: st.parentId!,
                         ),
                       );
@@ -105,7 +105,7 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
             if (state is ClassStudentLoading) {
               return buildStudent(
                 context,
-                const ClassStudent(id: '1', studentName: 'Someone'),
+                const ClassStudent(id: '1', displayName: 'Someone'),
                 loading: true,
               );
             }

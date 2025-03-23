@@ -30,20 +30,14 @@ class FakeRepository implements Repository {
         TeacherClass(
           id: '1',
           displayName: 'I-A',
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         TeacherClass(
           id: '2',
           displayName: 'II-B',
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         TeacherClass(
           id: '3',
           displayName: 'II-C',
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
       ],
     );
@@ -132,27 +126,27 @@ class FakeRepository implements Repository {
       () => [
         const ClassStudent(
           id: '1',
-          studentName: 'Abdullah Khan',
+          displayName: 'Abdullah Khan',
           parentId: "p-1",
         ),
         const ClassStudent(
           id: '2',
-          studentName: 'Fawaz Ahmad',
+          displayName: 'Fawaz Ahmad',
           parentId: "p-1",
         ),
         const ClassStudent(
           id: '3',
-          studentName: 'Shah Faraz ul Haq',
+          displayName: 'Shah Faraz ul Haq',
           parentId: "p-1",
         ),
         const ClassStudent(
           id: '4',
-          studentName: 'Ahmed Sheikhani',
+          displayName: 'Ahmed Sheikhani',
           parentId: "p-1",
         ),
         const ClassStudent(
           id: '5',
-          studentName: 'Mahnoor Malik',
+          displayName: 'Mahnoor Malik',
           parentId: "p-1",
         ),
       ],
@@ -215,11 +209,11 @@ class FakeRepository implements Repository {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [
-        const StudentTeacher(id: '1', teacherName: 'Zafar Ali Khan'),
-        const StudentTeacher(id: '2', teacherName: 'Raja Shafqat'),
-        const StudentTeacher(id: '3', teacherName: 'Nausheen Iqbal'),
-        const StudentTeacher(id: '4', teacherName: 'Sana Khan'),
-        const StudentTeacher(id: '5', teacherName: 'Kashif Ali'),
+        const StudentTeacher(id: '1', displayName: 'Zafar Ali Khan'),
+        const StudentTeacher(id: '2', displayName: 'Raja Shafqat'),
+        const StudentTeacher(id: '3', displayName: 'Nausheen Iqbal'),
+        const StudentTeacher(id: '4', displayName: 'Sana Khan'),
+        const StudentTeacher(id: '5', displayName: 'Kashif Ali'),
       ],
     );
   }
@@ -237,8 +231,8 @@ class FakeRepository implements Repository {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [
-        const ClassStudent(id: '2', studentName: 'Fawaz Ahmad'),
-        const ClassStudent(id: '3', studentName: 'Shah Faraz ul Haq'),
+        const ClassStudent(id: '2', displayName: 'Fawaz Ahmad'),
+        const ClassStudent(id: '3', displayName: 'Shah Faraz ul Haq'),
       ],
     );
   }

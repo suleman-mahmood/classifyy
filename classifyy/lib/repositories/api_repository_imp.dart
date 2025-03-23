@@ -44,22 +44,38 @@ class ApiImpRepository implements Repository {
 
   @override
   Future<List<TeacherClass>> fetchClasses() async {
-    throw UnimplementedError();
+    final res = await _dio.get(
+      '/class/teacher',
+      queryParameters: {"user_id": userId},
+    );
+    return TeacherClass.fromMapList(res.data);
   }
 
   @override
   Future<List<ParentChild>> fetchChildren() async {
-    throw UnimplementedError();
+    final res = await _dio.get(
+      '/user/children',
+      queryParameters: {"parent_user_id": userId},
+    );
+    return ParentChild.fromMapList(res.data);
   }
 
   @override
   Future<List<ClassStudent>> fetchClassStudents(String classId) async {
-    throw UnimplementedError();
+    final res = await _dio.get(
+      '/class/students',
+      queryParameters: {'class_id': classId},
+    );
+    return ClassStudent.fromMapList(res.data);
   }
 
   @override
   Future<List<StudentTeacher>> fetchStudentTeachers(String childId) async {
-    throw UnimplementedError();
+    final res = await _dio.get(
+      'user/teachers',
+      queryParameters: {'student_user_id': childId},
+    );
+    return StudentTeacher.fromMapList(res.data);
   }
 
   // Announcements

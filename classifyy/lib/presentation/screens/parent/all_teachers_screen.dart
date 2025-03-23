@@ -30,12 +30,12 @@ class _AllTeachersScreenState extends State<AllTeachersScreen> {
         child: Card(
           color: const Color(0xFFFEF7FF),
           child: ListTile(
-            title: Text(student.teacherName),
+            title: Text(student.displayName),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
               chatCubit.fetchChatMessages();
               context.router.push(StudentChatRoute(
-                studentName: student.teacherName,
+                studentName: student.displayName,
                 otherUserId: student.id,
               ));
             },
@@ -54,7 +54,7 @@ class _AllTeachersScreenState extends State<AllTeachersScreen> {
             if (state is StudentTeacherLoading) {
               return buildTeacher(
                 context,
-                StudentTeacher(id: '1', teacherName: 'Someone'),
+                StudentTeacher(id: '1', displayName: 'Someone'),
                 loading: true,
               );
             }
