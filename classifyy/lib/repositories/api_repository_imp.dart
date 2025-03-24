@@ -90,7 +90,10 @@ class ApiImpRepository implements Repository {
 
   @override
   Future<void> createAnnouncement(String text, String? classId) async {
-    throw UnimplementedError();
+    await _dio.post(
+      '/announcement',
+      data: {"announcement": text, "announcer_id": userId, "class_id": classId},
+    );
   }
 
   // Chat
