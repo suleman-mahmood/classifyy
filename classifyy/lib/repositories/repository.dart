@@ -28,11 +28,9 @@ abstract class Repository {
   // Announcements
 
   Future<List<Announcement>> fetchAnnouncements(
-    int startIndex,
-    int endIndex, {
     String? studentId,
     String? classId,
-  });
+  );
 
   Future<void> createAnnouncement(String text, String? classId);
 

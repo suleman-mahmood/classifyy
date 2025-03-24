@@ -10,18 +10,14 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
   AnnouncementCubit(this.repository) : super(const AnnouncementInitial());
 
   Future<void> fetchAnnouncements(
-    int startIndex,
-    int endIndex, {
     String? classId,
     String? studentId,
-  }) async {
+  ) async {
     emit(const AnnouncementLoading());
 
     final announcements = await repository.fetchAnnouncements(
-      startIndex,
-      endIndex,
-      classId: classId,
-      studentId: studentId,
+      classId,
+      studentId,
     );
 
     emit(AnnouncementSuccess(announcements: announcements));
@@ -33,9 +29,8 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
 
     await repository.createAnnouncement(text, classId);
     final announcements = await repository.fetchAnnouncements(
-      startIndex,
-      endIndex,
-      classId: classId,
+      classId,
+      null,
     );
 
     emit(AnnouncementSuccess(announcements: announcements));

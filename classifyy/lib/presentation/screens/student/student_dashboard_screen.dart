@@ -54,7 +54,10 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen>
           buttonText: 'Announcements',
           iconData: Icons.chat_outlined,
           onPressed: () {
-            announcementCubit.fetchAnnouncements(0, 100, studentId: userCubit.state.user!.id);
+            announcementCubit.fetchAnnouncements(
+              null,
+              userCubit.state.user!.id,
+            );
             context.router.push(
               AnnouncementRoute(userRole: userCubit.state.user!.userRole),
             );
