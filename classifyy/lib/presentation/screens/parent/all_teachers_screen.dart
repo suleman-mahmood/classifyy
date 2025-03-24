@@ -33,7 +33,7 @@ class _AllTeachersScreenState extends State<AllTeachersScreen> {
             title: Text(student.displayName),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              chatCubit.fetchChatMessages();
+              chatCubit.fetchChatMessages(student.id);
               context.router.push(StudentChatRoute(
                 studentName: student.displayName,
                 otherUserId: student.id,

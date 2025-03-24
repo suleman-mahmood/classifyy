@@ -149,7 +149,7 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<List<ChatMessage>> fetchChatMessages() {
+  Future<List<ChatMessage>> fetchChatMessages(String otherUserId) {
     return Future.delayed(
       const Duration(seconds: 1),
       () => [

@@ -33,7 +33,7 @@ abstract class Repository {
 
   // Chat
 
-  Future<List<ChatMessage>> fetchChatMessages();
+  Future<List<ChatMessage>> fetchChatMessages(String otherUserId);
 
   Future<List<ClassStudent>> fetchUnreadChats();
 

@@ -100,8 +100,13 @@ class ApiImpRepository implements Repository {
   // Chat
 
   @override
-  Future<List<ChatMessage>> fetchChatMessages() async {
-    throw UnimplementedError();
+  Future<List<ChatMessage>> fetchChatMessages(String otherUserId) async {
+    final res = await _dio.get('/chat', queryParameters: {
+      "sender_user_id": userId,
+      "recipient_user_id": otherUserId
+    });
+
+    return ChatMessage.fromMapList(res.data, userId);
   }
 
   @override

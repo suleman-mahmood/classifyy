@@ -22,10 +22,10 @@ class ChatMessage {
 
   factory ChatMessage.fromMap(Map<String, dynamic> map, String userId) {
     return ChatMessage(
-      id: map['id'],
-      text: map['text'],
-      sentAt: DateTime.parse(map['sent_at']),
-      chatMessageType: map['sender_id'] == userId
+      id: 'dummy-chat-msg-id',
+      text: map['message'],
+      sentAt: DateTime.parse(map['created_at']),
+      chatMessageType: map['sender_user_id'] == userId
           ? ChatMessageType.currentUser
           : ChatMessageType.otherUser,
     );

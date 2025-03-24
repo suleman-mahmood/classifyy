@@ -10,10 +10,10 @@ class ChatCubit extends Cubit<ChatState> {
 
   ChatCubit(this.repository) : super(const ChatInitial());
 
-  Future<void> fetchChatMessages() async {
+  Future<void> fetchChatMessages(String otherUserId) async {
     emit(const ChatLoading());
 
-    final chatMessages = await repository.fetchChatMessages();
+    final chatMessages = await repository.fetchChatMessages(otherUserId);
 
     emit(ChatSuccess(chatMessages: chatMessages));
   }

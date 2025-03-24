@@ -38,7 +38,7 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
             onTap: loading
                 ? () {}
                 : () {
-                    chatCubit.fetchChatMessages();
+                    chatCubit.fetchChatMessages(student.parentId!);
                     context.router.push(StudentChatRoute(
                       studentName: student.displayName,
                       otherUserId: student.parentId!,
@@ -87,7 +87,7 @@ class _AllStudentsScreenState extends State<AllStudentsScreen> {
                     title: Text(st.displayName),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      chatCubit.fetchChatMessages();
+                      chatCubit.fetchChatMessages(st.parentId!);
                       context.router.push(
                         StudentChatRoute(
                           studentName: st.displayName,
