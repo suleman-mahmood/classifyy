@@ -23,8 +23,7 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
     emit(AnnouncementSuccess(announcements: announcements));
   }
 
-  Future<void> createAnnouncement(String text,
-      {String? classId, int startIndex = 0, int endIndex = 100}) async {
+  Future<void> createAnnouncement(String text, String classId) async {
     emit(AnnouncementLoading(announcements: state.announcements));
 
     await repository.createAnnouncement(text, classId);

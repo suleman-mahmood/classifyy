@@ -54,7 +54,7 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
     Future<void> handleProceed() async {
       await announcementCubit.createAnnouncement(
         _textController.text,
-        classId: userCubit.state.selectedClass!.id,
+        userCubit.state.selectedClass!.id,
       );
     }
 
