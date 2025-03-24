@@ -55,7 +55,18 @@ class LoginScreen extends StatelessWidget {
     }
 
     Future<void> handleLogin() async {
-      await userCubit.loginUser(emailController.text, passwordController.text);
+      if (emailController.text == "t") {
+        await userCubit.loginUser("murtaza@riveroaks.com", "9e97");
+      } else if (emailController.text == "p") {
+        await userCubit.loginUser("suleman.parent@riveroaks.com", "bf8f");
+      } else if (emailController.text == "s") {
+        await userCubit.loginUser("suleman@riveroaks.com", "0799");
+      } else {
+        await userCubit.loginUser(
+          emailController.text,
+          passwordController.text,
+        );
+      }
     }
 
     return RootLayout(

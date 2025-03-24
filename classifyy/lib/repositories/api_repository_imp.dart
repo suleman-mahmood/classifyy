@@ -72,7 +72,7 @@ class ApiImpRepository implements Repository {
   @override
   Future<List<StudentTeacher>> fetchStudentTeachers(String childId) async {
     final res = await _dio.get(
-      'user/teachers',
+      '/user/teachers',
       queryParameters: {'student_user_id': childId},
     );
     return StudentTeacher.fromMapList(res.data);

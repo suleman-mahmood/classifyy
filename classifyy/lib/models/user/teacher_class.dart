@@ -7,7 +7,7 @@ class TeacherClass {
     required this.displayName,
   });
 
-  static List<TeacherClass> fromMapList(List<Map<String, dynamic>> data) {
+  static List<TeacherClass> fromMapList(List<dynamic> data) {
     return data.map<TeacherClass>((d) => TeacherClass.fromMap(d)).toList();
   }
 

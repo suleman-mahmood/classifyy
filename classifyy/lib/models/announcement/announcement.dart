@@ -18,7 +18,7 @@ class Announcement {
     this.announcerDisplayName,
   });
 
-  static List<Announcement> fromMapList(List<Map<String, dynamic>> data) {
+  static List<Announcement> fromMapList(List<dynamic> data) {
     return data.map<Announcement>((d) => Announcement.fromMap(d)).toList();
   }
 

@@ -14,8 +14,7 @@ class ChatMessage {
       required this.sentAt,
       required this.chatMessageType});
 
-  static List<ChatMessage> fromMapList(
-      List<Map<String, dynamic>> data, String userId) {
+  static List<ChatMessage> fromMapList(List<dynamic> data, String userId) {
     return data
         .map<ChatMessage>((d) => ChatMessage.fromMap(d, userId))
         .toList();

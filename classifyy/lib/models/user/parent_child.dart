@@ -7,7 +7,7 @@ class ParentChild {
     required this.displayName,
   });
 
-  static List<ParentChild> fromMapList(List<Map<String, dynamic>> data) {
+  static List<ParentChild> fromMapList(List<dynamic> data) {
     return data.map<ParentChild>((d) => ParentChild.fromMap(d)).toList();
   }
 
