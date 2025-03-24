@@ -111,7 +111,11 @@ class ApiImpRepository implements Repository {
 
   @override
   Future<void> sendMessage(String message, String otherUserId) async {
-    throw UnimplementedError();
+    await _dio.post('/chat', data: {
+      "sender_user_id": userId,
+      "recipient_user_id": otherUserId,
+      "message": message
+    });
   }
 
   @override
