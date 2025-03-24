@@ -25,11 +25,11 @@ class Announcement {
   factory Announcement.fromMap(Map<String, dynamic> map) {
     return Announcement(
       id: map['id'],
-      text: map['text'],
+      text: map['content'],
       createdAt: DateTime.parse(map['created_at']),
-      announcerId: map['announcer_id'],
-      announcerRole: UserRole.values.byName(map['users']['user_role']),
-      announcerDisplayName: map['users']['display_name'],
+      announcerId: map['announcer_user_id'],
+      announcerRole: UserRole.values.byName(map['announcer_user_role']),
+      announcerDisplayName: map['users']['announcer_display_name'],
     );
   }
 }

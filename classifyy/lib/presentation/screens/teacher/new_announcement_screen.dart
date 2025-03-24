@@ -55,6 +55,7 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
       await announcementCubit.createAnnouncement(
         _textController.text,
         userCubit.state.selectedClass!.id,
+        userCubit.state.user!.id,
       );
     }
 

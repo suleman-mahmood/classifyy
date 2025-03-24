@@ -27,10 +27,7 @@ abstract class Repository {
 
   // Announcements
 
-  Future<List<Announcement>> fetchAnnouncements(
-    String? studentId,
-    String? classId,
-  );
+  Future<List<Announcement>> fetchAnnouncements(String userId);
 
   Future<void> createAnnouncement(String text, String? classId);
 

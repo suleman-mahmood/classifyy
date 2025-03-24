@@ -60,8 +60,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
               iconData: Icons.chat_outlined,
               onPressed: () {
                 announcementCubit.fetchAnnouncements(
-                  userCubit.state.selectedClass!.id,
-                  null,
+                  userCubit.state.user!.id,
                 );
                 context.router.push(
                   AnnouncementRoute(userRole: userCubit.state.user!.userRole),

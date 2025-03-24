@@ -60,7 +60,6 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen>
               iconData: Icons.chat_outlined,
               onPressed: () {
                 announcementCubit.fetchAnnouncements(
-                  null,
                   userCubit.state.selectedChild!.id,
                 );
                 context.router.push(

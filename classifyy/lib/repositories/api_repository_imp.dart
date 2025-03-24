@@ -81,11 +81,12 @@ class ApiImpRepository implements Repository {
   // Announcements
 
   @override
-  Future<List<Announcement>> fetchAnnouncements(
-    String? studentId,
-    String? classId,
-  ) async {
-    throw UnimplementedError();
+  Future<List<Announcement>> fetchAnnouncements(String userId) async {
+    final res = await _dio.get(
+      '/announcement/user',
+      queryParameters: {"user_id": userId},
+    );
+    return Announcement.fromMapList(res.data);
   }
 
   @override
