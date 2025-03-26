@@ -17,4 +17,8 @@ class ClassCubit extends Cubit<ClassState> {
 
     emit(ClassSuccess(classes: classes));
   }
+
+  void reset() {
+    emit(ClassInitial());
+  }
 }

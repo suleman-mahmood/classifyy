@@ -26,10 +26,10 @@ class Announcement {
     return Announcement(
       id: map['id'],
       text: map['content'],
-      createdAt: DateTime.parse(map['created_at']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] * 1000),
       announcerId: map['announcer_user_id'],
       announcerRole: UserRole.values.byName(map['announcer_user_role']),
-      announcerDisplayName: map['users']['announcer_display_name'],
+      announcerDisplayName: map['announcer_display_name'],
     );
   }
 }

@@ -1,8 +1,6 @@
 import 'package:classifyy/cubits/children_cubit.dart';
 import 'package:classifyy/cubits/class_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
-import 'package:classifyy/models/user/teacher_class.dart';
-import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
@@ -26,6 +24,8 @@ class _DashboardLayoutState extends State<DashboardLayout> {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    final classCubit = BlocProvider.of<ClassCubit>(context);
+    final childrenCubit = BlocProvider.of<ChildrenCubit>(context);
 
     Widget buildBottomSheet(BuildContext context) {
       return SizedBox(
@@ -44,7 +44,11 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                 const SizedBox(height: ScreenSizes.slabThree),
                 ButtonPrimary(
                   buttonText: 'Yes!',
-                  onPressed: userCubit.logoutUser,
+                  onPressed: () {
+                    classCubit.reset();
+                    childrenCubit.reset();
+                    userCubit.logoutUser();
+                  },
                 ),
                 const SizedBox(height: ScreenSizes.slabThree),
               ],
@@ -75,7 +79,11 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                       child: ListTile(
                         title: const Text('Logout'),
                         trailing: const Icon(Icons.logout_outlined),
-                        onTap: userCubit.logoutUser,
+                        onTap: () {
+                          classCubit.reset();
+                          childrenCubit.reset();
+                          userCubit.logoutUser();
+                        },
                       ),
                     ),
                     Card(

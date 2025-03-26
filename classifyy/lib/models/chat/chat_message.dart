@@ -24,7 +24,7 @@ class ChatMessage {
     return ChatMessage(
       id: 'dummy-chat-msg-id',
       text: map['message'],
-      sentAt: DateTime.parse(map['created_at']),
+      sentAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] * 1000),
       chatMessageType: map['sender_user_id'] == userId
           ? ChatMessageType.currentUser
           : ChatMessageType.otherUser,

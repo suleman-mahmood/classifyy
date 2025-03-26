@@ -270,8 +270,8 @@ class _ClassOptionsState extends State<ClassOptions> {
                       onChanged: (value) {
                         if (value == null) return;
 
+                        userCubit.selectClass(value);
                         setState(() {
-                          userCubit.selectClass(value);
                           _selectedClass = value;
                         });
                       },
@@ -362,8 +362,8 @@ class _ChildrenOptionsState extends State<ChildrenOptions> {
                       onChanged: (value) {
                         if (value == null) return;
 
+                        userCubit.selectChild(value);
                         setState(() {
-                          userCubit.selectChild(value);
                           _selectedChild = value;
                         });
                       },

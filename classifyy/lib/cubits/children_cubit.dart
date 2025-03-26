@@ -16,4 +16,8 @@ class ChildrenCubit extends Cubit<ChildrenState> {
 
     emit(ChildrenSuccess(children: children));
   }
+
+  void reset() {
+    emit(ChildrenInitial());
+  }
 }
