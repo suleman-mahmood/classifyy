@@ -7,6 +7,7 @@ import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class ApiImpRepository implements Repository {
   @override
@@ -17,7 +18,9 @@ class ApiImpRepository implements Repository {
   ApiImpRepository({Dio? dio})
       : _dio = dio ??
             Dio(BaseOptions(
-              baseUrl: "http://localhost:80/api",
+              baseUrl: kDebugMode
+                  ? "http://localhost:80/api"
+                  : "https://admin.suleman.dev/api",
               connectTimeout: Duration(seconds: 5),
               receiveTimeout: Duration(seconds: 3),
             ));
