@@ -252,7 +252,7 @@ class FakeRepository implements Repository {
   }
 
   @override
-  Future<File> downloadFile(String fileId) async {
-    throw UnimplementedError();
+  Future<String> downloadFile(String fileId) async {
+    return "file-contents";
   }
 }
