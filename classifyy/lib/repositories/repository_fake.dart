@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -238,5 +240,19 @@ class FakeRepository implements Repository {
       const Duration(seconds: 1),
       () {},
     );
+  }
+
+  @override
+  Future<String> uploadFile(
+    String filePath,
+    String fileName,
+    String mimeType,
+  ) async {
+    return "file-id";
+  }
+
+  @override
+  Future<String> downloadFile(String fileId) async {
+    return "file-contents";
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -8,6 +10,7 @@ import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ApiImpRepository implements Repository {
   @override
@@ -129,5 +132,37 @@ class ApiImpRepository implements Repository {
   @override
   Future<void> markChatRead(String chatId) async {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<String> uploadFile(
+    String filePath,
+    String fileName,
+    String mimeType,
+  ) async {
+    final file = await MultipartFile.fromFile(filePath, filename: fileName);
+    final metadata = MultipartFile.fromString(
+      '{"mime_type": "$mimeType"}',
+      contentType: DioMediaType('application', 'json'),
+    );
+    final formData = FormData.fromMap({'file': file, "json": metadata});
+    final res = await _dio.post(
+      "/storage/upload",
+      data: formData,
+      options: Options(
+        contentType: 'multipart/form-data',
+      ),
+    );
+    return res.data["file_id"];
+  }
+
+  @override
+  Future<String> downloadFile(String fileId) async {
+    final res = await _dio.get(
+      "/storage/download",
+      queryParameters: {"file_id": fileId},
+    );
+
+    return res.data;
   }
 }

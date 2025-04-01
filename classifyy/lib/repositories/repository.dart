@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -40,4 +42,10 @@ abstract class Repository {
   Future<void> sendMessage(String message, String otherUserId);
 
   Future<void> markChatRead(String chatId);
+
+  // Storage
+
+  Future<String> uploadFile(String filePath, String fileName, String mimeType);
+
+  Future<String> downloadFile(String fileId);
 }
