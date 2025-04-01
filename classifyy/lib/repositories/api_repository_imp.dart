@@ -135,10 +135,14 @@ class ApiImpRepository implements Repository {
   }
 
   @override
-  Future<String> uploadFile(String filePath, String fileName) async {
+  Future<String> uploadFile(
+    String filePath,
+    String fileName,
+    String mimeType,
+  ) async {
     final file = await MultipartFile.fromFile(filePath, filename: fileName);
     final metadata = MultipartFile.fromString(
-      '{"name": $fileName}',
+      '{"mime_type": "$mimeType"}',
       contentType: DioMediaType('application', 'json'),
     );
     final formData = FormData.fromMap({'file': file, "json": metadata});

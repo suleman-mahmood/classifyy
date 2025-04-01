@@ -2,6 +2,7 @@ import 'package:classifyy/cubits/storage_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mime/mime.dart';
 
 class FileUploadWidget extends StatefulWidget {
   const FileUploadWidget({super.key});
@@ -27,14 +28,18 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
 
     if (result != null && result.files.isNotEmpty) {
       final file = result.files.first;
-      storageCubit.uploadFile(file.path!, file.name);
+      storageCubit.uploadFile(
+        file.path!,
+        file.name,
+        lookupMimeType(file.path!)!,
+      );
       setState(() => _fileName = file.name);
     }
   }
 
   Future<void> _downloadFile() async {
     await storageCubit.downloadFile(
-      "341bceef-16f6-405c-91ed-4ccdd24d0e3c.jpeg",
+      "Test.pdf",
     );
   }
 

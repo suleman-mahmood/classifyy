@@ -45,7 +45,7 @@ abstract class Repository {
 
   // Storage
 
-  Future<String> uploadFile(String filePath, String fileName);
+  Future<String> uploadFile(String filePath, String fileName, String mimeType);
 
   Future<String> downloadFile(String fileId);
 }
