@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -44,4 +46,6 @@ abstract class Repository {
   // Storage
 
   Future<String> uploadFile(String filePath, String fileName);
+
+  Future<String> downloadFile(String fileId);
 }

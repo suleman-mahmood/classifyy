@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -8,6 +10,7 @@ import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ApiImpRepository implements Repository {
   @override
@@ -147,5 +150,15 @@ class ApiImpRepository implements Repository {
       ),
     );
     return res.data["file_id"];
+  }
+
+  @override
+  Future<String> downloadFile(String fileId) async {
+    final res = await _dio.get(
+      "/storage/download",
+      queryParameters: {"file_id": fileId},
+    );
+
+    return res.data;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:meta/meta.dart';
@@ -15,7 +17,18 @@ class StorageCubit extends Cubit<StorageState> {
 
     try {
       final fileId = await repository.uploadFile(filePath, fileName);
-      emit(StorgeSuccess(fileId: fileId));
+      emit(StorgeUploadSuccess(fileId: fileId));
+    } on PostgrestException catch (e) {
+      emit(StorageFailure(errorMessage: e.message));
+    }
+  }
+
+  Future<void> downloadFile(String fileId) async {
+    emit(const StorageLoading());
+
+    try {
+      final file = await repository.downloadFile(fileId);
+      emit(StorgeDownloadSuccess(file: file));
     } on PostgrestException catch (e) {
       emit(StorageFailure(errorMessage: e.message));
     }

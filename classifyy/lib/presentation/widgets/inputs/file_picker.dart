@@ -32,6 +32,12 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
     }
   }
 
+  Future<void> _downloadFile() async {
+    await storageCubit.downloadFile(
+      "341bceef-16f6-405c-91ed-4ccdd24d0e3c.jpeg",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,6 +46,13 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
         ElevatedButton(
           onPressed: _pickFile,
           child: const Text('Choose File'),
+        ),
+        ElevatedButton(
+          onPressed: _downloadFile,
+          child: const Text('Download File'),
+        ),
+        Image.network(
+          "http://localhost:80/api/storage/download?file_id=341bceef-16f6-405c-91ed-4ccdd24d0e3c.jpeg",
         ),
         const SizedBox(height: 10),
         if (_fileName != null)
