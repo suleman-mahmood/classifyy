@@ -239,4 +239,9 @@ class FakeRepository implements Repository {
       () {},
     );
   }
+
+  @override
+  Future<String> uploadFile(String filePath, String fileName) async {
+    return "file-id";
+  }
 }

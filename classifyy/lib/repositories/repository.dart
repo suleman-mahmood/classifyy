@@ -40,4 +40,8 @@ abstract class Repository {
   Future<void> sendMessage(String message, String otherUserId);
 
   Future<void> markChatRead(String chatId);
+
+  // Storage
+
+  Future<String> uploadFile(String filePath, String fileName);
 }

@@ -130,4 +130,22 @@ class ApiImpRepository implements Repository {
   Future<void> markChatRead(String chatId) async {
     throw UnimplementedError();
   }
+
+  @override
+  Future<String> uploadFile(String filePath, String fileName) async {
+    final file = await MultipartFile.fromFile(filePath, filename: fileName);
+    final metadata = MultipartFile.fromString(
+      '{"name": $fileName}',
+      contentType: DioMediaType('application', 'json'),
+    );
+    final formData = FormData.fromMap({'file': file, "json": metadata});
+    final res = await _dio.post(
+      "/storage/upload",
+      data: formData,
+      options: Options(
+        contentType: 'multipart/form-data',
+      ),
+    );
+    return res.data["file_id"];
+  }
 }

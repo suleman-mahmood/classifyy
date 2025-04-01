@@ -8,6 +8,7 @@ import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
+import 'package:classifyy/presentation/widgets/inputs/file_picker.dart';
 import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
 import 'package:classifyy/presentation/widgets/typography/error_message.dart';
@@ -123,6 +124,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: ScreenSizes.slabTwo),
+                    FileUploadWidget(),
                     ButtonPrimary(
                       buttonText: 'Proceed',
                       onPressed: handleLogin,
