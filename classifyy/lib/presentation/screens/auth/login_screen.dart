@@ -16,6 +16,7 @@ import 'package:classifyy/presentation/widgets/typography/sub_title.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -24,6 +25,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 class LoginScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final formButtonValid = ValueNotifier(false);
 
   LoginScreen({super.key});
 
@@ -62,6 +65,10 @@ class LoginScreen extends StatelessWidget {
     }
 
     Future<void> handleLogin() async {
+      if (!(formKey.currentState?.validate() ?? false)) {
+        return;
+      }
+
       if (emailController.text == "t") {
         await userCubit.loginUser("murtaza@riveroaks.com", "9e97");
       } else if (emailController.text == "p") {
@@ -95,16 +102,35 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: ScreenSizes.slabTwo),
                 const SubTitle(text: "For Students, Teachers and Parents"),
                 const SizedBox(height: ScreenSizes.slabFive),
-                TextFieldPrimary(
-                  controller: emailController,
-                  labelText: "Email",
-                  icon: Icons.email_outlined,
-                ),
-                const SizedBox(height: ScreenSizes.slabTwo),
-                TextFieldPrimary(
-                  controller: passwordController,
-                  labelText: "Password",
-                  icon: Icons.visibility_outlined,
+                Form(
+                  key: formKey,
+                  onChanged: () {
+                    formButtonValid.value = formKey.currentState?.validate() ?? false;
+                  },
+                  child: Column(
+                    children: [
+                      TextFieldPrimary(
+                        controller: emailController,
+                        labelText: "Email",
+                        icon: Icons.email_outlined,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(50),
+                          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]')),
+                        ],
+                        validator: emailValidator,
+                      ),
+                      const SizedBox(height: ScreenSizes.slabTwo),
+                      TextFieldPrimary(
+                        controller: passwordController,
+                        labelText: "Password",
+                        icon: Icons.visibility_outlined,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(20),
+                        ],
+                        validator: passwordValidator,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: ScreenSizes.slabTwo),
                 BlocBuilder<UserCubit, UserState>(
@@ -159,10 +185,15 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: ScreenSizes.slabTwo),
                 const Expanded(child: SizedBox.shrink()),
-                ButtonPrimary(
-                  buttonText: 'Login',
-                  onPressed: handleLogin,
-                  disabled: false,
+                ValueListenableBuilder(
+                  valueListenable: formButtonValid,
+                  builder: (_, value, __) {
+                    return ButtonPrimary(
+                      buttonText: 'Login',
+                      onPressed: handleLogin,
+                      disabled: !value,
+                    );
+                  },
                 ),
                 const SizedBox(height: ScreenSizes.slabThree),
 

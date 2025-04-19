@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFieldPrimary extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
   final IconData? icon;
+  final List<TextInputFormatter> inputFormatters;
+  final String? Function(String?)? validator;
 
   const TextFieldPrimary({
     super.key,
     required this.labelText,
     required this.controller,
     this.icon,
+    this.validator,
+    this.inputFormatters = const [],
   });
 
   @override
@@ -19,8 +24,9 @@ class TextFieldPrimary extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           hintText: labelText,
           border: InputBorder.none,
@@ -28,6 +34,8 @@ class TextFieldPrimary extends StatelessWidget {
           suffixIcon: icon != null ? Icon(icon, color: Colors.grey[700]) : null,
         ),
         keyboardType: TextInputType.emailAddress,
+        validator: validator,
+        autovalidateMode: AutovalidateMode.onUnfocus,
       ),
     );
   }
