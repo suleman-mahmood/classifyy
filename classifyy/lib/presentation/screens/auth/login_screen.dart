@@ -42,8 +42,14 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 TitleLarge(
-                    title: 'Select ${userCubit.state.user?.userRoleToSelectTitle()}',
-                    shouldAnimate: false),
+                  title: 'Select ${userCubit.state.user?.userRoleToSelectTitle()}',
+                  shouldAnimate: false,
+                ),
+                const SizedBox(height: ScreenSizes.slabOne),
+                SubTitle(
+                  text:
+                      'Please select a ${userCubit.state.user?.userRoleToSelectTitle()} to continue',
+                ),
                 const ClassOptions(),
                 const ChildrenOptions(),
                 const ActionButton(),
@@ -156,8 +162,9 @@ class LoginScreen extends StatelessWidget {
                 ButtonPrimary(
                   buttonText: 'Login',
                   onPressed: handleLogin,
-                  disabled: true,
+                  disabled: false,
                 ),
+                const SizedBox(height: ScreenSizes.slabThree),
 
                 BlocListener<UserCubit, UserState>(
                   listenWhen: (previous, current) {
@@ -220,6 +227,7 @@ class ActionButton extends StatelessWidget {
                   buttonText: 'Choose ${userState.user?.userRoleToSelectTitle()}',
                   onPressed: enabled ? handleProceed : () {},
                   shouldAnimate: false,
+                  useHorizontalPadding: true,
                 );
               },
             );

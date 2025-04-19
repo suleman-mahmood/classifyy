@@ -7,6 +7,7 @@ class ButtonPrimary extends StatelessWidget {
   final VoidCallback onPressed;
   final bool shouldAnimate;
   final bool disabled;
+  final bool useHorizontalPadding;
 
   const ButtonPrimary({
     super.key,
@@ -14,6 +15,7 @@ class ButtonPrimary extends StatelessWidget {
     required this.onPressed,
     this.shouldAnimate = true,
     this.disabled = false,
+    this.useHorizontalPadding = false,
   });
 
   @override
@@ -23,7 +25,10 @@ class ButtonPrimary extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 56,
-        margin: const EdgeInsets.only(bottom: 24),
+        margin: EdgeInsets.only(
+          left: useHorizontalPadding ? 32 : 0,
+          right: useHorizontalPadding ? 32 : 0,
+        ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: disabled
