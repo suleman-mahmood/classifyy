@@ -10,7 +10,9 @@ import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
 import 'package:classifyy/presentation/widgets/layouts/root_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
+import 'package:classifyy/presentation/widgets/typography/divider_text.dart';
 import 'package:classifyy/presentation/widgets/typography/error_message.dart';
+import 'package:classifyy/presentation/widgets/typography/sub_title.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +42,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 TitleLarge(
-                    title:
-                        'Select ${userCubit.state.user?.userRoleToSelectTitle()}',
+                    title: 'Select ${userCubit.state.user?.userRoleToSelectTitle()}',
                     shouldAnimate: false),
                 const ClassOptions(),
                 const ChildrenOptions(),
@@ -71,91 +72,118 @@ class LoginScreen extends StatelessWidget {
 
     return RootLayout(
       child: Scaffold(
+        backgroundColor: Colors.deepPurple[50],
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const TitleLarge(title: 'Login'),
-                    const SizedBox(height: ScreenSizes.slabTwo),
-                    TextFieldPrimary(
-                      controller: emailController,
-                      labelText: "Email",
-                    ),
-                    const SizedBox(height: ScreenSizes.slabTwo),
-                    TextFieldPrimary(
-                      controller: passwordController,
-                      labelText: "Password",
-                    ),
-                    const SizedBox(height: ScreenSizes.slabTwo),
-                    BlocBuilder<UserCubit, UserState>(
-                      builder: (context, state) {
-                        if (state is! UserFailure) {
-                          return const SizedBox.shrink();
-                        }
-                        return ErrorMessage(text: state.errorMessage);
-                      },
-                    ),
-                    const SizedBox(height: ScreenSizes.slabTwo),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          const TextSpan(
-                            text: "* by signing in you agree to our ",
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          TextSpan(
-                            text: 'terms & conditions',
-                            style: const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launchUrlString(
-                                    'https://classifyy.vercel.app/privacy-policy',
-                                  ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: ScreenSizes.slabTwo),
-                    ButtonPrimary(
-                      buttonText: 'Proceed',
-                      onPressed: handleLogin,
-                    ),
-                    BlocListener<UserCubit, UserState>(
-                      listenWhen: (previous, current) {
-                        return previous.user != current.user;
-                      },
-                      listener: (context, state) {
-                        switch (state.runtimeType) {
-                          case const (UserSuccess):
-                            if (state.user!.userRole == UserRole.Teacher) {
-                              classCubit.fetchClasses();
-                            } else if (state.user!.userRole ==
-                                UserRole.Parent) {
-                              childrenCubit.fetchChildren();
-                            } else if (state.user!.userRole ==
-                                UserRole.Student) {
-                              context.router.push(
-                                const StudentDashboardRoute(),
-                              );
-                            }
-                            showModalBottomSheet(
-                              context: context,
-                              builder: buildBottomSheet,
-                            );
-                        }
-                      },
-                      child: const SizedBox.shrink(),
-                    ),
-                  ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Expanded(child: SizedBox.shrink()),
+                Image.asset(
+                  'assets/images/logo_school.png',
+                  width: 100,
                 ),
-              ),
+                const SizedBox(height: ScreenSizes.slabFour),
+                const TitleLarge(title: "Let's Get You Logged In"),
+                const SizedBox(height: ScreenSizes.slabTwo),
+                const SubTitle(text: "For Students, Teachers and Parents"),
+                const SizedBox(height: ScreenSizes.slabFive),
+                TextFieldPrimary(
+                  controller: emailController,
+                  labelText: "Email",
+                  icon: Icons.email_outlined,
+                ),
+                const SizedBox(height: ScreenSizes.slabTwo),
+                TextFieldPrimary(
+                  controller: passwordController,
+                  labelText: "Password",
+                  icon: Icons.visibility_outlined,
+                ),
+                const SizedBox(height: ScreenSizes.slabTwo),
+                BlocBuilder<UserCubit, UserState>(
+                  builder: (context, state) {
+                    if (state is! UserFailure) {
+                      return const SizedBox.shrink();
+                    }
+                    return ErrorMessage(text: state.errorMessage);
+                  },
+                ),
+                const SizedBox(height: ScreenSizes.slabTwo),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      const TextSpan(
+                        text: "* by signing in you agree to our ",
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                      TextSpan(
+                        text: 'terms & conditions',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => launchUrlString(
+                                'https://classifyy.vercel.app/privacy-policy',
+                              ),
+                      )
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: ScreenSizes.slabThree),
+                DividerText(text: "OR"),
+                const SizedBox(height: ScreenSizes.slabThree),
+
+                // Fingerprint login
+                Icon(
+                  Icons.fingerprint,
+                  size: 56,
+                  color: Colors.deepPurple[400],
+                ),
+                const SizedBox(height: ScreenSizes.slabOne),
+                Text(
+                  "Use Fingerprint",
+                  style: TextStyle(
+                    color: Colors.deepPurple[400],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+
+                const SizedBox(height: ScreenSizes.slabTwo),
+                const Expanded(child: SizedBox.shrink()),
+                ButtonPrimary(
+                  buttonText: 'Login',
+                  onPressed: handleLogin,
+                  disabled: true,
+                ),
+
+                BlocListener<UserCubit, UserState>(
+                  listenWhen: (previous, current) {
+                    return previous.user != current.user;
+                  },
+                  listener: (context, state) {
+                    switch (state.runtimeType) {
+                      case const (UserSuccess):
+                        if (state.user!.userRole == UserRole.Teacher) {
+                          classCubit.fetchClasses();
+                        } else if (state.user!.userRole == UserRole.Parent) {
+                          childrenCubit.fetchChildren();
+                        } else if (state.user!.userRole == UserRole.Student) {
+                          context.router.push(
+                            const StudentDashboardRoute(),
+                          );
+                        }
+                        showModalBottomSheet(
+                          context: context,
+                          builder: buildBottomSheet,
+                        );
+                    }
+                  },
+                  child: const SizedBox.shrink(),
+                ),
+              ],
             ),
           ),
         ),
@@ -185,13 +213,11 @@ class ActionButton extends StatelessWidget {
           builder: (context, childrenState) {
             return BlocBuilder<UserCubit, UserState>(
               builder: (context, userState) {
-                final enabled = userState.selectedClass != null ||
-                    userState.selectedChild != null;
+                final enabled = userState.selectedClass != null || userState.selectedChild != null;
 
                 return ButtonPrimary(
                   disabled: !enabled,
-                  buttonText:
-                      'Choose ${userState.user?.userRoleToSelectTitle()}',
+                  buttonText: 'Choose ${userState.user?.userRoleToSelectTitle()}',
                   onPressed: enabled ? handleProceed : () {},
                   shouldAnimate: false,
                 );
@@ -241,9 +267,7 @@ class _ClassOptionsState extends State<ClassOptions> {
                       ),
                     ),
                   ],
-                )
-                    .animate(onPlay: (controller) => controller.repeat())
-                    .shimmer(duration: 1.seconds),
+                ).animate(onPlay: (controller) => controller.repeat()).shimmer(duration: 1.seconds),
               ),
             );
 
@@ -334,9 +358,7 @@ class _ChildrenOptionsState extends State<ChildrenOptions> {
                       ),
                     ),
                   ],
-                )
-                    .animate(onPlay: (controller) => controller.repeat())
-                    .shimmer(duration: 1.seconds),
+                ).animate(onPlay: (controller) => controller.repeat()).shimmer(duration: 1.seconds),
               ),
             );
           case ChildrenSuccess:

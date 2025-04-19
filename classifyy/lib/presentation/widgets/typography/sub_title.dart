@@ -1,14 +1,14 @@
 import 'package:classifyy/presentation/widgets/animations/fade_animation.dart';
 import 'package:flutter/material.dart';
 
-class TitleLarge extends StatelessWidget {
-  final String title;
+class SubTitle extends StatelessWidget {
+  final String text;
   final bool shouldAnimate;
   final TextAlign textAlign;
 
-  const TitleLarge({
+  const SubTitle({
     super.key,
-    required this.title,
+    required this.text,
     this.shouldAnimate = true,
     this.textAlign = TextAlign.left,
   });
@@ -18,10 +18,10 @@ class TitleLarge extends StatelessWidget {
     return FadeAnimation(
       shouldAnimate: shouldAnimate,
       child: Text(
-        title,
+        text,
         style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          color: Colors.black54,
         ),
         textAlign: textAlign,
       ),
