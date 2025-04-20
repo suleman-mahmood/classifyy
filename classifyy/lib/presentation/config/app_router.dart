@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/presentation/screens/auth/login_screen.dart';
+import 'package:classifyy/presentation/screens/intro/onboarding_screen.dart';
 import 'package:classifyy/presentation/screens/parent/all_teachers_screen.dart';
 import 'package:classifyy/presentation/screens/parent/parent_dashboard_screen.dart';
 import 'package:classifyy/presentation/screens/student/student_dashboard_screen.dart';
@@ -17,7 +18,8 @@ part 'app_router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: LoginRoute.page, initial: true),
+        AutoRoute(page: OnboardingRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page),
         AutoRoute(page: TeacherDashboardRoute.page),
         AutoRoute(page: ParentDashboardRoute.page),
         AutoRoute(page: StudentDashboardRoute.page),

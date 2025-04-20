@@ -12,6 +12,9 @@ class ScreenSizes {
 
   static double heightQuarterRel(BuildContext context) => MediaQuery.of(context).size.height / 4;
 
+  static double heightThreeQuarterRel(BuildContext context) =>
+      MediaQuery.of(context).size.height * 3 / 4;
+
   static double heightHalfRel(BuildContext context) => MediaQuery.of(context).size.height / 2;
 
   static double heightFullRel(BuildContext context) => MediaQuery.of(context).size.height;

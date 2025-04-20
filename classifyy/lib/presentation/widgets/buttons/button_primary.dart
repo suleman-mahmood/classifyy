@@ -49,7 +49,6 @@ class ButtonPrimary extends StatelessWidget {
             ),
           ),
           child: Stack(
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
                 alignment: Alignment.center,

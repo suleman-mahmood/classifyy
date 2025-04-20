@@ -14,7 +14,7 @@ part of 'app_router.dart';
 /// [AllStudentsScreen]
 class AllStudentsRoute extends PageRouteInfo<void> {
   const AllStudentsRoute({List<PageRouteInfo>? children})
-    : super(AllStudentsRoute.name, initialChildren: children);
+      : super(AllStudentsRoute.name, initialChildren: children);
 
   static const String name = 'AllStudentsRoute';
 
@@ -30,7 +30,7 @@ class AllStudentsRoute extends PageRouteInfo<void> {
 /// [AllTeachersScreen]
 class AllTeachersRoute extends PageRouteInfo<void> {
   const AllTeachersRoute({List<PageRouteInfo>? children})
-    : super(AllTeachersRoute.name, initialChildren: children);
+      : super(AllTeachersRoute.name, initialChildren: children);
 
   static const String name = 'AllTeachersRoute';
 
@@ -50,10 +50,10 @@ class AnnouncementRoute extends PageRouteInfo<AnnouncementRouteArgs> {
     required UserRole userRole,
     List<PageRouteInfo>? children,
   }) : super(
-         AnnouncementRoute.name,
-         args: AnnouncementRouteArgs(key: key, userRole: userRole),
-         initialChildren: children,
-       );
+          AnnouncementRoute.name,
+          args: AnnouncementRouteArgs(key: key, userRole: userRole),
+          initialChildren: children,
+        );
 
   static const String name = 'AnnouncementRoute';
 
@@ -83,11 +83,11 @@ class AnnouncementRouteArgs {
 /// [LoginScreen]
 class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
   LoginRoute({Key? key, List<PageRouteInfo>? children})
-    : super(
-        LoginRoute.name,
-        args: LoginRouteArgs(key: key),
-        initialChildren: children,
-      );
+      : super(
+          LoginRoute.name,
+          args: LoginRouteArgs(key: key),
+          initialChildren: children,
+        );
 
   static const String name = 'LoginRoute';
 
@@ -117,7 +117,7 @@ class LoginRouteArgs {
 /// [NewAnnouncementScreen]
 class NewAnnouncementRoute extends PageRouteInfo<void> {
   const NewAnnouncementRoute({List<PageRouteInfo>? children})
-    : super(NewAnnouncementRoute.name, initialChildren: children);
+      : super(NewAnnouncementRoute.name, initialChildren: children);
 
   static const String name = 'NewAnnouncementRoute';
 
@@ -130,10 +130,26 @@ class NewAnnouncementRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [OnboardingScreen]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+      : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ParentDashboardScreen]
 class ParentDashboardRoute extends PageRouteInfo<void> {
   const ParentDashboardRoute({List<PageRouteInfo>? children})
-    : super(ParentDashboardRoute.name, initialChildren: children);
+      : super(ParentDashboardRoute.name, initialChildren: children);
 
   static const String name = 'ParentDashboardRoute';
 
@@ -154,14 +170,14 @@ class StudentChatRoute extends PageRouteInfo<StudentChatRouteArgs> {
     required String otherUserId,
     List<PageRouteInfo>? children,
   }) : super(
-         StudentChatRoute.name,
-         args: StudentChatRouteArgs(
-           key: key,
-           studentName: studentName,
-           otherUserId: otherUserId,
-         ),
-         initialChildren: children,
-       );
+          StudentChatRoute.name,
+          args: StudentChatRouteArgs(
+            key: key,
+            studentName: studentName,
+            otherUserId: otherUserId,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'StudentChatRoute';
 
@@ -201,7 +217,7 @@ class StudentChatRouteArgs {
 /// [StudentDashboardScreen]
 class StudentDashboardRoute extends PageRouteInfo<void> {
   const StudentDashboardRoute({List<PageRouteInfo>? children})
-    : super(StudentDashboardRoute.name, initialChildren: children);
+      : super(StudentDashboardRoute.name, initialChildren: children);
 
   static const String name = 'StudentDashboardRoute';
 
@@ -217,7 +233,7 @@ class StudentDashboardRoute extends PageRouteInfo<void> {
 /// [TeacherDashboardScreen]
 class TeacherDashboardRoute extends PageRouteInfo<void> {
   const TeacherDashboardRoute({List<PageRouteInfo>? children})
-    : super(TeacherDashboardRoute.name, initialChildren: children);
+      : super(TeacherDashboardRoute.name, initialChildren: children);
 
   static const String name = 'TeacherDashboardRoute';
 
