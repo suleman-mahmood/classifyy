@@ -121,8 +121,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               SmoothPageIndicator(
                 controller: pageController,
                 count: 3,
-                effect: const WormEffect(
-                  spacing: 16,
+                effect: const ExpandingDotsEffect(
+                  expansionFactor: 2.5,
                   dotColor: Colors.black12,
                   activeDotColor: Colors.deepPurple,
                 ),
