@@ -19,7 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:local_auth/local_auth.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -169,10 +171,11 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: ScreenSizes.slabThree),
 
                 // Fingerprint login
-                Icon(
-                  Icons.fingerprint,
-                  size: 56,
+                IconButton(
+                  icon: Icon(Icons.fingerprint),
+                  iconSize: 56,
                   color: RaabtaColors.primary(),
+                  onPressed: userCubit.loginUserWithBiometrics,
                 ),
                 const SizedBox(height: ScreenSizes.slabOne),
                 Text(

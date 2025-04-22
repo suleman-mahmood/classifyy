@@ -4,7 +4,10 @@ import 'package:classifyy/models/user/parent_child.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'user_state.dart';
@@ -25,8 +28,36 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future<void> loginUserWithBiometrics() async {
+    try {
+      final LocalAuthentication auth = LocalAuthentication();
+      final didAuthenticate = await auth.authenticate(
+        localizedReason: "Authenticate to login",
+      );
+      if (didAuthenticate) {
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        final email = prefs.getString("email");
+        final password = prefs.getString("password");
+        if (email != null && password != null) {
+          await loginUser(
+            email,
+            password,
+          );
+        } else {
+          debugPrint("No email $email or password $password stored for user");
+        }
+      }
+    } catch (e) {
+      debugPrint("Error: ${e.toString()}");
+    }
+  }
+
   Future<void> loginUser(String email, String password) async {
     emit(const UserLoading());
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("email", email);
+    await prefs.setString("password", password);
 
     try {
       final id = await repository.loginUser(email, password);
