@@ -30,6 +30,7 @@ class RaabtaColors {
   static Color white() => Colors.white;
   static Color black() => Colors.black;
   static Color grey() => Colors.grey[600]!;
+  static Color translucentGrey() => Colors.black54;
   static Color red() => Colors.red[500]!;
   static Color transparent() => Colors.transparent;
 
