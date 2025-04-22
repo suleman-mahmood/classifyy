@@ -26,6 +26,14 @@ class ScreenSizes {
   static const double slabFive = 40;
 }
 
+class RaabtaColors {
+  static Color white() => Colors.white;
+  static Color background() => Colors.deepPurple[50]!;
+  static Color primary() => Colors.deepPurple[400]!;
+  static Color primaryDark() => Colors.deepPurple[500]!;
+  static Color disabledColor() => Colors.deepPurple[100]!;
+}
+
 String? emailValidator(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter email';

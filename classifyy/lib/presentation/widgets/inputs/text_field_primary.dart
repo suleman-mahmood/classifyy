@@ -1,3 +1,4 @@
+import 'package:classifyy/presentation/config/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +22,7 @@ class TextFieldPrimary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: RaabtaColors.white(),
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextFormField(

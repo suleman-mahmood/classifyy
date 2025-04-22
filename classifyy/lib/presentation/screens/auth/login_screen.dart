@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
 
     return RootLayout(
       child: Scaffold(
-        backgroundColor: Colors.deepPurple[50],
+        backgroundColor: RaabtaColors.background(),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -172,13 +172,13 @@ class LoginScreen extends StatelessWidget {
                 Icon(
                   Icons.fingerprint,
                   size: 56,
-                  color: Colors.deepPurple[400],
+                  color: RaabtaColors.primary(),
                 ),
                 const SizedBox(height: ScreenSizes.slabOne),
                 Text(
                   "Use Fingerprint",
                   style: TextStyle(
-                    color: Colors.deepPurple[400],
+                    color: RaabtaColors.primary(),
                     fontWeight: FontWeight.w500,
                   ),
                 ),

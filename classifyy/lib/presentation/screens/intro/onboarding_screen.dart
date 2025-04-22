@@ -40,13 +40,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: RaabtaColors.background(),
       floatingActionButton: !finalPage
           ? FloatingActionButton(
-              backgroundColor: Colors.deepPurple[400],
+              backgroundColor: RaabtaColors.primary(),
               child: Icon(
                 Icons.arrow_forward,
-                color: Colors.white,
+                color: RaabtaColors.white(),
                 size: 28,
               ),
               onPressed: () {
@@ -121,10 +121,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               SmoothPageIndicator(
                 controller: pageController,
                 count: 3,
-                effect: const ExpandingDotsEffect(
+                effect: ExpandingDotsEffect(
                   expansionFactor: 2.5,
                   dotColor: Colors.black12,
-                  activeDotColor: Colors.deepPurple,
+                  activeDotColor: RaabtaColors.primary(),
                 ),
                 onDotClicked: (index) {
                   pageController.animateToPage(

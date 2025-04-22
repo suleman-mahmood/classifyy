@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/chat/chat_message.dart';
 import 'package:classifyy/models/user/teacher_class.dart';
@@ -54,9 +52,9 @@ class FakeRepository implements Repository {
         displayName: '',
         email: '',
         phoneNumber: '',
-        userRole: id == 'te'
+        userRole: id == 'te@ro.com'
             ? UserRole.Teacher
-            : (id == 'pa' ? UserRole.Parent : UserRole.Student),
+            : (id == 'pa@ro.com' ? UserRole.Parent : UserRole.Student),
       ),
     );
   }

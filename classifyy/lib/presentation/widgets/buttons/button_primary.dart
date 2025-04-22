@@ -32,8 +32,8 @@ class ButtonPrimary extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: disabled
-                ? [Colors.deepPurple[100]!, Colors.deepPurple[100]!]
-                : [Colors.deepPurple[500]!, Colors.deepPurple[400]!],
+                ? [RaabtaColors.disabledColor(), RaabtaColors.disabledColor()]
+                : [RaabtaColors.primaryDark(), RaabtaColors.primary()],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -57,7 +57,7 @@ class ButtonPrimary extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: RaabtaColors.white(),
                   ),
                 ),
               ),
@@ -66,13 +66,13 @@ class ButtonPrimary extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Container(
                   padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: RaabtaColors.white(),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.arrow_forward,
-                    color: disabled ? Colors.deepPurple[100] : Colors.deepPurple[300],
+                    color: disabled ? RaabtaColors.disabledColor() : RaabtaColors.primary(),
                     size: 28,
                   ),
                 ),
