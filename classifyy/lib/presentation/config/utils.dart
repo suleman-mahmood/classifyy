@@ -28,10 +28,17 @@ class ScreenSizes {
 
 class RaabtaColors {
   static Color white() => Colors.white;
+  static Color black() => Colors.black;
+  static Color grey() => Colors.grey[600]!;
+  static Color red() => Colors.red[500]!;
+  static Color transparent() => Colors.transparent;
+
   static Color background() => Colors.deepPurple[50]!;
   static Color primary() => Colors.deepPurple[400]!;
   static Color primaryDark() => Colors.deepPurple[500]!;
   static Color disabledColor() => Colors.deepPurple[100]!;
+
+  static Color link() => Colors.blue;
 }
 
 String? emailValidator(String? value) {

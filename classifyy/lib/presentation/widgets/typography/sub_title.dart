@@ -1,3 +1,4 @@
+import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/animations/fade_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,9 @@ class SubTitle extends StatelessWidget {
       shouldAnimate: shouldAnimate,
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
-          color: Colors.black54,
+          color: RaabtaColors.grey(),
         ),
         textAlign: textAlign,
       ),

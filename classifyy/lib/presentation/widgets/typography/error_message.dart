@@ -1,3 +1,4 @@
+import 'package:classifyy/presentation/config/utils.dart';
 import 'package:flutter/material.dart';
 
 class ErrorMessage extends StatelessWidget {
@@ -16,7 +17,7 @@ class ErrorMessage extends StatelessWidget {
       text,
       style: TextStyle(
         fontSize: 16,
-        color: Colors.red[500],
+        color: RaabtaColors.red(),
       ),
       textAlign: textAlign,
     );

@@ -42,8 +42,8 @@ class ButtonPrimary extends StatelessWidget {
         child: ElevatedButton(
           onPressed: disabled ? null : onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
+            backgroundColor: RaabtaColors.transparent(),
+            shadowColor: RaabtaColors.transparent(),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(28),
             ),

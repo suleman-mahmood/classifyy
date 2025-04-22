@@ -1,3 +1,4 @@
+import 'package:classifyy/presentation/config/utils.dart';
 import 'package:flutter/material.dart';
 
 class DividerText extends StatelessWidget {
@@ -14,7 +15,7 @@ class DividerText extends StatelessWidget {
       children: [
         Expanded(
           child: Divider(
-            color: Colors.grey[400],
+            color: RaabtaColors.grey(),
             thickness: 1,
           ),
         ),
@@ -23,14 +24,14 @@ class DividerText extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: Colors.black,
+              color: RaabtaColors.black(),
               fontWeight: FontWeight.w500,
             ),
           ),
         ),
         Expanded(
           child: Divider(
-            color: Colors.grey[400],
+            color: RaabtaColors.grey(),
             thickness: 1,
           ),
         ),

@@ -32,7 +32,7 @@ class TextFieldPrimary extends StatelessWidget {
           hintText: labelText,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          suffixIcon: icon != null ? Icon(icon, color: Colors.grey[700]) : null,
+          suffixIcon: icon != null ? Icon(icon, color: RaabtaColors.grey()) : null,
         ),
         keyboardType: TextInputType.emailAddress,
         validator: validator,

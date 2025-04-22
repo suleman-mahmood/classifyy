@@ -145,14 +145,14 @@ class LoginScreen extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      const TextSpan(
+                      TextSpan(
                         text: "* by signing in you agree to our ",
-                        style: TextStyle(color: Colors.black87),
+                        style: TextStyle(color: RaabtaColors.grey()),
                       ),
                       TextSpan(
                         text: 'terms & conditions',
-                        style: const TextStyle(
-                          color: Colors.blue,
+                        style: TextStyle(
+                          color: RaabtaColors.link(),
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()

@@ -36,8 +36,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
             child: Column(
               children: [
                 const TitleLarge(
-                  title:
-                      'Are you sure you want to delete your account and its associated data?',
+                  title: 'Are you sure you want to delete your account and its associated data?',
                   shouldAnimate: false,
                   textAlign: TextAlign.center,
                 ),
@@ -111,7 +110,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               currentPageIndex = index;
             });
           },
-          indicatorColor: Colors.purpleAccent,
+          indicatorColor: RaabtaColors.primary(),
           selectedIndex: currentPageIndex,
           destinations: const <Widget>[
             NavigationDestination(
@@ -149,8 +148,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
     Widget buildOptions() {
       if (userCubit.state.user?.userRole == UserRole.Parent) {
         final children = childrenCubit.state.children
-            .where((st) =>
-                st.displayName != userCubit.state.selectedChild!.displayName)
+            .where((st) => st.displayName != userCubit.state.selectedChild!.displayName)
             .map((st) => ListTile(
                   title: Text(st.displayName),
                   onTap: () {
@@ -169,8 +167,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
       }
 
       final classes = classCubit.state.classes
-          .where((cl) =>
-              cl.displayName != userCubit.state.selectedClass!.displayName)
+          .where((cl) => cl.displayName != userCubit.state.selectedClass!.displayName)
           .map(
             (cl) => ListTile(
               title: Text(cl.displayName),
@@ -204,8 +201,7 @@ class _DropdownAppBarState extends State<DropdownAppBar> {
                   ? userCubit.state.selectedChild!.displayName
                   : userCubit.state.selectedClass!.displayName,
             ),
-            trailing: classCubit.state.classes.length > 1 ||
-                    childrenCubit.state.children.length > 1
+            trailing: classCubit.state.classes.length > 1 || childrenCubit.state.children.length > 1
                 ? showAdditionalClasses
                     ? const Icon(Icons.arrow_upward_outlined)
                     : const Icon(Icons.arrow_downward_outlined)

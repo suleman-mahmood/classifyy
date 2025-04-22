@@ -68,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: BackButton(
-                        color: Colors.grey[600],
+                        color: RaabtaColors.grey(),
                         onPressed: () {
                           pageController.previousPage(
                             duration: const Duration(milliseconds: 500),
@@ -85,7 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextStyle(color: Colors.grey[600]),
+                        style: TextStyle(color: RaabtaColors.grey()),
                       ),
                     ),
                   ),
@@ -123,7 +123,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 count: 3,
                 effect: ExpandingDotsEffect(
                   expansionFactor: 2.5,
-                  dotColor: Colors.black12,
+                  dotColor: RaabtaColors.grey(),
                   activeDotColor: RaabtaColors.primary(),
                 ),
                 onDotClicked: (index) {

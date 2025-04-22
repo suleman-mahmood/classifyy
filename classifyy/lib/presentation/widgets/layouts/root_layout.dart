@@ -60,7 +60,7 @@ class PageLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.withValues(alpha: 0.5),
+      color: RaabtaColors.grey(),
       width: ScreenSizes.heightFullRel(context),
     );
   }
