@@ -7,6 +7,8 @@ import 'package:classifyy/models/user/student_teacher.dart';
 import 'package:classifyy/models/user/user.dart';
 import 'package:classifyy/repositories/repository.dart';
 
+final duration = Duration(milliseconds: 100);
+
 class FakeRepository implements Repository {
   @override
   late String userId;
@@ -17,7 +19,7 @@ class FakeRepository implements Repository {
   Future<String> loginUser(String email, String password) {
     userId = "test-user-id";
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => email,
     );
   }
@@ -25,7 +27,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<TeacherClass>> fetchClasses() {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         TeacherClass(
           id: '1',
@@ -46,7 +48,7 @@ class FakeRepository implements Repository {
   @override
   Future<UserModel> getUser(String id) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => UserModel(
         id: 'user_1',
         displayName: '',
@@ -62,7 +64,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<ParentChild>> fetchChildren() {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         ParentChild(id: '1', displayName: 'Faraz'),
         ParentChild(id: '2', displayName: 'Fawaz'),
@@ -74,7 +76,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<Announcement>> fetchAnnouncements(String userId) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         Announcement(
           id: '1',
@@ -109,7 +111,7 @@ class FakeRepository implements Repository {
   @override
   Future<void> createAnnouncement(String text, String? classId) async {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () {},
     );
   }
@@ -117,7 +119,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<ClassStudent>> fetchClassStudents(String classId) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         const ClassStudent(
           id: '1',
@@ -151,7 +153,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<ChatMessage>> fetchChatMessages(String otherUserId) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         ChatMessage(
           id: '1',
@@ -202,7 +204,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<StudentTeacher>> fetchStudentTeachers(String childId) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         const StudentTeacher(id: '1', displayName: 'Zafar Ali Khan'),
         const StudentTeacher(id: '2', displayName: 'Raja Shafqat'),
@@ -216,7 +218,7 @@ class FakeRepository implements Repository {
   @override
   Future<void> sendMessage(String message, String otherUserId) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () {},
     );
   }
@@ -224,7 +226,7 @@ class FakeRepository implements Repository {
   @override
   Future<List<ClassStudent>> fetchUnreadChats() {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () => [
         const ClassStudent(id: '2', displayName: 'Fawaz Ahmad'),
         const ClassStudent(id: '3', displayName: 'Shah Faraz ul Haq'),
@@ -235,7 +237,7 @@ class FakeRepository implements Repository {
   @override
   Future<void> markChatRead(String chatId) {
     return Future.delayed(
-      const Duration(seconds: 1),
+      duration,
       () {},
     );
   }
