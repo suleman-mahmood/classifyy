@@ -29,8 +29,7 @@ class AnnouncementScreen extends StatefulWidget {
   State<AnnouncementScreen> createState() => _AnnouncementScreenState();
 }
 
-class _AnnouncementScreenState extends State<AnnouncementScreen>
-    with TickerProviderStateMixin {
+class _AnnouncementScreenState extends State<AnnouncementScreen> with TickerProviderStateMixin {
   final TextEditingController _textController = TextEditingController();
 
   late final AnimationController _fadeController;
@@ -70,11 +69,8 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
 
     List<Announcement> filterAnnouncements(List<Announcement> announcements) {
       if (selectedannouncementType == AnnouncementType.myAnnouncement) {
-        return announcements
-            .where((ann) => ann.announcerId == userCubit.state.user!.id)
-            .toList();
-      } else if (selectedannouncementType ==
-          AnnouncementType.classAnnouncement) {
+        return announcements.where((ann) => ann.announcerId == userCubit.state.user!.id).toList();
+      } else if (selectedannouncementType == AnnouncementType.classAnnouncement) {
         return announcements
             .where(
               (ann) =>
@@ -84,8 +80,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
                   ann.announcerRole == UserRole.Teacher,
             )
             .toList();
-      } else if (selectedannouncementType ==
-          AnnouncementType.schoolAdminAnnouncement) {
+      } else if (selectedannouncementType == AnnouncementType.schoolAdminAnnouncement) {
         return announcements
             .where(
               (ann) =>
@@ -164,8 +159,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
                                   children: [
                                     const Text('From: Someone else'),
                                     const Expanded(child: SizedBox.shrink()),
-                                    Text(GetTimeAgo.parse(
-                                        DateTime.now().subtract(1.minutes)))
+                                    Text(GetTimeAgo.parse(DateTime.now().subtract(1.minutes)))
                                   ],
                                 )
                               ],
@@ -204,8 +198,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
                                       if (item.announcerDisplayName != null &&
                                           selectedannouncementType !=
                                               AnnouncementType.myAnnouncement)
-                                        Text(
-                                            'From: ${item.announcerDisplayName!}'),
+                                        Text('From: ${item.announcerDisplayName!}'),
                                       const Expanded(child: SizedBox.shrink()),
                                       Text(GetTimeAgo.parse(item.createdAt))
                                     ],
@@ -230,8 +223,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen>
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TitleLarge(
-                title:
-                    'Send an announcement to ${userCubit.state.selectedClass!.displayName}',
+                title: 'Send an announcement to ${userCubit.state.selectedClass!.displayName}',
               ),
               const SizedBox(height: ScreenSizes.slabTwo),
               TextArea(
