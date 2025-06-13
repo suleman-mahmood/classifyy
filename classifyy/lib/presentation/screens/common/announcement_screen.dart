@@ -3,11 +3,10 @@ import 'package:classifyy/cubits/announcement_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/models/announcement/announcement.dart';
 import 'package:classifyy/models/user/user.dart';
+import 'package:classifyy/presentation/config/app_router.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
-import 'package:classifyy/presentation/widgets/inputs/text_area.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
-import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +29,6 @@ class AnnouncementScreen extends StatefulWidget {
 }
 
 class _AnnouncementScreenState extends State<AnnouncementScreen> with TickerProviderStateMixin {
-  final TextEditingController _textController = TextEditingController();
-
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;
 
@@ -65,7 +62,6 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> with TickerProv
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
-    final announcementCubit = BlocProvider.of<AnnouncementCubit>(context);
 
     List<Announcement> filterAnnouncements(List<Announcement> announcements) {
       if (selectedannouncementType == AnnouncementType.myAnnouncement) {
@@ -93,16 +89,6 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> with TickerProv
       } else {
         return [];
       }
-    }
-
-    Future<void> handleProceed() async {
-      if (_textController.text.isEmpty) return;
-      await announcementCubit.createAnnouncement(
-        _textController.text,
-        userCubit.state.selectedClass!.id,
-        userCubit.state.user!.id,
-      );
-      _textController.clear();
     }
 
     return PrimaryLayout(
@@ -222,14 +208,6 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> with TickerProv
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TitleLarge(
-                title: 'Send an announcement to ${userCubit.state.selectedClass!.displayName}',
-              ),
-              const SizedBox(height: ScreenSizes.slabTwo),
-              TextArea(
-                controller: _textController,
-                labelText: "Write something here...",
-              ),
               const SizedBox(height: ScreenSizes.slabOne),
               BlocBuilder<AnnouncementCubit, AnnouncementState>(
                 builder: (context, state) {
@@ -240,8 +218,11 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> with TickerProv
                     );
                   }
                   return ButtonPrimary(
-                    buttonText: 'Send',
-                    onPressed: handleProceed,
+                    buttonText: 'Add Announcement',
+                    onPressed: () {
+                      context.router.push(NewAnnouncementRoute());
+                    },
+                    iconData: Icons.add_outlined,
                   );
                 },
               ),

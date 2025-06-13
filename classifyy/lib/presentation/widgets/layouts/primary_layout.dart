@@ -27,7 +27,10 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
         children: widget.children,
       );
     }
-    return Column(children: widget.children);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: widget.children,
+    );
   }
 
   @override

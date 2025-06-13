@@ -8,6 +8,7 @@ class ButtonPrimary extends StatelessWidget {
   final bool shouldAnimate;
   final bool disabled;
   final bool useHorizontalPadding;
+  final IconData? iconData;
 
   const ButtonPrimary({
     super.key,
@@ -16,6 +17,7 @@ class ButtonPrimary extends StatelessWidget {
     this.shouldAnimate = true,
     this.disabled = false,
     this.useHorizontalPadding = false,
+    this.iconData,
   });
 
   @override
@@ -71,7 +73,7 @@ class ButtonPrimary extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    Icons.arrow_forward,
+                    iconData ?? Icons.arrow_forward,
                     color: disabled ? RaabtaColors.disabledColor() : RaabtaColors.primary(),
                     size: 28,
                   ),

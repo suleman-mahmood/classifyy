@@ -3,8 +3,12 @@ import 'package:classifyy/cubits/announcement_cubit.dart';
 import 'package:classifyy/cubits/user_cubit.dart';
 import 'package:classifyy/presentation/config/utils.dart';
 import 'package:classifyy/presentation/widgets/buttons/button_primary.dart';
+import 'package:classifyy/presentation/widgets/inputs/file_picker.dart';
+import 'package:classifyy/presentation/widgets/inputs/text_field_primary.dart';
+import 'package:classifyy/presentation/widgets/layouts/dashboard_layout.dart';
 import 'package:classifyy/presentation/widgets/layouts/primary_layout.dart';
 import 'package:classifyy/presentation/widgets/inputs/text_area.dart';
+import 'package:classifyy/presentation/widgets/typography/sub_title.dart';
 import 'package:classifyy/presentation/widgets/typography/title_large.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +26,8 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;
 
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
 
   @override
   void initState() {
@@ -42,7 +47,7 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
   @override
   void dispose() {
     _fadeController.dispose();
-    _textController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
@@ -53,7 +58,7 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
 
     Future<void> handleProceed() async {
       await announcementCubit.createAnnouncement(
-        _textController.text,
+        descriptionController.text,
         userCubit.state.selectedClass!.id,
         userCubit.state.user!.id,
       );
@@ -62,16 +67,30 @@ class _NewAnnouncementScreenState extends State<NewAnnouncementScreen>
     return PrimaryLayout(
       appBarTitle: 'New Announcement',
       children: [
-        const TitleLarge(
-          title: 'Send an announcement to an entire class',
-        ),
+        const TitleLarge(title: 'Send an announcement to an entire class'),
         const SizedBox(height: ScreenSizes.slabTwo),
-        TextArea(
-          controller: _textController,
-          labelText: "Write something here...",
+        const SubTitle(text: 'Enter Announcement Details'),
+        const SizedBox(height: ScreenSizes.slabTwo),
+        DropdownAppBar(),
+        const SizedBox(height: ScreenSizes.slabTwo),
+        TextFieldPrimary(
+          labelText: "Title*",
+          controller: titleController,
         ),
+        // const SizedBox(height: ScreenSizes.slabTwo),
+        // TextArea(
+        //   controller: descriptionController,
+        //   labelText: "Description*",
+        // ),
+        const Text("Describe your message in detail"),
         const SizedBox(height: ScreenSizes.slabOne),
-        ButtonPrimary(buttonText: 'Send', onPressed: handleProceed),
+        const Text("Upload relevant documents and pictures"),
+        FileUploadWidget(),
+        const Expanded(child: SizedBox.shrink()),
+        ButtonPrimary(
+          buttonText: 'Submit',
+          onPressed: handleProceed,
+        ),
         BlocListener<AnnouncementCubit, AnnouncementState>(
           listener: (context, state) {
             if (state is AnnouncementSuccess) {
